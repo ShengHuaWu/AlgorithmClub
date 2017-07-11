@@ -24,3 +24,8 @@ tree.append(1)
 tree.append(11)
 
 tree.contains(9)
+
+tree.append(5)
+tree.append(21)
+tree.append(3)
+dump(tree.inverting())

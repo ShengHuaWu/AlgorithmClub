@@ -70,6 +70,15 @@ extension BinarySearchTree {
             process(element)
         }
     }
+    
+    public func inverting() -> BinarySearchTree {
+        switch self {
+        case .empty:
+            return self
+        case let .node(left, element, right):
+            return .node(right.inverting(), element, left.inverting())
+        }
+    }
 }
 
 extension BinarySearchTree: CustomStringConvertible {

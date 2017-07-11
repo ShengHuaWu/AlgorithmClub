@@ -4,6 +4,7 @@
 * Appending
 * Contain
 * Traverse
+* Inverting
 
 ### Singly Linked List
 * Remove a specific node
