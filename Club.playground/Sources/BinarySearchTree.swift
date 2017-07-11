@@ -22,6 +22,21 @@ extension BinarySearchTree {
     public mutating func append(_ newElement: Element) {
         self = appending(newElement)
     }
+    
+    public func contains(_ key: Element) -> Bool {
+        switch  self {
+        case .empty:
+            return false
+        case let .node(left, element, right):
+            if element == key {
+                return true
+            } else if element > key {
+                return left.contains(key)
+            } else {
+                return right.contains(key)
+            }
+        }
+    }
 }
 
 extension BinarySearchTree: CustomStringConvertible {

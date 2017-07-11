@@ -22,3 +22,5 @@ tree.append(2)
 tree.append(8)
 tree.append(1)
 tree.append(11)
+
+tree.contains(9)
