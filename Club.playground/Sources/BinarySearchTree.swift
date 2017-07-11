@@ -37,6 +37,39 @@ extension BinarySearchTree {
             }
         }
     }
+    
+    public func traverseInOrder(_ process: (Element) -> ()) {
+        switch self {
+        case .empty:
+            return
+        case let .node(left, element, right):
+            left.traverseInOrder(process)
+            process(element)
+            right.traverseInOrder(process)
+        }
+    }
+    
+    public func traversePreOrder(_ process: (Element) -> ()) {
+        switch self {
+        case .empty:
+            return
+        case let .node(left, element, right):
+            process(element)
+            left.traversePreOrder(process)
+            right.traversePreOrder(process)
+        }
+    }
+    
+    public func traversePostOrder(_ process: (Element) -> ()) {
+        switch self {
+        case .empty:
+            return
+        case let .node(left, element, right):
+            left.traversePostOrder(process)
+            right.traversePostOrder(process)
+            process(element)
+        }
+    }
 }
 
 extension BinarySearchTree: CustomStringConvertible {
