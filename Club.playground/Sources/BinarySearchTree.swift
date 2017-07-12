@@ -6,6 +6,19 @@ public enum BinarySearchTree<Element: Comparable> {
 }
 
 extension BinarySearchTree {
+    private var minimun: BinarySearchTree {
+        switch self {
+        case .empty:
+            return self
+        case let .node(left, _, _):
+            if case .empty = left {
+                return self
+            } else {
+                return left.minimun
+            }
+        }
+    }
+    
     public func appending(_ newElement: Element) -> BinarySearchTree {
         switch self {
         case .empty:
@@ -78,6 +91,39 @@ extension BinarySearchTree {
         case let .node(left, element, right):
             return .node(right.inverting(), element, left.inverting())
         }
+    }
+    
+    public func removing(_ key: Element) -> BinarySearchTree {
+        switch self {
+        case .empty:
+            return self
+        case let .node(.empty, element, .empty) where element == key:
+            return .empty
+        case let .node(.empty, element, right) where element == key:
+            return right
+        case let .node(left, element, .empty) where element == key:
+            return left
+        case let .node(left, element, right) where element < key:
+            return .node(left, element, right.removing(key))
+        case let .node(left, element, right) where element > key:
+            return .node(left.removing(key), element, right)
+        case let .node(left, element, right) where element == key:
+            // Here, I replace the smallest element from right,
+            // but replacing the largest element from left also works.
+            switch right.minimun {
+            case .empty:
+                return self
+            case let .node(_, min, _):
+                return .node(left, min, right.removing(min))
+            }
+        default:
+            // Doesn't contain key
+            return self
+        }
+    }
+    
+    public mutating func remove(_ key: Element) {
+        self = removing(key)
     }
 }
 

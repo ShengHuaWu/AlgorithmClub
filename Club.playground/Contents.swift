@@ -17,6 +17,7 @@ source.countOfPrettyString(with: 2)*/
 
 
 // Binary Search Tree
+/*
 var tree = BinarySearchTree<Int>.empty
 tree.append(2)
 tree.append(8)
@@ -28,4 +29,6 @@ tree.contains(9)
 tree.append(5)
 tree.append(21)
 tree.append(3)
-dump(tree.inverting())
+
+tree.remove(8)
+dump(tree)*/

@@ -5,6 +5,7 @@
 * Contain
 * Traverse
 * Inverting
+* Removing
 
 ### Singly Linked List
 * Remove a specific node
