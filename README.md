@@ -1,5 +1,9 @@
 ## Algorithm Club
 
+### Binary Search
+* Iterative
+* Recursive
+
 ### Binary Search Tree
 * Appending
 * Contain

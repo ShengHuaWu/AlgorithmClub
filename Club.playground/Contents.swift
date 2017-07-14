@@ -32,3 +32,10 @@ tree.append(3)
 
 tree.remove(8)
 dump(tree)*/
+
+
+// Binary Search
+/*
+let integers = [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29]
+integers.binarySearch(for: 29)
+integers.recursiveBinarySearch(for: 29)*/
