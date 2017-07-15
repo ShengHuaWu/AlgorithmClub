@@ -32,4 +32,13 @@ extension String {
         
         return true
     }
+    
+    public func isAnagram(with word: String) -> Bool {
+        guard characters.count == word.characters.count else { return false }
+        
+        let sortedSelf = String(lowercased().characters.sorted())
+        let sortedWord = String(word.lowercased().characters.sorted())
+        
+        return sortedSelf == sortedWord
+    }
 }

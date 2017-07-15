@@ -16,3 +16,4 @@
 
 ### String
 * Pretty String
+* Anagram

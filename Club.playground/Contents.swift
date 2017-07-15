@@ -10,10 +10,12 @@ list.append(newValue: 3)
 list.remove(with: 3)*/
 
 
-// Pretty String
+// String
 /*
 let source = "zokklfuckabbcdceff"
-source.countOfPrettyString(with: 2)*/
+source.countOfPrettyString(with: 2)
+let source = "tab"
+source.isAnagram(with: "bad")*/
 
 
 // Binary Search Tree
