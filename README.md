@@ -18,3 +18,4 @@
 ### String
 * Pretty String
 * Anagram
+* Count occurrence

@@ -40,4 +40,6 @@ list.remove(with: 3)*/
 let source = "zokklfuckabbcdceff"
 source.countOfPrettyString(with: 2)
 let source = "tab"
-source.isAnagram(with: "bad")*/
+source.isAnagram(with: "bad")
+let source = "howimetyourmomgameofthronestrangethings"
+source.occurrence(of: "mom")*/

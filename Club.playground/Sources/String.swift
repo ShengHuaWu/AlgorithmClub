@@ -42,3 +42,33 @@ extension String {
         return sortedSelf == sortedWord
     }
 }
+
+// Count the occurrence of a string in a source string.
+// 1. Loop the index of the source string.
+// 2. In each loop, compare the substring and the string we want by the index.
+extension String {
+    public func occurrence(of word: String) -> Int {
+        var result = 0
+        
+        for index in characters.indices {
+            if isSubstringEqual(to: word, from: index) {
+                result += 1
+            }
+        }
+        
+        return result
+    }
+    
+    private func isSubstringEqual(to word: String, from start: Index) -> Bool {
+        var selfIndex = start
+        for wordIndex in word.characters.indices {
+            if self[selfIndex] != word[wordIndex] { return false }
+            
+            guard let nextIndex = index(selfIndex, offsetBy: 1, limitedBy: endIndex) else { return false }
+            
+            selfIndex = nextIndex
+        }
+        
+        return true
+    }
+}
