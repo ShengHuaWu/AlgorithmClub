@@ -3,6 +3,7 @@
 ### Array
 * Iterative binary search
 * Recursive binary search
+* Count occurrence
 
 ### Binary Search Tree
 * Appending
