@@ -78,3 +78,31 @@ extension Array where Element: Comparable {
     }
 }
 
+// Find both the maximum and minimum values contained in array 
+// while minimizing the number of comparisons we can compare the items in pairs.
+extension Array where Element: Comparable {
+    public func minAndMax() -> (Element, Element)? {
+        guard !isEmpty else { return nil }
+        
+        var copy = self
+        var min = copy.first!
+        var max = min
+        
+        if copy.count % 2 != 0 {
+            copy.removeFirst()
+        }
+        
+        while !copy.isEmpty {
+            let pair = (copy.removeFirst(), copy.removeFirst())
+            if pair.0 > pair.1 {
+                max = pair.0 > max ? pair.0 : max
+                min = pair.1 < min ? pair.1 : min
+            } else {
+                max = pair.1 > max ? pair.1 : max
+                min = pair.0 < min ? pair.0 : min
+            }
+        }
+        
+        return (min, max)
+    }
+}

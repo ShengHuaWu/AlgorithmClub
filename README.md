@@ -4,6 +4,7 @@
 * Iterative binary search
 * Recursive binary search
 * Count occurrence
+* Find minimum and maximum
 
 ### Binary Search Tree
 * Appending
