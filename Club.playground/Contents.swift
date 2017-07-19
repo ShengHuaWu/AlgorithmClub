@@ -8,7 +8,10 @@ integers.recursiveBinarySearch(for: 29)
 
 let source = [-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11]
 source.occurrence(of: 2)
-source.minAndMax()*/
+source.minAndMax()
+var integers = [0, 20, -3, 0, 0, 9, 7, 2, 1, 0]
+integers.shiftingZeros()
+integers.shiftZeros()*/
 
 
 // Binary Search Tree

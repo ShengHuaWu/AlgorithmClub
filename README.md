@@ -5,6 +5,7 @@
 * Recursive binary search
 * Count occurrence
 * Find minimum and maximum
+* Shift zeros
 
 ### Binary Search Tree
 * Appending
