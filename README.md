@@ -6,6 +6,7 @@
 * Count occurrence
 * Find minimum and maximum
 * Shift zeros
+* Find two indices for a sum
 
 ### Binary Search Tree
 * Appending

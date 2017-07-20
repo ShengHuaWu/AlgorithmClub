@@ -145,3 +145,46 @@ extension Array where Element == Int {
         }
     }
 }
+
+// Find Sum of Two Elements in Array
+// 1. Use a dictionary to store the following:
+// - Key: difference between each element in the array and the sum k
+// - Value: the index of each element
+// - Time and space complexity are both O(n).
+// 2. Sort the array at first and use two variables to track the sum of the first and the last element.
+// - Time complexity depends on the sorting method. It's usually O(n log n).
+extension Array where Element == Int {
+    public func indices(for sum: Element) -> (Index, Index)? {
+        guard !isEmpty else { return nil }
+        
+        var dictionary = [Element : Index]()
+        for index in indices {
+            if let previousIndex = dictionary[self[index]] {
+                return (previousIndex, index)
+            } else {
+                dictionary[sum - self[index]] = index
+            }
+        }
+        
+        return nil
+    }
+    
+    public func indicesAfterSorting(for sum: Element) -> (Index, Index)? {
+        guard !isEmpty else { return nil }
+        
+        var min = startIndex
+        var max = endIndex - 1
+        while min < max {
+            let temp = self[min] + self[max]
+            if temp > sum {
+                max -= 1
+            } else if temp < sum {
+                min += 1
+            } else {
+                return (min, max)
+            }
+        }
+        
+        return nil
+    }
+}

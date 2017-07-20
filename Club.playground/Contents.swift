@@ -11,7 +11,10 @@ source.occurrence(of: 2)
 source.minAndMax()
 var integers = [0, 20, -3, 0, 0, 9, 7, 2, 1, 0]
 integers.shiftingZeros()
-integers.shiftZeros()*/
+integers.shiftZeros()
+let source = [-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8]
+source.indices(for: 17)
+source.indicesAfterSorting(for: 17)*/
 
 
 // Binary Search Tree
