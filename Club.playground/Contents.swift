@@ -16,7 +16,9 @@ let source = [-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8]
 source.indices(for: 17)
 source.indicesAfterSorting(for: 17)
 let edges = [1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17]
-edges.maxPerimeters()*/
+edges.maxPerimeters()
+let source = [1, 2, 3, 4, 5, 8, 9, 11, 14, 17]
+source.printCompressionNumbers()*/
 
 
 // Binary Search Tree

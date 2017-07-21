@@ -212,3 +212,30 @@ extension Array where Element == Int {
         return nil
     }
 }
+
+// Print Compression
+// The array should be sorted at first.
+extension Array where Element == Int {
+    public func printCompressionNumbers() {
+        guard !isEmpty else { return }
+        
+        var start = first!
+        var end = start
+        for number in self[1 ..< endIndex] {
+            if number != end + 1 {
+                printElement(from: start, to: end)
+                start = number
+            }
+            end = number
+        }
+        printElement(from: start, to: end)
+    }
+    
+    private func printElement(from start: Element, to end: Element) {
+        if start == end {
+            print("\(start)")
+        } else {
+            print("\(start) - \(end)")
+        }
+    }
+}
