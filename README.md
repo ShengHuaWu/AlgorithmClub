@@ -7,6 +7,7 @@
 * Find minimum and maximum
 * Shift zeros
 * Find two indices for a sum
+* Find the maximum perimeter of edges
 
 ### Binary Search Tree
 * Appending

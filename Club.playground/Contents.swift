@@ -14,7 +14,9 @@ integers.shiftingZeros()
 integers.shiftZeros()
 let source = [-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8]
 source.indices(for: 17)
-source.indicesAfterSorting(for: 17)*/
+source.indicesAfterSorting(for: 17)
+let edges = [1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17]
+edges.maxPerimeters()*/
 
 
 // Binary Search Tree

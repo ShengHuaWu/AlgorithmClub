@@ -188,3 +188,27 @@ extension Array where Element == Int {
         return nil
     }
 }
+
+// Find Maximum Perimeter
+// Given a batch of edges, find the maximum triangle perimeter of those edges.
+// 1. Sort the edges at first.
+// 2. Get the largest three edges and check whether these three edges can construct a triangle or not.
+// 3. If they can form a triangle, their sum is the maximum perimeter.
+// 4. If they cannot form a triangle, drop the largest edge and grab the fourth large edge.
+extension Array where Element == Int {
+    public func maxPerimeters() -> (Element, Element, Element)? {
+        guard !isEmpty else { return nil }
+        
+        let sortedEdges = sorted()
+        var index = endIndex - 1
+        while index > startIndex {
+            if sortedEdges[index - 2] + sortedEdges[index - 1] > sortedEdges[index] {
+                return (sortedEdges[index - 2], sortedEdges[index - 1], sortedEdges[index])
+            }
+            
+            index += 1
+        }
+        
+        return nil
+    }
+}
