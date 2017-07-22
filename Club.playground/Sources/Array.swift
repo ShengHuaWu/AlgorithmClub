@@ -239,3 +239,17 @@ extension Array where Element == Int {
         }
     }
 }
+
+// Quick Sort
+extension Array where Element: Comparable {
+    public func quickSorting() -> [Element] {
+        guard count > 1 else { return self }
+        
+        let pivot = self[count / 2]
+        let less = filter { $0 < pivot }
+        let equal = filter { $0 == pivot }
+        let greater = filter { $0 > pivot }
+        
+        return less.quickSorting() + equal + greater.quickSorting()
+    }
+}

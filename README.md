@@ -8,7 +8,8 @@
 * Shift zeros
 * Find two indices for a sum
 * Find the maximum perimeter of edges
-* Print compression numbers 
+* Print compression numbers
+* Quick sort
 
 ### Binary Search Tree
 * Appending
