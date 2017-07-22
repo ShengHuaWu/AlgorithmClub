@@ -20,7 +20,8 @@ edges.maxPerimeters()
 let source = [1, 2, 3, 4, 5, 8, 9, 11, 14, 17]
 source.printCompressionNumbers()
 let source = [3, 6, 2, 1, 6, 7, 9, 11, 5, 8, 4]
-source.quickSorting()*/
+source.quickSorting()
+source.mergeSorting()*/
 
 
 // Binary Search Tree

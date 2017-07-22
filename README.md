@@ -10,6 +10,7 @@
 * Find the maximum perimeter of edges
 * Print compression numbers
 * Quick sort
+* Merge sort
 
 ### Binary Search Tree
 * Appending
