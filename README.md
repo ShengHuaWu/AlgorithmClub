@@ -11,6 +11,7 @@
 * Print compression numbers
 * Quick sort
 * Merge sort
+* Intersection
 
 ### Binary Search Tree
 * Appending

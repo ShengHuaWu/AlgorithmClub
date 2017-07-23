@@ -21,7 +21,10 @@ let source = [1, 2, 3, 4, 5, 8, 9, 11, 14, 17]
 source.printCompressionNumbers()
 let source = [3, 6, 2, 1, 6, 7, 9, 11, 5, 8, 4]
 source.quickSorting()
-source.mergeSorting()*/
+source.mergeSorting()
+let a = [3, 7, 1, 4, 6]
+let b = [2, 4, 5, 6, 1, 0, 9]
+a.intersecting(with: b)*/
 
 
 // Binary Search Tree
