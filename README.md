@@ -27,3 +27,4 @@
 * Pretty String
 * Anagram
 * Count occurrence
+* Truncation

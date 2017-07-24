@@ -72,3 +72,26 @@ extension String {
         return true
     }
 }
+
+// Truncate String Without Fragment
+extension String {
+    public func truncate(with length: Int) -> String {
+        guard !isEmpty, length > 0 else { return "" }
+        
+        var end = index(startIndex, offsetBy: length + 1, limitedBy: endIndex) ?? endIndex
+        while !needsTruncating(at: end) {
+            end = index(before: end)
+        }
+        
+        return substring(to: end)
+    }
+    
+    private func needsTruncating(at index: Index) -> Bool {
+        guard index < endIndex else { return false }
+        
+        switch self[index] {
+        case " ", ".", ",", ";", "?", "!": return true
+        default: return false
+        }
+    }
+}

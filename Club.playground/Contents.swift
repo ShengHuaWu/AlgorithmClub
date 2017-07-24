@@ -62,4 +62,6 @@ source.countOfPrettyString(with: 2)
 let source = "tab"
 source.isAnagram(with: "bad")
 let source = "howimetyourmomgameofthronestrangethings"
-source.occurrence(of: "mom")*/
+source.occurrence(of: "mom")
+let source = "Grab, the ride-hailing company competing with Uber in Southeast Asia, has pulled in $2 billion of new financing from existing investors Didi Chuxing, the company that defeated Uber in China, and SoftBank."
+source.truncate(with: 10)*/
