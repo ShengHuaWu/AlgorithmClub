@@ -28,3 +28,4 @@
 * Anagram
 * Count occurrence
 * Truncation
+* Boyer-Moore algorithm
