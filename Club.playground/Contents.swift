@@ -24,7 +24,9 @@ source.quickSorting()
 source.mergeSorting()
 let a = [3, 7, 1, 4, 6]
 let b = [2, 4, 5, 6, 1, 0, 9]
-a.intersecting(with: b)*/
+a.intersecting(with: b)
+let source = [10, 9, 8, 1, 7, 2, 6, 8, 4, 3, 1]
+source.countingSorting()*/
 
 
 // Binary Search Tree

@@ -347,3 +347,34 @@ extension Array where Element: Comparable {
         return result
     }
 }
+
+// Counting Sort
+// 1. The first step is to count the total number of occurrences for each item in the array.
+// 2. Tries to determine the number of elements that are placed before each element.
+//  The way it works is to sum up the previous counts and store them at each index.
+// 3. Each element in the original array is placed at the position defined by the output of step 2.
+extension Array where Element == Int {
+    public func countingSorting() -> [Element] {
+        guard !isEmpty else { return [] }
+        
+        let maxElement = self.max() ?? 0
+        
+        var countArray = [Index](repeating: 0, count: Int(maxElement + 1))
+        for element in self {
+            countArray[element] += 1
+        }
+        
+        for index in 1 ..< countArray.count {
+            let sum = countArray[index - 1] + countArray[index]
+            countArray[index] = sum
+        }
+        
+        var sortedArray = [Element](repeating: 0, count: count)
+        for element in self {
+            countArray[element] -= 1
+            sortedArray[countArray[element]] = element
+        }
+        
+        return sortedArray
+    }
+}

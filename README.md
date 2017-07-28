@@ -12,6 +12,7 @@
 * Quick sort
 * Merge sort
 * Intersection
+* Counting sort
 
 ### Binary Search Tree
 * Appending
