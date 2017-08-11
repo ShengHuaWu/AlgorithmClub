@@ -153,3 +153,27 @@ extension String {
         return nil
     }
 }
+
+public func fizzBuzz(numberOfTurns: Int) {
+    for i in 1 ... numberOfTurns {
+        var result = ""
+
+        if i % 3 == 0 {
+            result += "Fizz"
+        }
+        
+        if i % 5 == 0 {
+            if result.isEmpty {
+                result += "Buzz"
+            } else {
+                result += " Buzz"
+            }
+        }
+        
+        if result.isEmpty {
+            result += "\(i)"
+        }
+        
+        print(result)
+    }
+}

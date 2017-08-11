@@ -30,3 +30,4 @@
 * Count occurrence
 * Truncation
 * Boyer-Moore algorithm
+* Fizz Buzz
