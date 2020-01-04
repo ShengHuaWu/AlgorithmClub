@@ -2,10 +2,10 @@ import Foundation
 
 extension String {
     public func isAnagram(with word: String) -> Bool {
-        guard characters.count == word.characters.count else { return false }
+        guard count == word.count else { return false }
         
-        let sortedSelf = String(lowercased().characters.sorted())
-        let sortedWord = String(word.lowercased().characters.sorted())
+        let sortedSelf = String(lowercased().sorted())
+        let sortedWord = String(word.lowercased().sorted())
         
         return sortedSelf == sortedWord
     }
@@ -18,7 +18,7 @@ extension String {
     public func occurrence(of word: String) -> Int {
         var result = 0
         
-        for index in characters.indices {
+        for index in indices {
             if isSubstringEqual(to: word, from: index) {
                 result += 1
             }
@@ -29,7 +29,7 @@ extension String {
     
     private func isSubstringEqual(to word: String, from start: Index) -> Bool {
         var selfIndex = start
-        for wordIndex in word.characters.indices {
+        for wordIndex in word.indices {
             if self[selfIndex] != word[wordIndex] { return false }
             
             guard let nextIndex = index(selfIndex, offsetBy: 1, limitedBy: endIndex) else { return false }
@@ -49,8 +49,8 @@ extension String {
     private var skipTable: [Character : Int] {
         var skipTable = [Character : Int]()
         
-        for (index, character) in zip(Array(0 ... characters.count), characters) {
-            skipTable[character] = characters.count - 1 - index
+        for (index, character) in zip(Array(0 ... count), self) {
+            skipTable[character] = count - 1 - index
         }
         
         return skipTable
@@ -61,21 +61,21 @@ extension String {
         if currentIndex < startIndex { return nil }
         if currentIndex >= endIndex { return nil }
         
-        if self[currentIndex] != pattern.characters.last { return nil }
+        if self[currentIndex] != pattern.last { return nil }
         
-        if pattern.characters.count == 1 && self[currentIndex] == pattern.characters.last {
+        if pattern.count == 1 && self[currentIndex] == pattern.last {
             return currentIndex
         }
         
-        return match(from: index(before: currentIndex), with:String(pattern.characters.dropLast()))
+        return match(from: index(before: currentIndex), with:String(pattern.dropLast()))
     }
     
     public func index(of pattern: String) -> Index? {
-        let patternLength = pattern.characters.count
-        guard patternLength > 0, patternLength <= characters.count else { return nil }
+        let patternLength = pattern.count
+        guard patternLength > 0, patternLength <= count else { return nil }
         
         let skipTable = pattern.skipTable
-        let lastChar = pattern.characters.last!
+        let lastChar = pattern.last!
         
         var i = index(startIndex, offsetBy: patternLength - 1)
         while i < endIndex {
