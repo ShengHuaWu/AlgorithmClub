@@ -1,5 +1,6 @@
 import Data.Array
 
+-- The array should be sorted beforehand
 binarySearch :: (Ord a) => a -> [a] -> Maybe Int
 binarySearch x array = binarySearch_ x array 0 (length array - 1)
 
