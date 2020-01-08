@@ -1,4 +1,5 @@
 import Data.Array
+import Assert
 
 -- The array should be sorted beforehand
 binarySearch :: (Ord a) => a -> [a] -> Maybe Int
@@ -15,8 +16,8 @@ binarySearch_ x array left right
         middle = array !! middleIndex
 
 main = do
-    print(binarySearch 1 [1, 3, 4, 6, 8, 9, 11])
-    print(binarySearch 2 [1, 3, 4, 6, 8, 9, 11])
-    print(binarySearch 3 [1, 3, 4, 6, 8, 9, 11])
-    print(binarySearch 4 [1, 3, 4, 6, 8, 9, 11])
-    print(binarySearch 5 [1, 3, 4, 6, 8, 9, 11])
+    assertEq (binarySearch 1 [1, 3, 4, 6, 8, 9, 11]) (Just 0)
+    assertEq (binarySearch 2 [1, 3, 4, 6, 8, 9, 11]) Nothing
+    assertEq (binarySearch 3 [1, 3, 4, 6, 8, 9, 11]) (Just 1)
+    assertEq (binarySearch 4 [1, 3, 4, 6, 8, 9, 11]) (Just 2)
+    assertEq (binarySearch 5 [1, 3, 4, 6, 8, 9, 11]) Nothing

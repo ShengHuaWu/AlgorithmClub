@@ -1,4 +1,5 @@
 import Data.Array
+import Assert
 
 -- The array should be sorted beforehand
 findIndicesForSum :: (Ord a, Num a) =>  a -> [a] -> Maybe (Int, Int)
@@ -14,8 +15,8 @@ findIndicesForSum_ sum array start end
         temp = (array !! start) + (array !! end)
 
 main = do 
-    print(findIndicesForSum 5 [1, 3, 4, 6, 8, 9, 11])
-    print(findIndicesForSum 6 [1, 3, 4, 6, 8, 9, 11])
-    print(findIndicesForSum 12 [1, 3, 4, 6, 8, 9, 11])
-    print(findIndicesForSum 17 [1, 3, 4, 6, 8, 9, 11])
-    print(findIndicesForSum 99 [1, 3, 4, 6, 8, 9, 11])
+    assertEq (findIndicesForSum 5 [1, 3, 4, 6, 8, 9, 11]) (Just (0, 2))
+    assertEq (findIndicesForSum 6 [1, 3, 4, 6, 8, 9, 11]) Nothing
+    assertEq (findIndicesForSum 12 [1, 3, 4, 6, 8, 9, 11]) (Just (0, 6))
+    assertEq (findIndicesForSum 17 [1, 3, 4, 6, 8, 9, 11]) (Just (3, 6))
+    assertEq (findIndicesForSum 99 [1, 3, 4, 6, 8, 9, 11]) Nothing
