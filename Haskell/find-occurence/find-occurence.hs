@@ -4,27 +4,19 @@ import Assert
 -- The input array should be sorted beforehand
 findOccurence :: (Ord a, Num a) => [a] -> a -> Int
 findOccurence array key = do
-    let end = length array - 1
+    let end = length array -- `end` should be set to the length, because of the right boundary
     let leftBoundary = findLeftBoundary array key 0 end
     let righBoundary = findRightBoundary array key 0 end
     righBoundary - leftBoundary
 
 findRightBoundary :: (Ord a, Num a) => [a] -> a -> Int -> Int -> Int
 findRightBoundary array key start end
-    | start >= end = rightBoundaryHelper array key start
+    | start >= end = start
     | mValue > key = findRightBoundary array key start mid 
     | otherwise = findRightBoundary array key (mid + 1) end
     where
         mid = start + (end - start) `div` 2 -- Use `div` instead of `/`
         mValue = array !! mid
-
--- If the last element is equal to the key, then plus one to the right boundary
-rightBoundaryHelper :: (Ord a, Num a) => [a] -> a -> Int -> Int 
-rightBoundaryHelper array key end 
-    | eValue == key = end + 1
-    | otherwise = end
-    where 
-        eValue = array !! end
 
 findLeftBoundary :: (Ord a, Num a) => [a] -> a -> Int -> Int -> Int
 findLeftBoundary array key start end
