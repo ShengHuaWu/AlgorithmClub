@@ -1,6 +1,7 @@
 import Data.String
 import Assert
 
+-- Two inputs strings should be the same lowercase or uppercase 
 anagram :: String -> String -> Bool
 anagram [] [] = True
 anagram [] ys = False
