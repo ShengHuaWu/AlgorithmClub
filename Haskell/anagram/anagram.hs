@@ -7,8 +7,9 @@ anagram [] [] = True
 anagram [] ys = False
 anagram xs [] = False
 anagram (x:xs) ys =
-    let filtered = [a | a <- ys, a /= x] -- `/=`  means not equal
-    in anagram xs filtered
+    let filteredXs = [a | a <- xs, a /= x]
+        filteredYs = [a | a <- ys, a /= x] -- `/=`  means not equal
+    in anagram filteredXs filteredYs
 
 main = do
     assertEq (anagram "listen" "silent") True
@@ -16,3 +17,5 @@ main = do
     assertEq (anagram "" "") True
     assertEq (anagram "xyz" "abc") False
     assertEq (anagram "abcd" "xyz") False
+    assertEq (anagram "keep" "peek") True
+    assertEq (anagram "egg" "eg") True
