@@ -1,4 +1,5 @@
 import Data.Array
+import Data.String
 import Assert
 
 -- The input array should be sorted beforehand
@@ -27,6 +28,16 @@ findLeftBoundary array key start end
         mid = start + (end - start) `div` 2
         mValue = array !! mid
 
+-- Count the occurence of the second arg in the first arg
+countOccurence :: String -> String -> Int
+countOccurence _ "" = 0
+countOccurence source target
+    | length source == 0 = 0
+    | subStr == target = 1 + countOccurence (drop targetLen source) target
+    | otherwise = countOccurence (tail source) target
+    where
+        targetLen = length target
+        subStr = take targetLen source
 
 main = do
     assertEq (findOccurence [-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11] 2) 4
@@ -36,4 +47,7 @@ main = do
     assertEq (findOccurence [-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11] 10) 1
     assertEq (findOccurence [-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11] (-1)) 1
     assertEq (findOccurence [-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11] 4) 1
+    assertEq (countOccurence "Hello world" "") 0
+    assertEq (countOccurence "" "goal") 0
+    assertEq (countOccurence "howimetyourmomgameofthronemommostrangethings" "mom") 2
 
