@@ -18,8 +18,8 @@ sampleTree =
         )
         (Node 18 
             (Node 12 
-                (Node 13 Leaf Leaf)
                 Leaf
+                (Node 13 Leaf Leaf)
             )
             (Node 21 
                 (Node 19 Leaf Leaf) 
@@ -48,7 +48,24 @@ maxElement tree = case tree of
     Leaf -> Nothing
     Node a _ right -> Just (maybe a (max a) (maxElement right))
 
+append :: (Ord a) => Tree a -> a -> Tree a
+append Leaf a = Node a Leaf Leaf
+append (Node x left right) a
+    | x <= a = Node x left (append right a) 
+    | otherwise = Node x (append left a) right
+
+contain :: (Ord a) => Tree a -> a -> Bool
+contain Leaf _ = False
+contain (Node x left right) a
+    | x < a = contain right a
+    | x > a = contain left a
+    | otherwise = True
+
 main = do
     assertEq (height sampleTree) 5
     assertEq (minElement sampleTree) (Just 2)
     assertEq (maxElement sampleTree) (Just 25)
+    print (append sampleTree 4)
+    print (append sampleTree 8)
+    assertEq (contain sampleTree 13) True
+    assertEq (contain sampleTree 99) False
