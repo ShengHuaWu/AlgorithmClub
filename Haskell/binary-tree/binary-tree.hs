@@ -38,9 +38,9 @@ minElement :: Tree Int -> Maybe Int
 minElement tree = case tree of
     Leaf -> Nothing
     -- maybe :: b -> (a -> b) -> Maybe a -> b
-    -- the `maybe` function takes a default value, a function, and a Maybe value. 
-    -- If the Maybe value is Nothing, the function returns the default value. 
-    -- Otherwise, it applies the function to the value inside the Just and returns the result.
+    -- the `maybe` functraverseInOrdern takes a default value, a functraverseInOrdern, and a Maybe value. 
+    -- If the Maybe value is Nothing, the functraverseInOrdern returns the default value. 
+    -- Otherwise, it applies the functraverseInOrdern to the value inside the Just and returns the result.
     Node a left _ -> Just (maybe a (min a) (minElement left))
 
 maxElement :: Tree Int -> Maybe Int
@@ -61,6 +61,15 @@ contain (Node x left right) a
     | x > a = contain left a
     | otherwise = True
 
+traverseInOrder :: (Ord a) => Tree a -> (a -> b) -> [b]
+traverseInOrder Leaf _ = []
+traverseInOrder (Node x left right) f = (traverseInOrder left f) ++ [(f x)] ++ (traverseInOrder right f) 
+
+invert :: (Ord a) => Tree a -> Tree a
+invert tree = case tree of
+    Leaf -> Leaf
+    Node x left right -> Node x (invert right) (invert left)
+
 main = do
     assertEq (height sampleTree) 5
     assertEq (minElement sampleTree) (Just 2)
@@ -69,3 +78,5 @@ main = do
     print (append sampleTree 8)
     assertEq (contain sampleTree 13) True
     assertEq (contain sampleTree 99) False
+    assertEq (traverseInOrder sampleTree (\x -> x)) [2,3,5,6,7,10,12,13,18,19,21,23,25]
+    assertEq (traverseInOrder (invert sampleTree) (\x -> x)) [25,23,21,19,18,13,12,10,7,6,5,3,2]
