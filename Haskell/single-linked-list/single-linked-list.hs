@@ -30,7 +30,18 @@ getTail (Node _ next) = getTail next
 append :: LinkedList a -> a -> LinkedList a
 append Empty a = Node a Empty
 append (Node x Empty) a = Node x (Node a Empty)
-append (Node x next) a = prepend (append next a) x -- prepend x to the new node in order to keep tracking the head
+-- prepend x to the new node in order to keep tracking the head
+-- This case MUST be the last one
+append (Node x next) a = prepend (append next a) x 
+
+remove :: (Eq a) => LinkedList a -> a -> LinkedList a
+remove Empty _ = Empty
+remove (Node x Empty) a | x == a = Empty
+remove (Node x Empty) a | x /= a = Node x Empty
+remove (Node x next) a | x == a = next
+-- prepend x to the new node in order to keep tracking the head
+-- This case MUST be the last one
+remove (Node x next) a | x /= a = prepend (remove next a) x
 
 main = do
     assertEq (getLength sampleLinkedList) 5
@@ -39,3 +50,5 @@ main = do
     assertEq (getTail sampleLinkedList) (Just 3)
     assertEq (getLength (append sampleLinkedList 7)) 6
     assertEq (getTail (append sampleLinkedList 7)) (Just 7)
+    assertEq (getLength (remove sampleLinkedList 9)) 4
+    assertEq (getTail (remove sampleLinkedList 3)) (Just 2)
