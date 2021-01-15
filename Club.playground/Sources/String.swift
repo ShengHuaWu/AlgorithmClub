@@ -97,6 +97,106 @@ extension String {
         
         return nil
     }
+    
+    private func isPrettyString(in range: ClosedRange<Index>) -> Bool {
+        var index = self.index(after: range.lowerBound)
+        while index < range.upperBound {
+            if self[index] != self[self.index(before: index)] {
+                return false
+            }
+
+            index = self.index(after: index)
+        }
+
+        return true
+    }
+    
+    private func recursiveIsPrettyString(in range: ClosedRange<Index>) -> Bool {
+        let end = index(after: range.lowerBound)
+        if end == range.upperBound {
+            return true
+        }
+        
+        if self[range.lowerBound] != self[end] {
+            return false
+        } else {
+            return recursiveIsPrettyString(in: end ... range.upperBound)
+        }
+    }
+    
+    public func recursiveCountNumberOfPrettyStrings(with repeating: Int) -> Int {
+        guard !isEmpty, repeating > 0 else { return 0 }
+        
+        return recursiveCountNumberOfPrettyStrings(with: repeating, start: startIndex, result: 0)
+    }
+    
+    private func recursiveCountNumberOfPrettyStrings(with repeating: Int, start: Index, result: Int) -> Int {
+        guard let end = index(start, offsetBy: repeating, limitedBy: endIndex) else {
+            return result
+        }
+        
+        if recursiveIsPrettyString(in: start ... end) {
+            return recursiveCountNumberOfPrettyStrings(with: repeating, start: end, result: result + 1)
+        } else {
+            return recursiveCountNumberOfPrettyStrings(with: repeating, start: index(after: start), result: result)
+        }
+    }
+    
+    public func recursiveFindOccurence(of key: String) -> Int {
+        guard !isEmpty, !key.isEmpty else { return 0 }
+        
+        return recursiveFindOccurence(of: key, start: startIndex, result: 0)
+    }
+    
+    private func recursiveFindOccurence(of key: String, start: Index, result: Int) -> Int {
+        guard let end = index(start, offsetBy: key.count, limitedBy: endIndex) else {
+            return result
+        }
+        
+        let temp = String(self[start ..< end])
+        if temp == key {
+            return recursiveFindOccurence(of: key, start: end, result: result + 1)
+        } else {
+            return recursiveFindOccurence(of: key, start: index(after: start), result: result)
+        }
+    }
+    
+    public func recursiveTruncate(with length: Int) -> String {
+        guard !isEmpty, length > 0, count > length else { return self }
+        
+        return recursiveTruncate(with: length, end: index(startIndex, offsetBy: length))
+    }
+    
+    private func recursiveTruncate(with length: Int, end: Index) -> String {
+        guard end > startIndex else { return "" }
+        
+        switch self[end] {
+        case ".", ",", ":", ";", "?", "!", " ":
+            return String(self[startIndex ... end])
+        default:
+            return recursiveTruncate(with: length, end: index(before: end))
+        }
+    }
+    
+    static public func recursiveFizzBuss(in turns: Int) -> String {
+        guard turns > 0 else { return "" }
+        
+        return recursiveFizzBuzz(in: turns, result: "")
+    }
+    
+    private static func recursiveFizzBuzz(in turns: Int, result: String) -> String {
+        guard turns > 0 else { return result }
+        
+        if turns % 3 == 0, turns % 5 == 0 {
+            return recursiveFizzBuzz(in: turns - 1, result: "Fizz Buzz " + result)
+        } else if turns % 3 == 0 {
+            return recursiveFizzBuzz(in: turns - 1, result: "Fizz " + result)
+        } else if turns % 5 == 0 {
+            return recursiveFizzBuzz(in: turns - 1, result: "Buzz " + result)
+        } else {
+            return recursiveFizzBuzz(in: turns - 1, result: "\(turns) " + result)
+        }
+    }
 }
 
 public func fizzBuzz(numberOfTurns: Int) {

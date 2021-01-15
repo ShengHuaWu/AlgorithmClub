@@ -211,6 +211,41 @@ extension Array where Element == Int {
         
         return nil
     }
+    
+    public func findLargestPerimetersSum() -> Int? {
+        let sortedSelf = sorted(by: >)
+        var index = startIndex
+        
+        while index + 2 < endIndex {
+            let p1 = sortedSelf[index]
+            let p2 = sortedSelf[index + 1]
+            let p3 = sortedSelf[index + 2]
+            if p1 < p2 + p3 {
+                return p1 + p2 + p3
+            } else {
+                index += 1
+            }
+        }
+        
+        return nil
+    }
+    
+    public func recursiveFindLargestPerimetersSum() -> Int? {
+        return sorted(by: >).recursiveFindLargestPerimetersSum(start: startIndex)
+    }
+    
+    private func recursiveFindLargestPerimetersSum(start: Index) -> Int? {
+        guard start + 2 < endIndex else { return nil }
+        
+        let p1 = self[start]
+        let p2 = self[start + 1]
+        let p3 = self[start + 2]
+        if p1 < p2 + p3 {
+            return p1 + p2 + p3
+        } else {
+            return recursiveFindLargestPerimetersSum(start: start + 1)
+        }
+    }
 }
 
 // Print Compression
@@ -237,6 +272,51 @@ extension Array where Element == Int {
         } else {
             print("\(start) - \(end)")
         }
+    }
+    
+    public func compress() -> [String] {
+        var results = [String]()
+        var start = startIndex
+        var index = startIndex + 1
+        
+        while index < endIndex {
+            if self[index] != self[index - 1] + 1 {
+                let output = compressNumber(start: start, end: index)
+                results.append(output)
+                start = index
+            }
+            
+            index += 1
+        }
+        
+        if start == index {
+            results.append("\(self[index])")
+        } else {
+            let output = compressNumber(start: start, end: index)
+            results.append(output)
+        }
+        
+        return results
+    }
+    
+    public func recursiveCompress() -> [String] {
+        return recursiveCompress(start: startIndex, end: startIndex + 1, result: [])
+    }
+    
+    private func recursiveCompress(start: Index, end: Index, result: [String]) -> [String] {
+        guard end < endIndex else {
+            return result + [compressNumber(start: start, end: end)]
+        }
+        
+        if self[end] - self[end - 1] > 1 {
+            return [compressNumber(start: start, end: end)] + recursiveCompress(start: end, end: end + 1, result: result)
+        } else {
+            return recursiveCompress(start: start, end: end + 1, result: result)
+        }
+    }
+    
+    private func compressNumber(start: Index, end: Index) -> String {
+        return self[start] == self[end - 1] ? "\(self[start])" : "\(self[start])-\(self[end - 1])"
     }
 }
 
