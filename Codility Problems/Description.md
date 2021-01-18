@@ -1,5 +1,5 @@
-## Codility Problems
-### Hard drive statistics
+# Codility Problems
+## Hard drive statistics
 Your computer's hard driver is almost full. In order to make some space, you need to compile some file statistics. You want to know how many bytes of memory each file type is consuming. Each file has a name, and the part of the name after the last dot is called the file extension, which identifies what type of file it is.
 * music (only extensions: mp3, aac, flac)
 * image (only extensions: jpg, bmp, gif)
@@ -28,10 +28,10 @@ movies 10200b
 other 105b"
 ```
 
-#### Reference 
+### Reference 
 https://github.com/dhruv88esh/DatalexCodilitySolutions/blob/master/src/com/datalex/solutions/HardDiskStatistics.java
 
-### Minimum distance of adjacent
+## Minimum distance of adjacent
 Integer `V` lies strickly between integer `U` and `W` if `U < V < W` or `W < V < U`. A non-empty array `A` consisting of `N` integers is given. A pair of indices (`P`, `Q`), where `0 <= P < Q < N` is said to have adjacent values if no value in the array lies strickly between values `A[P]` and `A[Q]`. For example, in array `A` such as
 ```
 [0, 3, 3, 7, 5, 3, 11, 1]
@@ -45,10 +45,10 @@ class Solution {
 ```
 that, given a non-empty array `A` consisting of `N` integers, returns the minimum distance between indices of this array that have adjacent values. The function should return `-1` if the minimum distance if greater than 100,000,000. The function should retunr `-2` if no adjacent indices exist. For instance, given the array `A` as shown above the function should return 0.
 
-#### Reference
+### Reference
 https://browsespot.blogspot.com/2018/04/minimum-distance-of-adjacent-pair-in.html
 
-### Maximum waiting time for cars in fuel station
+## Maximum waiting time for cars in fuel station
 There is a queue of `N` cars waiting at a filling station. There are three dispensers at the station, labeled `X`, `Y`, and `Z`, respectively. Each dispenser has some finite amount of fuel in it; all times the amount of available fuel is clearly displayed on each dispenser.
 When a car arrives at the front of the queue, the driver can choose to drive to any dispenser not occupied by another car. Suppose the fule demand is `D` liters of this car. The driver must choose the dispenser which has at least `D` liters of fuel. If all unoccupied dispensers have less than `D` liters, the driver must wait for some other car to finish tanking up. If all dispensers are unoccupied and none has at least `D` liters, the driver is unable to refuel the car and it blocks the queue indefinitely. If more than one unoccupied dispensers have at least `D` liters, the driver chooses the one that labeled with the smallest letter among them.
 Each driver will have to wait some amount of time before he or she starts refueling the car. Calculate the maximum waiting time among all drivers. Assume that tanking one liter of fuel takes exactly one second, and moving cars is instantaneous. Write a function
@@ -63,5 +63,9 @@ that, given an array `A` consisting of `N` integers (which specify the fuel dema
 ```
 The function should return 8.
 
-#### Reference
+### Reference
 https://leetcode.com/discuss/interview-question/524127/Codility-or-Find-maximum-waiting-time-for-Cars-in-Fuel-Station
+
+## Traveling salesman problem
+### Reference
+https://www.baeldung.com/java-simulated-annealing-for-traveling-salesman
