@@ -49,5 +49,19 @@ that, given a non-empty array `A` consisting of `N` integers, returns the minimu
 https://browsespot.blogspot.com/2018/04/minimum-distance-of-adjacent-pair-in.html
 
 ### Maximum waiting time for cars in fuel station
+There is a queue of `N` cars waiting at a filling station. There are three dispensers at the station, labeled `X`, `Y`, and `Z`, respectively. Each dispenser has some finite amount of fuel in it; all times the amount of available fuel is clearly displayed on each dispenser.
+When a car arrives at the front of the queue, the driver can choose to drive to any dispenser not occupied by another car. Suppose the fule demand is `D` liters of this car. The driver must choose the dispenser which has at least `D` liters of fuel. If all unoccupied dispensers have less than `D` liters, the driver must wait for some other car to finish tanking up. If all dispensers are unoccupied and none has at least `D` liters, the driver is unable to refuel the car and it blocks the queue indefinitely. If more than one unoccupied dispensers have at least `D` liters, the driver chooses the one that labeled with the smallest letter among them.
+Each driver will have to wait some amount of time before he or she starts refueling the car. Calculate the maximum waiting time among all drivers. Assume that tanking one liter of fuel takes exactly one second, and moving cars is instantaneous. Write a function
+```
+class Solution {
+    public int solution(int[] A, int X, int Y, int Z);
+}
+```
+that, given an array `A` consisting of `N` integers (which specify the fuel demands in liters for subsequence cars in the queue), and number `X`, `Y`, and `Z` (which specify the initial amount of fuel in the respective dispensers), returns the maximum waiting time for a car. If any car is unable to refuel, the function should return `-1`. For example, given `X = 7`, `Y = 11`, `Z = 3` and the following array `A`
+```
+[2, 8, 4, 3, 2]
+```
+The function should return 8.
+
 #### Reference
 https://leetcode.com/discuss/interview-question/524127/Codility-or-Find-maximum-waiting-time-for-Cars-in-Fuel-Station
