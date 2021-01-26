@@ -18,8 +18,20 @@ myModified (n, x) = Left (n, x)
 myEncodeModified :: Eq a => [a] -> [Either (Int, a) a]
 myEncodeModified xs = myModified <$> myEncode xs
 
+-- #12: Given a run-length code list generated as specified in #11. Construct its uncompressed version.
+mySingleDecodeModified :: Either (Int, a) a -> [a]
+mySingleDecodeModified (Right x) = [x]
+mySingleDecodeModified (Left (n, x)) = replicate n x
+
+myDecodeModified :: [Either (Int, a) a] -> [a]
+myDecodeModified xs = xs >>= mySingleDecodeModified
+
 main = do
   print "#11"
   print $ myEncodeModified ""
   print $ myEncodeModified "aaaabccaadeeee"
   print $ myEncodeModified [1, 1, 2, 3, 3, 4, 5, 5]
+  print "#12"
+  print $ (myDecodeModified [] :: String)
+  print $ myDecodeModified [Left (4,'a'),Right 'b',Left (2,'c'),Left (2,'a'),Right 'd',Left (4,'e')]
+  print $ myDecodeModified [Left (2,1),Right 2,Left (2,3),Right 4,Left (2,5)]
