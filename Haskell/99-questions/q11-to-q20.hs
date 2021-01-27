@@ -26,6 +26,13 @@ mySingleDecodeModified (Left (n, x)) = replicate n x
 myDecodeModified :: [Either (Int, a) a] -> [a]
 myDecodeModified xs = xs >>= mySingleDecodeModified
 
+-- #13: Implement the so-called run-length encoding data compression method directly, but not use the result from the previous problems.
+
+-- #14: Duplicate the elements of a list.
+myDuplicate :: [a] -> [a]
+myDuplicate [] = []
+myDuplicate (x:xs) = x : x : (myDuplicate xs)
+
 main = do
   print "#11"
   print $ myEncodeModified ""
@@ -35,3 +42,8 @@ main = do
   print $ (myDecodeModified [] :: String)
   print $ myDecodeModified [Left (4,'a'),Right 'b',Left (2,'c'),Left (2,'a'),Right 'd',Left (4,'e')]
   print $ myDecodeModified [Left (2,1),Right 2,Left (2,3),Right 4,Left (2,5)]
+  print "#13"
+  print "#14"
+  print $ myDuplicate ""
+  print $ myDuplicate "abcccd"
+  print $ myDuplicate [1, 2, 3, 5, 6]
