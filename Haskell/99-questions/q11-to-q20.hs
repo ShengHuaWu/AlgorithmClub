@@ -27,6 +27,17 @@ myDecodeModified :: [Either (Int, a) a] -> [a]
 myDecodeModified xs = xs >>= mySingleDecodeModified
 
 -- #13: Implement the so-called run-length encoding data compression method directly, but not use the result from the previous problems.
+myNewConversion :: Eq a => a -> [(Int, a)] -> [(Int, a)]
+myNewConversion x [] = [(1, x)]
+myNewConversion x (y@(n, k):ys)
+  | x == k = (n + 1, k):ys
+  | otherwise = (1, x):y:ys
+
+myNewEncode :: Eq a => [a] -> [(Int, a)]
+myNewEncode = foldr myNewConversion []
+
+myNewEncodeModified :: Eq a => [a] -> [Either (Int, a) a]
+myNewEncodeModified xs = myModified <$> myNewEncode xs
 
 -- #14: Duplicate the elements of a list.
 myDuplicate :: [a] -> [a]
@@ -43,6 +54,9 @@ main = do
   print $ myDecodeModified [Left (4,'a'),Right 'b',Left (2,'c'),Left (2,'a'),Right 'd',Left (4,'e')]
   print $ myDecodeModified [Left (2,1),Right 2,Left (2,3),Right 4,Left (2,5)]
   print "#13"
+  print $ myNewEncodeModified ""
+  print $ myNewEncodeModified "aaaabccaadeeee"
+  print $ myNewEncodeModified [1, 1, 2, 3, 3, 4, 5, 5]
   print "#14"
   print $ myDuplicate ""
   print $ myDuplicate "abcccd"
