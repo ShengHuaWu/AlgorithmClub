@@ -1,4 +1,3 @@
-# Codility Problems
 ## Hard drive statistics
 Your computer's hard driver is almost full. In order to make some space, you need to compile some file statistics. You want to know how many bytes of memory each file type is consuming. Each file has a name, and the part of the name after the last dot is called the file extension, which identifies what type of file it is.
 * music (only extensions: mp3, aac, flac)
