@@ -5,7 +5,8 @@ public class Main {
 //        FibonacciSeries.printFibonacciSeries();
 //        IsPrime.printIsPrime();
 //        IsPalindrome.printIsPalindrome();
-        IsIntegerPalindrom.printIsPalindrome();
+//        IsIntegerPalindrom.printIsPalindrome();
 //        IsArmstrongNumber.printIsArmstrongNumber();
+        RemoveDuplicatedFromList.printRemoveDuplicatedFromList();
     }
 }
