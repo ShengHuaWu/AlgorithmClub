@@ -8,6 +8,7 @@ public class Main {
 //        IsIntegerPalindrom.printIsPalindrome();
 //        IsArmstrongNumber.printIsArmstrongNumber();
 //        RemoveDuplicatedFromList.printRemoveDuplicatedFromList();
-        PrintPyramid.printPyramid();
+//        PrintPyramid.printPyramid();
+        FindDuplicatedCharacters.printDuplicatedCharacters();
     }
 }
