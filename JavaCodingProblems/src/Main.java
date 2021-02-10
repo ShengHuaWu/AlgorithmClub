@@ -8,6 +8,7 @@ public class Main {
 //        RemoveDuplicatedFromList.printRemoveDuplicatedFromList();
 //        PrintPyramid.printPyramid();
 //        FindDuplicatedCharacters.printDuplicatedCharacters();
-        FindGCD.printGCD();
+//        FindGCD.printGCD();
+        ReverseArrayInPlace.printReversedArray();
     }
 }
