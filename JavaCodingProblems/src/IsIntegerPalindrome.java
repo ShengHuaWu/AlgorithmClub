@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class IsIntegerPalindrom {
+class IsIntegerPalindrome {
     static void printIsPalindrome() {
         System.out.print("#4: Enter an integer to check if it is palindrome: ");
         int number = new Scanner(System.in).nextInt();

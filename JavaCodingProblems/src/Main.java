@@ -1,14 +1,13 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String [] args) {
 //        FibonacciSeries.printFibonacciSeries();
 //        IsPrime.printIsPrime();
 //        IsPalindrome.printIsPalindrome();
-//        IsIntegerPalindrom.printIsPalindrome();
+//        IsIntegerPalindrome.printIsPalindrome();
 //        IsArmstrongNumber.printIsArmstrongNumber();
 //        RemoveDuplicatedFromList.printRemoveDuplicatedFromList();
 //        PrintPyramid.printPyramid();
-        FindDuplicatedCharacters.printDuplicatedCharacters();
+//        FindDuplicatedCharacters.printDuplicatedCharacters();
+        FindGCD.printGCD();
     }
 }
