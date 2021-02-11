@@ -9,6 +9,7 @@ public class Main {
 //        PrintPyramid.printPyramid();
 //        FindDuplicatedCharacters.printDuplicatedCharacters();
 //        FindGCD.printGCD();
-        ReverseArrayInPlace.printReversedArray();
+//        ReverseArrayInPlace.printReversedArray();
+        BinarySearch.printBinarySearch();
     }
 }
