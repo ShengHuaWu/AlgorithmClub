@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 class BinarySearch {
     static void printBinarySearch() {
-        System.out.print("#18: Enter a number to do binary search: ");
+        System.out.print("#17: Enter a number to do binary search: ");
         int value = new Scanner(System.in).nextInt();
         int[] numbers = {1, 3, 4, 5, 6, 7, 8, 9, 9, 10, 12, 14, 17};
         System.out.print("Result: " + binarySearch(value, numbers));

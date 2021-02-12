@@ -10,6 +10,7 @@ public class Main {
 //        FindDuplicatedCharacters.printDuplicatedCharacters();
 //        FindGCD.printGCD();
 //        ReverseArrayInPlace.printReversedArray();
-        BinarySearch.printBinarySearch();
+//        BinarySearch.printBinarySearch();
+        ReverseNumber.printReversedNumber();
     }
 }
