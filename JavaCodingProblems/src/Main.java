@@ -11,6 +11,7 @@ public class Main {
 //        FindGCD.printGCD();
 //        ReverseArrayInPlace.printReversedArray();
 //        BinarySearch.printBinarySearch();
-        ReverseNumber.printReversedNumber();
+//        ReverseNumber.printReversedNumber();
+        FirstNonRepeatedCharacter.printFirstNonRepeatedCharacter();
     }
 }
