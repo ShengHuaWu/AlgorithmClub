@@ -12,6 +12,7 @@ public class Main {
 //        ReverseArrayInPlace.printReversedArray();
 //        BinarySearch.printBinarySearch();
 //        ReverseNumber.printReversedNumber();
-        FirstNonRepeatedCharacter.printFirstNonRepeatedCharacter();
+//        FirstNonRepeatedCharacter.printFirstNonRepeatedCharacter();
+        FindMiddleOfLinkedList.printMiddleOfLinkedList();
     }
 }
