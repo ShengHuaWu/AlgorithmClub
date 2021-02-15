@@ -13,6 +13,7 @@ public class Main {
 //        BinarySearch.printBinarySearch();
 //        ReverseNumber.printReversedNumber();
 //        FirstNonRepeatedCharacter.printFirstNonRepeatedCharacter();
-        FindMiddleOfLinkedList.printMiddleOfLinkedList();
+//        FindMiddleOfLinkedList.printMiddleOfLinkedList();
+        QuickSort.printQuickSort();
     }
 }
