@@ -14,6 +14,7 @@ public class Main {
 //        ReverseNumber.printReversedNumber();
 //        FirstNonRepeatedCharacter.printFirstNonRepeatedCharacter();
 //        FindMiddleOfLinkedList.printMiddleOfLinkedList();
-        QuickSort.printQuickSort();
+//        QuickSort.printQuickSort();
+        StringPermutation.printStringPermutation();
     }
 }

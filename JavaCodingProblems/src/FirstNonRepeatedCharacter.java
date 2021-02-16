@@ -8,7 +8,7 @@ class FirstNonRepeatedCharacter {
     }
 
     private static Character findFirstNonRepeatedCharacter(String text) {
-        if (text.length() == 0) {
+        if (text.isEmpty()) {
             return null; // Temporary solution
         }
 
