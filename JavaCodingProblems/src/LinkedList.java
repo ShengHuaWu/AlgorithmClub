@@ -1,5 +1,5 @@
 class LinkedList{
-    private Node head;
+    Node head;
     private Node tail;
 
     LinkedList(String text){
@@ -14,6 +14,15 @@ class LinkedList{
     void add(Node node){
         tail.next = node;
         tail = node;
+    }
+
+    public void print() {
+        Node node = head;
+        while (node != null) {
+            System.out.print(node.data() + " ");
+            node = node.next();
+        }
+        System.out.println("");
     }
 
     static class Node{

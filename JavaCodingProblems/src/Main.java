@@ -15,6 +15,7 @@ public class Main {
 //        FirstNonRepeatedCharacter.printFirstNonRepeatedCharacter();
 //        FindMiddleOfLinkedList.printMiddleOfLinkedList();
 //        QuickSort.printQuickSort();
-        StringPermutation.printStringPermutation();
+//        StringPermutation.printStringPermutation();
+        ReverseLinkedList.printReversedLinkedList();
     }
 }
