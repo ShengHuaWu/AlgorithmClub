@@ -17,6 +17,7 @@ public class Main {
 //        QuickSort.printQuickSort();
 //        StringPermutation.printStringPermutation();
 //        ReverseLinkedList.printReversedLinkedList();
-        FindLinkedListLoop.printFindLinkedListLoop();
+//        FindLinkedListLoop.printFindLinkedListLoop();
+        FindKthLastOfLinkedList.printKthLast();
     }
 }
