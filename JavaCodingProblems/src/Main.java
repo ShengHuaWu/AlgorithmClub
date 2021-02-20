@@ -18,6 +18,7 @@ public class Main {
 //        StringPermutation.printStringPermutation();
 //        ReverseLinkedList.printReversedLinkedList();
 //        FindLinkedListLoop.printFindLinkedListLoop();
-        FindKthLastOfLinkedList.printKthLast();
+        FindStartOfLoopLinkedList.printStartNodeOfLoop();
+//        FindKthLastOfLinkedList.printKthLast();
     }
 }
