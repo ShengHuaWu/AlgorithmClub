@@ -44,6 +44,11 @@ myDuplicate :: [a] -> [a]
 myDuplicate [] = []
 myDuplicate (x:xs) = x : x : (myDuplicate xs)
 
+-- #15: Replicate the elements of a list a given number of times.
+myReplicate :: Int -> [a] -> [a]
+myReplicate _ [] = []
+myReplicate n (x:xs) = replicate n x ++ myReplicate n xs 
+
 main = do
   print "#11"
   print $ myEncodeModified ""
@@ -61,3 +66,7 @@ main = do
   print $ myDuplicate ""
   print $ myDuplicate "abcccd"
   print $ myDuplicate [1, 2, 3, 5, 6]
+  print "#15"
+  print $ myReplicate 10 ""
+  print $ myReplicate 4 "abc"
+  print $ myReplicate 3 [1, 2, 3, 5, 6]
