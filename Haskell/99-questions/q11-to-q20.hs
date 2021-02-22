@@ -47,7 +47,14 @@ myDuplicate (x:xs) = x : x : (myDuplicate xs)
 -- #15: Replicate the elements of a list a given number of times.
 myReplicate :: Int -> [a] -> [a]
 myReplicate _ [] = []
-myReplicate n (x:xs) = replicate n x ++ myReplicate n xs 
+myReplicate n (x:xs) = replicate n x ++ myReplicate n xs
+
+-- #16: Drop every N'th element from a list.
+myDrop :: [a] -> Int -> [a]
+myDrop [] _ = []
+myDrop xs 0 = xs
+myDrop (x:xs) 1 = xs
+myDrop (x:xs) n = x : myDrop xs (n-1)
 
 main = do
   print "#11"
@@ -70,3 +77,8 @@ main = do
   print $ myReplicate 10 ""
   print $ myReplicate 4 "abc"
   print $ myReplicate 3 [1, 2, 3, 5, 6]
+  print "#16"
+  print $ myDrop "" 6
+  print $ myDrop "abc" 4
+  print $ myDrop "abc" 3
+  print $ myDrop [1, 2, 3, 5, 6] 3
