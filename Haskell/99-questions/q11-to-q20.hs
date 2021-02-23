@@ -56,6 +56,20 @@ myDrop xs 0 = xs
 myDrop (x:xs) 1 = xs
 myDrop (x:xs) n = x : myDrop xs (n-1)
 
+-- #17: Split a list into two parts; the length of the first part is given. (don't use `splitAt`)
+takeUntil :: [a] -> Int -> [a]
+takeUntil [] _ = []
+takeUntil xs 0 = []
+takeUntil (x:xs) n = [x] ++ takeUntil xs (n-1)
+
+dropUntil :: [a] -> Int -> [a]
+dropUntil [] _ = []
+dropUntil xs 0 =  xs
+dropUntil (x:xs) n = dropUntil xs (n-1)
+
+mySplit :: [a] -> Int -> ([a], [a])
+mySplit xs n = (takeUntil xs n, dropUntil xs n) 
+
 main = do
   print "#11"
   print $ myEncodeModified ""
@@ -82,3 +96,8 @@ main = do
   print $ myDrop "abc" 4
   print $ myDrop "abc" 3
   print $ myDrop [1, 2, 3, 5, 6] 3
+  print "#17"
+  print $ mySplit "" 6
+  print $ mySplit "abc" 2
+  print $ mySplit "abc" 3
+  print $ mySplit [1, 2, 3, 5, 6] 3
