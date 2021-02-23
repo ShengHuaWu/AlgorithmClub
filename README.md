@@ -35,6 +35,3 @@
 ### Haskell 99 Problems
 Link: https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 
-### Java Coding Problems
-Link: https://javarevisited.blogspot.com/2017/07/top-50-java-programs-from-coding-Interviews.html#axzz6kYM4wzgf
-

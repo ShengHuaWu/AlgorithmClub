@@ -20,6 +20,7 @@ public class Main {
 //        FindLinkedListLoop.printFindLinkedListLoop();
 //        FindStartOfLoopLinkedList.printStartNodeOfLoop();
 //        FindKthLastOfLinkedList.printKthLast();
-        CheckStringRotation.printIsStringRotation();
+//        CheckStringRotation.printIsStringRotation();
+        MergeSort.printMergeSort();
     }
 }
