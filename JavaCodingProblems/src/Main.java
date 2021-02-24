@@ -21,6 +21,7 @@ public class Main {
 //        FindStartOfLoopLinkedList.printStartNodeOfLoop();
 //        FindKthLastOfLinkedList.printKthLast();
 //        CheckStringRotation.printIsStringRotation();
-        MergeSort.printMergeSort();
+//        MergeSort.printMergeSort();
+        HardDriverStatistics.printHardDriverStatistics();
     }
 }
