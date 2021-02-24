@@ -40,19 +40,63 @@ import java.util.Arrays;
 import java.util.Set;
 
 public class HardDriverStatistics {
+    enum FileType {
+        MUSIC,
+        IMAGE,
+        MOVIE,
+        OTHER
+    }
+
     static class File {
-        String type;
+        static final private Set<String> musicExtensions = Set.of("mp3", "aac", "flac");
+        static final private Set<String> imageExtensions = Set.of("jpg", "bmp", "gif");
+        static final private Set<String> movieExtensions = Set.of("mp4", "avi", "mkv");
+
+        FileType type;
         int size;
 
-        File(String type, int size) {
+        File(FileType type, int size) {
             this.type = type;
             this.size = size;
         }
     }
 
-    static final private Set<String> musicExtensions = Set.of("mp3", "aac", "flac");
-    static final private Set<String> imageExtensions = Set.of("jpg", "bmp", "gif");
-    static final private Set<String> movieExtensions = Set.of("mp4", "avi", "mkv");
+    static class Statistic {
+        int musicSize;
+        int imagesSize;
+        int moviesSize;
+        int otherSize;
+
+        Statistic() {
+            this.musicSize = 0;
+            this.imagesSize = 0;
+            this.moviesSize = 0;
+            this.otherSize = 0;
+        }
+
+        private Statistic(int musicSize, int imagesSize, int moviesSize, int otherSize) {
+            this.musicSize = musicSize;
+            this.imagesSize = imagesSize;
+            this.moviesSize = moviesSize;
+            this.otherSize = otherSize;
+        }
+
+        @Override
+        public String toString() {
+            return "music " + musicSize + "b" +
+                    "\nimages " + imagesSize + "b" +
+                    "\nmovies " + moviesSize + "b" +
+                    "\nother " + otherSize + "b";
+        }
+
+        static Statistic combine(Statistic s1, Statistic s2) {
+            return new Statistic(
+                    s1.musicSize + s2.musicSize,
+                    s1.imagesSize + s2.imagesSize,
+                    s1.moviesSize + s2.moviesSize,
+                    s1.otherSize + s2.otherSize);
+        }
+    }
 
     static void printHardDriverStatistics() {
         System.out.print("Print hard driver statistics: \n");
@@ -66,46 +110,44 @@ public class HardDriverStatistics {
     }
 
     private static String getHardDriverStatistics(String S) {
-        File[] files = Arrays.stream(S.split("\\r?\\n")).map(HardDriverStatistics::parseToFile).toArray(File[]::new);
-        int musicSize = 0;
-        int imagesSize = 0;
-        int moviesSize = 0;
-        int otherSize = 0;
+        return Arrays.stream(S.split("\\r?\\n"))
+                .map(HardDriverStatistics::parseToFile)
+                .reduce(new Statistic(), HardDriverStatistics::aggregate, Statistic::combine)
+                .toString();
+    }
 
-        for (File file : files) {
-            switch (file.type) {
-                case "music":
-                    musicSize += file.size;
-                    break;
-                case "images":
-                    imagesSize += file.size;
-                    break;
-                case "movies":
-                    moviesSize += file.size;
-                    break;
-                default:
-                    otherSize += file.size;
-                    break;
-            }
+    private static Statistic aggregate(Statistic statistic, File file) {
+        switch (file.type) {
+            case MUSIC:
+                statistic.musicSize += file.size;
+                break;
+            case IMAGE:
+                statistic.imagesSize += file.size;
+                break;
+            case MOVIE:
+                statistic.moviesSize += file.size;
+                break;
+            case OTHER:
+                statistic.otherSize += file.size;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + file.type);
         }
-
-        return "music " + musicSize + "b" +
-                "\nimages " + imagesSize + "b" +
-                "\nmovies " + moviesSize + "b" +
-                "\nother " + otherSize + "b";
+        
+        return statistic;
     }
 
     private static File parseToFile(String text) {
         String extension = text.substring(text.lastIndexOf(".") + 1, text.lastIndexOf(" "));
         int size = Integer.parseInt(text.substring(text.lastIndexOf(" ") + 1, text.lastIndexOf("b")));
-        if (musicExtensions.contains(extension)) {
-            return new File("music", size);
-        } else if (imageExtensions.contains(extension)) {
-            return new File("images", size);
-        } else if (movieExtensions.contains(extension)) {
-            return new File("movies", size);
+        if (File.musicExtensions.contains(extension)) {
+            return new File(FileType.MUSIC, size);
+        } else if (File.imageExtensions.contains(extension)) {
+            return new File(FileType.IMAGE, size);
+        } else if (File.movieExtensions.contains(extension)) {
+            return new File(FileType.MOVIE, size);
         } else {
-            return new File("other", size);
+            return new File(FileType.OTHER, size);
         }
     }
 }
