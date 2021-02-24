@@ -35,3 +35,6 @@
 ### Haskell 99 Problems
 Link: https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 
+### Other Problems
+Link: https://www.codinginterview.com/apple-interview-questions
+
