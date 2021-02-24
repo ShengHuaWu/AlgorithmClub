@@ -68,7 +68,13 @@ dropUntil xs 0 =  xs
 dropUntil (x:xs) n = dropUntil xs (n-1)
 
 mySplit :: [a] -> Int -> ([a], [a])
-mySplit xs n = (takeUntil xs n, dropUntil xs n) 
+mySplit xs n = (takeUntil xs n, dropUntil xs n)
+
+-- #18: Extract a slice from a list.
+-- Given two indices, i and k, the slice is the list containing the elements between the i'th and k'th element of the original list (both limits included).
+-- Start counting the elements with 1.
+mySlice :: [a] -> Int -> Int -> [a]
+mySlice xs start end = take (end-start+1) (drop (start-1) xs)
 
 main = do
   print "#11"
@@ -101,3 +107,8 @@ main = do
   print $ mySplit "abc" 2
   print $ mySplit "abc" 3
   print $ mySplit [1, 2, 3, 5, 6] 3
+  print "#18"
+  print $ mySlice "" 1 5
+  print $ mySlice "abcde" 2 4
+  print $ mySlice "abc" 1 3
+  print $ mySlice [1, 2, 3, 5, 6, 7, 8, 9, 10] 3 6
