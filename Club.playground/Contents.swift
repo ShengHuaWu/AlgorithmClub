@@ -33,10 +33,12 @@ source2.occurrence(of: 2)
 source2.minAndMax()
 var integers2 = [0, 20, -3, 0, 0, 9, 7, 2, 1, 0]
 integers2.shiftingZeros()
-integers2.shiftZeros()*/
+integers2.shiftZeros()
 
 [3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)
-[3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21)
+[3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21)*/
+[(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping()
+[(10, 12), (12, 15)].mergeOverlapping()
 
 
 // Binary Search Tree
