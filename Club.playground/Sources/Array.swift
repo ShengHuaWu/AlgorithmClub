@@ -491,3 +491,69 @@ public func findLargestSizeAfterRemoval(n: Int, m: Int, h: [Int], v: [Int]) -> I
     */
     fatalError()
 }
+
+// Given an array of integers and a value,
+// determine if there are any three integers in the array whose sum equals the given value.
+public extension Array where Element == Int {
+    // Sort the array before calling this method
+    private func recusivelyFindTwoElements(having sum: Int, startIndex: Int, endIndex: Int) -> (Int, Int)? {
+        guard startIndex < endIndex else {
+            return nil
+        }
+        
+        let start = self[startIndex]
+        let end = self[endIndex]
+        
+        if start + end < sum {
+            return recusivelyFindTwoElements(having: sum, startIndex: startIndex + 1, endIndex: endIndex)
+        } else if start + end > sum {
+            return recusivelyFindTwoElements(having: sum, startIndex: startIndex, endIndex: endIndex - 1)
+        } else {
+            return (start, end)
+        }
+    }
+    
+    private func recusivelyFindTwoElements(having sum: Int) -> (Int, Int)? {
+        sorted().recusivelyFindTwoElements(having: sum, startIndex: startIndex, endIndex: endIndex - 1)
+    }
+    
+    private func findTwoElements(having sum: Int) -> (Int, Int)? {
+        guard !isEmpty, count > 1 else {
+            return nil
+        }
+        
+        let sorted = self.sorted()
+        var startIndex = sorted.startIndex
+        var endIndex = sorted.endIndex - 1
+        
+        while startIndex < endIndex {
+            let first = sorted[startIndex]
+            let second = sorted[endIndex]
+            if first + second < sum {
+                startIndex += 1
+            } else if first + second > sum {
+                endIndex -= 1
+            } else {
+                return (first, second)
+            }
+        }
+        
+        return nil
+    }
+    
+    func findThreeElements(having sum: Int) -> (Int, Int, Int)? {
+        guard !isEmpty, count > 2 else {
+            return nil
+        }
+        
+        for (index, first) in zip(indices, self) {
+            var copy = self
+            copy.remove(at: index)
+            if let (second, thrid) = copy.sorted().recusivelyFindTwoElements(having: sum - first)/*.findTwoElements(having: sum - first)*/ {
+                return (first, second, thrid)
+            }
+        }
+        
+        return nil
+    }
+}
