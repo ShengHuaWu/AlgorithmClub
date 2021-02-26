@@ -75,6 +75,7 @@ extension SinglyLinkedList: CustomStringConvertible {
 }
 
 // Add Two Integers
+//
 // Given the head pointers of two linked lists where each linked list represents an integer number (each node is a digit),
 // add them and return the resulting linked list.
 // Here, the first node in a list represents the least significant digit.
@@ -109,6 +110,39 @@ extension SinglyLinkedList where T == Int {
         
         if carry != 0 {
             result.append(newValue: carry)
+        }
+        
+        return result
+    }
+}
+
+// Merge Two Sorted Lists
+//
+// Given two sorted linked lists, merge them so that the resulting linked list is also sorted.
+extension SinglyLinkedList where T == Int {
+    public func merged(_ another: SinglyLinkedList<Int>) -> SinglyLinkedList<Int> {
+        var first = head
+        var second = another.head
+        let result = SinglyLinkedList()
+        
+        while let unwrappedFirst = first, let unwrappedSecond = second {
+            if unwrappedFirst.value <= unwrappedSecond.value {
+                result.append(newValue: unwrappedFirst.value)
+                first = unwrappedFirst.next
+            } else {
+                result.append(newValue: unwrappedSecond.value)
+                second = unwrappedSecond.next
+            }
+        }
+        
+        while let unwrappedFirst = first {
+            result.append(newValue: unwrappedFirst.value)
+            first = unwrappedFirst.next
+        }
+        
+        while let unwrappedSecond = second {
+            result.append(newValue: unwrappedSecond.value)
+            second = unwrappedSecond.next
         }
         
         return result

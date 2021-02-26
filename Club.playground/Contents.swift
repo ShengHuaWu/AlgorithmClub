@@ -66,7 +66,7 @@ list.append(newValue: 1)
 list.append(newValue: 2)
 list.append(newValue: 3)
 
-list.remove(with: 3)*/
+list.remove(with: 3)
 
 let list1 = SinglyLinkedList<Int>()
 list1.append(newValue: 1)
@@ -88,7 +88,20 @@ list4.append(newValue: 7)
 list4.append(newValue: 3)
 list4.append(newValue: 2)
 
-list3.add(list4)
+list3.add(list4)*/
+
+let list1 = SinglyLinkedList<Int>()
+list1.append(newValue: 4)
+list1.append(newValue: 8)
+list1.append(newValue: 15)
+list1.append(newValue: 19)
+let list2 = SinglyLinkedList<Int>()
+list2.append(newValue: 7)
+list2.append(newValue: 9)
+list2.append(newValue: 10)
+list2.append(newValue: 16)
+
+list1.merged(list2)
 
 
 // String
