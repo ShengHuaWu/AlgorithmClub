@@ -36,9 +36,9 @@ integers2.shiftingZeros()
 integers2.shiftZeros()
 
 [3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)
-[3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21)*/
+[3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21)
 [(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping()
-[(10, 12), (12, 15)].mergeOverlapping()
+[(10, 12), (12, 15)].mergeOverlapping()*/
 
 
 // Binary Search Tree
@@ -67,6 +67,28 @@ list.append(newValue: 2)
 list.append(newValue: 3)
 
 list.remove(with: 3)*/
+
+let list1 = SinglyLinkedList<Int>()
+list1.append(newValue: 1)
+list1.append(newValue: 2)
+list1.append(newValue: 3)
+let list2 = SinglyLinkedList<Int>()
+list2.append(newValue: 9)
+list2.append(newValue: 9)
+
+list1.add(list2)
+
+let list3 = SinglyLinkedList<Int>()
+list3.append(newValue: 1)
+list3.append(newValue: 0)
+list3.append(newValue: 9)
+list3.append(newValue: 9)
+let list4 = SinglyLinkedList<Int>()
+list4.append(newValue: 7)
+list4.append(newValue: 3)
+list4.append(newValue: 2)
+
+list3.add(list4)
 
 
 // String
