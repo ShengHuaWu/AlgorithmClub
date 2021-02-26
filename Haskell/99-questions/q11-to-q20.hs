@@ -76,6 +76,14 @@ mySplit xs n = (takeUntil xs n, dropUntil xs n)
 mySlice :: [a] -> Int -> Int -> [a]
 mySlice xs start end = take (end-start+1) (drop (start-1) xs)
 
+-- #19: Rotate a list N places to the left.
+myRotate :: [a] -> Int -> [a]
+myRotate [] _ = []
+myRotate list@(x:xs) n
+  | n > 0 = myRotate (xs ++ [x]) (n-1)
+  | n < 0 = myRotate list (length list + n) -- If `n` is negative, replace it with `length list + n` to get the result
+  | otherwise = list
+
 main = do
   print "#11"
   print $ myEncodeModified ""
@@ -112,3 +120,8 @@ main = do
   print $ mySlice "abcde" 2 4
   print $ mySlice "abc" 1 3
   print $ mySlice [1, 2, 3, 5, 6, 7, 8, 9, 10] 3 6
+  print "#19"
+  print $ myRotate "" 6
+  print $ myRotate "abc" 2
+  print $ myRotate "abc" (-1)
+  print $ myRotate [1, 2, 3, 5, 6] 3
