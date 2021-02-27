@@ -139,3 +139,72 @@ extension BinarySearchTree: CustomStringConvertible {
         }
     }
 }
+
+public enum BinaryTree<Value> {
+    case leaf
+    indirect case node(BinaryTree<Value>, Value, BinaryTree<Value>)
+}
+
+extension BinaryTree {
+    public func adding(_ value: Value, predicate: () -> Bool = { Int.random(in: 0...9) % 2 == 0 }) -> BinaryTree {
+        switch self {
+        case .leaf:
+            return .node(.leaf, value, .leaf)
+            
+        case let .node(left, v, right):
+            if predicate() {
+                return .node(left.adding(value), v, right)
+            } else {
+                return .node(left, v, right.adding(value))
+            }
+        }
+    }
+}
+
+extension BinaryTree: CustomStringConvertible where Value: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .leaf:
+            return "*"
+            
+        case let .node(.leaf, value, .leaf):
+            return "(\(value.description))"
+            
+        case let .node(left, value, right):
+            return "(\(left.description) <- \(value.description) -> \(right.description))"
+        }
+    }
+}
+
+// Determine If Two Binary Trees Are Identical
+//
+// Given the roots of two binary trees, determine if these trees are identical or not.
+// Identical trees have the same layout and data at each node.
+extension BinaryTree where Value: Equatable {
+    public func isIdenticial(with another: BinaryTree<Value>) -> Bool {
+        if case .leaf = self, case .leaf = another {
+            return true
+        }
+        
+        guard case let .node(leftSelf, valueSelf, rightSelf) = self, case let .node(leftAnother, valueAnother, rightAnother) = another else {
+            return false
+        }
+        
+        return valueSelf == valueAnother
+            && leftSelf.isIdenticial(with: leftAnother)
+            && rightSelf.isIdenticial(with: rightAnother)
+    }
+}
+
+// Mirror Binary Tree Nodes
+//
+// Given the root node of a binary tree, swap the ‘left’ and ‘right’ children for each node.
+extension BinaryTree {
+    public func mirroring() -> BinaryTree {
+        guard case let .node(left, value, right) = self else {
+            return .leaf
+        }
+        
+        return .node(right.mirroring(), value, left.mirroring())
+    }
+}

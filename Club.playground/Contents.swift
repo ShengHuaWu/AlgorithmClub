@@ -58,6 +58,20 @@ tree.append(3)
 tree.remove(8)
 dump(tree)*/
 
+// Binary Tree
+let tree = BinaryTree.leaf
+    .adding(5)
+    .adding(3)
+    .adding(2)
+    .adding(8)
+    .adding(4)
+tree.mirroring()
+
+let anotherTree = tree
+tree.isIdenticial(with: anotherTree)
+tree.isIdenticial(with: tree.mirroring())
+
+
 
 // Singly Linked List
 /*
@@ -88,7 +102,7 @@ list4.append(newValue: 7)
 list4.append(newValue: 3)
 list4.append(newValue: 2)
 
-list3.add(list4)*/
+list3.add(list4)
 
 let list1 = SinglyLinkedList<Int>()
 list1.append(newValue: 4)
@@ -101,7 +115,7 @@ list2.append(newValue: 9)
 list2.append(newValue: 10)
 list2.append(newValue: 16)
 
-list1.merged(list2)
+list1.merged(list2)*/
 
 
 // String
