@@ -130,5 +130,9 @@ assertEqual(str2.recursiveFindOccurence(of: "mom"), 2)
 let str3 = "Grab, the ride-hailing company competing with Uber in Southeast Asia, has pulled in $2 billion of new financing from existing investors Didi Chuxing, the company that defeated Uber in China, and SoftBank."
 assertEqual(str3.recursiveTruncate(with: 16), "Grab, the ")
 
-String.recursiveFizzBuss(in: 15)*/
-"aabbbaa".findAllPalindromeSubstrings()
+String.recursiveFizzBuss(in: 15)
+"aabbbaa".findAllPalindromeSubstrings()*/
+"Hello World".reversedWords()
+"""
+Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
+""".reversedWords()

@@ -272,3 +272,13 @@ extension String {
         return results
     }
 }
+
+// Reverse Words in a Sentence
+//
+// Reverse the order of words in a given sentence (an array of characters).
+// If the input is "Hello World", then outuput should be "World Hello"
+extension String {
+    public func reversedWords() -> String {
+        split(separator: " ").map(String.init).reversed().joined(separator: " ")
+    }
+}
