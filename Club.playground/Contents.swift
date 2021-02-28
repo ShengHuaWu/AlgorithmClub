@@ -56,7 +56,7 @@ tree.append(21)
 tree.append(3)
  
 tree.remove(8)
-dump(tree)*/
+dump(tree)
 
 // Binary Tree
 let tree = BinaryTree.leaf
@@ -69,7 +69,7 @@ tree.mirroring()
 
 let anotherTree = tree
 tree.isIdenticial(with: anotherTree)
-tree.isIdenticial(with: tree.mirroring())
+tree.isIdenticial(with: tree.mirroring())*/
 
 
 
@@ -131,3 +131,4 @@ let str3 = "Grab, the ride-hailing company competing with Uber in Southeast Asia
 assertEqual(str3.recursiveTruncate(with: 16), "Grab, the ")
 
 String.recursiveFizzBuss(in: 15)*/
+"aabbbaa".findAllPalindromeSubstrings()
