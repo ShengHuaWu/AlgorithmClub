@@ -587,3 +587,42 @@ extension Array where Element == (Int, Int) {
         return result
     }
 }
+
+// Largest Sum Subarray
+//
+// 1. Given an array of numbers, find the largest sum of any contiguous subarray.
+// 2. Given an array of positive numbers and a positive number ‘k’, find the maximum sum of any contiguous subarray of size ‘k’.
+extension Array where Element == Int {
+    public func findLargestSumOfSubarray() -> Int {
+        guard !isEmpty else {
+            return 0
+        }
+        
+        var currentMax = 0
+        var globalMax = 0
+        forEach { number in
+            if currentMax <= 0 {
+                currentMax = number
+            } else {
+                currentMax += number
+            }
+            
+            if globalMax < currentMax {
+                globalMax = currentMax
+            }
+        }
+        
+        return globalMax
+    }
+    
+    public func findLargestSumOfSubarray(with size: Int) -> Int {
+        guard count >= size else {
+            return reduce(0, +)
+        }
+        
+        return Swift.max(
+            self[..<size].reduce(0, +),
+            Array(dropFirst()).findLargestSumOfSubarray(with: size)
+        )
+    }
+}
