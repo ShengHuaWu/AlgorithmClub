@@ -38,9 +38,10 @@ integers2.shiftZeros()
 [3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)
 [3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21)
 [(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping()
-[(10, 12), (12, 15)].mergeOverlapping()*/
+[(10, 12), (12, 15)].mergeOverlapping()
 [-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray()
-[3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)
+[3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)*/
+[1, 2, 3].findAllSumCombinations(for: 7)
 
 
 // Binary Search Tree

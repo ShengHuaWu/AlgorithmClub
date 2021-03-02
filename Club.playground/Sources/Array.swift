@@ -626,3 +626,33 @@ extension Array where Element == Int {
         )
     }
 }
+
+// Find All Sum Combinations
+//
+// Given an array of positive integers and a positive integer `target` print all possible combinations of positive integers that sum up to the `target` number.
+// The array is sorted and there is no duplications
+extension Array where Element == Int {
+    public func findAllSumCombinations(for target: Int) -> [[Int]] {
+        var results = [[Int]]()
+        var temp = [Int]()
+        recursivelyFindAllSumCombinations(for: target, currentSum: 0, start: 0, temp: &temp, results: &results)
+        
+        return results
+    }
+    
+    private func recursivelyFindAllSumCombinations(for target: Int, currentSum: Int, start: Int, temp: inout [Int], results: inout [[Int]]) {
+        guard target != currentSum else {
+            results.append(temp)
+            return
+        }
+        
+        for index in start ..< count {
+            let newCurrentSum = self[index] + currentSum
+            if newCurrentSum <= target {
+                temp.append(self[index])
+                recursivelyFindAllSumCombinations(for: target, currentSum: newCurrentSum, start: index, temp: &temp, results: &results)
+                temp.removeLast() // Removing the last element from list (backtracking)
+            }
+        }
+    }
+}
