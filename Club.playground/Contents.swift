@@ -40,8 +40,8 @@ integers2.shiftZeros()
 [(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping()
 [(10, 12), (12, 15)].mergeOverlapping()
 [-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray()
-[3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)*/
-[1, 2, 3].findAllSumCombinations(for: 7)
+[3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)
+[1, 2, 3].findAllSumCombinations(for: 7)*/
 
 
 // Binary Search Tree
@@ -134,8 +134,23 @@ let str3 = "Grab, the ride-hailing company competing with Uber in Southeast Asia
 assertEqual(str3.recursiveTruncate(with: 16), "Grab, the ")
 
 String.recursiveFizzBuss(in: 15)
-"aabbbaa".findAllPalindromeSubstrings()*/
+"aabbbaa".findAllPalindromeSubstrings()
 "Hello World".reversedWords()
 """
 Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
-""".reversedWords()
+""".reversedWords()*/
+
+// Graph
+let tempNodeA = GraphNode(title: "A")
+let tempNodeB = GraphNode(title: "B")
+let tempNodeC = GraphNode(title: "C")
+let tempNodeD = GraphNode(title: "D")
+tempNodeA.neighbors.append(tempNodeB)
+tempNodeA.neighbors.append(tempNodeD)
+tempNodeB.neighbors.append(tempNodeA)
+tempNodeB.neighbors.append(tempNodeC)
+tempNodeC.neighbors.append(tempNodeB)
+tempNodeC.neighbors.append(tempNodeD)
+tempNodeD.neighbors.append(tempNodeA)
+tempNodeD.neighbors.append(tempNodeC)
+tempNodeA.cloned()
