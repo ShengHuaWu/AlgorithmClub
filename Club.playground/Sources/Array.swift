@@ -656,3 +656,47 @@ extension Array where Element == Int {
         }
     }
 }
+
+// Search Rotated Array
+//
+// Search for a given number in a sorted array, with unique elements, that has been rotated by some arbitrary number.
+// Return -1 if the number does not exist.
+// Assume that the array does not contain duplicates.
+extension Array where Element == Int {
+    public func findInRotated(key: Int) -> Int {
+        recursivelyFindInRotated(key: key, start: 0, end: count - 1)
+    }
+    
+    private func recursivelyFindInRotated(key: Int, start: Int, end: Int) -> Int {
+        guard start < end else {
+            return -1
+        }
+        
+        let mid = start + (end - start) / 2
+        let startValue = self[start]
+        let midValue = self[mid]
+        let endValue = self[end]
+        
+        if midValue == key {
+            return mid
+        }
+        
+        if startValue < midValue, midValue > key, key > startValue {
+            return recursivelyFindInRotated(key: key, start: start, end: mid - 1)
+        }
+        
+        if endValue > midValue, key > midValue, key < endValue {
+            return recursivelyFindInRotated(key: key, start: mid + 1, end: end)
+        }
+        
+        if endValue < midValue {
+            return recursivelyFindInRotated(key: key, start: mid + 1, end: end)
+        }
+        
+        if startValue > midValue {
+            return recursivelyFindInRotated(key: key, start: start, end: mid - 1)
+        }
+        
+        return -1
+    }
+}

@@ -42,6 +42,9 @@ integers2.shiftZeros()
 [-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray()
 [3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)
 [1, 2, 3].findAllSumCombinations(for: 7)*/
+[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 6)
+[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 3)
+[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)
 
 
 // Binary Search Tree
@@ -157,6 +160,7 @@ tempNodeD.neighbors.append(tempNodeC)
 tempNodeA.cloned()*/
 
 // LRU Cache
+/*
 let cache = LRUCache<Int, String>(capacity: 4)
 cache.set(key: 1, value: "one")
 cache.set(key: 2, value: "two")
@@ -165,4 +169,4 @@ cache.set(key: 4, value: "four")
 cache.set(key: 2, value: "new two")
 cache.get(key: 4)
 cache.set(key: 5, value: "five")
-cache.set(key: 6, value: "six")
+cache.set(key: 6, value: "six")*/
