@@ -141,6 +141,7 @@ Playing a text adventure game about the zombie apocalypse, with text on the scre
 """.reversedWords()*/
 
 // Graph
+/*
 let tempNodeA = GraphNode(title: "A")
 let tempNodeB = GraphNode(title: "B")
 let tempNodeC = GraphNode(title: "C")
@@ -153,4 +154,15 @@ tempNodeC.neighbors.append(tempNodeB)
 tempNodeC.neighbors.append(tempNodeD)
 tempNodeD.neighbors.append(tempNodeA)
 tempNodeD.neighbors.append(tempNodeC)
-tempNodeA.cloned()
+tempNodeA.cloned()*/
+
+// LRU Cache
+let cache = LRUCache<Int, String>(capacity: 4)
+cache.set(key: 1, value: "one")
+cache.set(key: 2, value: "two")
+cache.set(key: 3, value: "three")
+cache.set(key: 4, value: "four")
+cache.set(key: 2, value: "new two")
+cache.get(key: 4)
+cache.set(key: 5, value: "five")
+cache.set(key: 6, value: "six")
