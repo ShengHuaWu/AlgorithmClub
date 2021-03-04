@@ -537,11 +537,43 @@ extension Array where Element == Int {
 // Write a function to find the subset A.
 extension Array where Element == Int {
     public func findSubset() -> [Int] {
-        /* first thought:
-         Sort the original array and start from the largest element.
-         However, the time complexity is too high.
-        */
-        fatalError()
+        guard let (indexOfMax, max) = findMaxAndIndex() else {
+            return []
+        }
+        
+        var reminders = self
+        reminders.remove(at: indexOfMax)
+        var sumOfReminders = reminders.reduce(0, +)
+        var resultOfA = [max]
+        var sumOfA = max
+        while sumOfA < sumOfReminders {
+            if let (_, max) = reminders.findMaxAndIndex() {
+                resultOfA = [max] + resultOfA
+                sumOfA += max
+                sumOfReminders -= max
+            } else {
+                break
+            }
+        }
+        
+        return resultOfA
+    }
+    
+    private func findMaxAndIndex() -> (index: Int, max: Int)? {
+        guard let first = first else {
+            return nil
+        }
+        
+        var indexOfMax = 0
+        var max = first
+        zip(indices, self).forEach { index, number in
+            if number > max {
+                indexOfMax = index
+                max = number
+            }
+        }
+        
+        return (indexOfMax, max)
     }
 }
 
