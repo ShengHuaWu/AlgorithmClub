@@ -45,9 +45,10 @@ integers2.shiftZeros()
 [1, 2, 3].findAllSumCombinations(for: 7)
 [7, 6, 5, 1, 2, 3, 4].findInRotated(key: 6)
 [7, 6, 5, 1, 2, 3, 4].findInRotated(key: 3)
-[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)*/
+[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)
 [5, 8, 3, 2, 1].findSubset()
-[-5, 8, 3, 2, 1, 7].findSubset()
+[-5, 8, 3, 2, 1, 7].findSubset()*/
+[1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()
 
 // Binary Search Tree
 /*

@@ -591,6 +591,30 @@ public func findLargestSizeAfterRemoval(n: Int, m: Int, h: [Int], v: [Int]) -> I
     fatalError()
 }
 
+extension Array where Element == Int {
+    // The array has to be sorted first
+    public func findLargestLengthOfAdjacent() -> Int {
+        guard var temp = first else {
+            return 0
+        }
+        
+        var largest = 1
+        var count = 1
+        forEach { number in
+            if number - 1 == temp {
+                count += 1
+            } else {
+                count = 1
+            }
+            
+            largest = Swift.max(count, largest)
+            temp = number
+        }
+        
+        return largest
+    }
+}
+
 // Merge Overlapping Intervals
 //
 // You are given an array (list) of interval pairs as input where each interval has a start and end timestamp.
