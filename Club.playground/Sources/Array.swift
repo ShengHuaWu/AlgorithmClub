@@ -580,6 +580,7 @@ extension Array where Element == (Int, Int) {
                 lastInResult.1 = Swift.max(interval.1, lastInResult.1)
                 result.append(lastInResult)
             } else {
+                result.append(lastInResult)
                 result.append(interval)
             }
         }

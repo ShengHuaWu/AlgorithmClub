@@ -41,10 +41,13 @@ integers2.shiftZeros()
 [(10, 12), (12, 15)].mergeOverlapping()
 [-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray()
 [3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)
-[1, 2, 3].findAllSumCombinations(for: 7)*/
+[1, 2, 3].findAllSumCombinations(for: 7)
 [7, 6, 5, 1, 2, 3, 4].findInRotated(key: 6)
 [7, 6, 5, 1, 2, 3, 4].findInRotated(key: 3)
-[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)
+[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)*/
+
+[(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping()
+[(1, 5), (7, 9)].mergeOverlapping()
 
 
 // Binary Search Tree
