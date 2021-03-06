@@ -282,3 +282,114 @@ extension String {
         split(separator: " ").map(String.init).reversed().joined(separator: " ")
     }
 }
+
+// Hard drive statistics
+//
+// Your computer's hard driver is almost full.
+// In order to make some space, you need to compile some file statistics.
+// You want to know how many bytes of memory each file type is consuming.
+// Each file has a name, and the part of the name after the last dot is called the file extension, which identifies what type of file it is.
+// * music (only extensions: mp3, aac, flac)
+// * image (only extensions: jpg, bmp, gif)
+// * movie (only extensions: mp4, avi, mkv)
+// * other (all other extensions; for example: 7z, txt, zip)
+// You receive string `S`, containing a list of all the files in your computer (each file appears on a separate line).
+// Each line contains a file name and the file's size in bytes, separated by a space. For example,
+// ```
+// "my.song.mp3 11b
+// greatSong.flac 1000b
+// not3.txt 5b
+// video.mp4 200b
+// game.exe 100b
+// mov!e.mkv 10000b"
+// ```
+// In total there are 1011 bytes of music, 0 byte of images, 10200 bytes of movies, and 105 bytes of other files.
+// Write a function that, given string `S` describing the files on disk,
+// returns a string containing four rows, describing music, images, movies, and other file types respectively.
+// Each row should consist of a file type and the number of files consumed by files of that type on disk.
+// For instance, given string `S` as shown above, your function should return:
+// ```
+// "music 1011b
+// images 0b
+// movies 10200b
+// other 105b"
+// ```
+fileprivate struct File {
+    enum ExtType {
+        case music
+        case image
+        case movie
+        case other
+        
+        init(_ ext: Substring) {
+            switch ext {
+            case "mp3", "aac", "flac":
+                self = .music
+            case "jpg", "bmp", "gif":
+                self = .image
+            case "mp4", "avi", "mkv":
+                self = .movie
+            default:
+                self = .other
+            }
+        }
+    }
+    
+    let extType: ExtType
+    let size: Int
+}
+
+fileprivate struct Statistic {
+    var sizeOfMusic: Int = 0
+    var sizeOfImages: Int = 0
+    var sizeOfMovies: Int = 0
+    var sizeOfOthers: Int = 0
+    
+    var description: String {
+        """
+        music \(sizeOfMusic)b
+        images \(sizeOfImages)b
+        movies \(sizeOfMovies)b
+        others \(sizeOfOthers)b
+        """
+    }
+    
+    mutating func include(_ file: File) {
+        switch file.extType {
+        case .music:
+            sizeOfMusic += file.size
+        case .image:
+            sizeOfImages += file.size
+        case .movie:
+            sizeOfMovies += file.size
+        case .other:
+            sizeOfOthers += file.size
+        }
+    }
+}
+
+extension String {
+    public func hardDriveStatistics() -> String {
+        split(separator: "\n")
+            .compactMap { $0.parseToFile() }
+            .reduce(into: Statistic()) { $0.include($1) }
+            .description
+    }
+}
+
+extension Substring {
+    fileprivate func parseToFile() -> File? {
+        guard let indexBeforeExt = lastIndex(of: "."),
+              let startIndexOfExt = index(indexBeforeExt, offsetBy: 1, limitedBy: endIndex),
+              let indexOfSpace = lastIndex(of: " "),
+              let startIndexOfSize = index(indexOfSpace, offsetBy: 1, limitedBy: endIndex),
+              let startIndexOfByte = lastIndex(of: "b"),
+              let size = Int(String(self[startIndexOfSize ..< startIndexOfByte])) else {
+            return nil // Wrong input format
+        }
+        
+        let ext = self[startIndexOfExt ..< indexOfSpace]
+        
+        return File(extType: .init(ext), size: size)
+    }
+}

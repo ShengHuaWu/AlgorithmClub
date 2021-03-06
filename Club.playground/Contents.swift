@@ -145,6 +145,14 @@ String.recursiveFizzBuss(in: 15)
 """
 Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
 """.reversedWords()*/
+"""
+my.song.mp3 11b
+greatSong.flac 1000b
+not3.txt 5b
+video.mp4 200b
+game.exe 100b
+mov!e.mkv 10000b
+""".hardDriveStatistics()
 
 // Graph
 /*

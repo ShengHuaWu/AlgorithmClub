@@ -112,7 +112,7 @@ extension BinarySearchTree {
             // but replacing the largest element from left also works.
             switch right.minimun {
             case .empty:
-                return self
+                return right
             case let .node(_, min, _):
                 return .node(left, min, right.removing(min))
             }
