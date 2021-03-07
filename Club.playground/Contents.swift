@@ -47,8 +47,11 @@ integers2.shiftZeros()
 [7, 6, 5, 1, 2, 3, 4].findInRotated(key: 3)
 [7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)
 [5, 8, 3, 2, 1].findSubset()
-[-5, 8, 3, 2, 1, 7].findSubset()*/
-[1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()
+[-5, 8, 3, 2, 1, 7].findSubset()
+[1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()*/
+[Int]().findMinimumDistanceBetweenAdjacent()
+[100_000_001, 0].findMinimumDistanceBetweenAdjacent()
+[0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent()
 
 // Binary Search Tree
 /*
@@ -144,7 +147,7 @@ String.recursiveFizzBuss(in: 15)
 "Hello World".reversedWords()
 """
 Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
-""".reversedWords()*/
+""".reversedWords()
 """
 my.song.mp3 11b
 greatSong.flac 1000b
@@ -152,7 +155,7 @@ not3.txt 5b
 video.mp4 200b
 game.exe 100b
 mov!e.mkv 10000b
-""".hardDriveStatistics()
+""".hardDriveStatistics()*/
 
 // Graph
 /*
