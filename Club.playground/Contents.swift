@@ -48,10 +48,11 @@ integers2.shiftZeros()
 [7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)
 [5, 8, 3, 2, 1].findSubset()
 [-5, 8, 3, 2, 1, 7].findSubset()
-[1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()*/
+[1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()
 [Int]().findMinimumDistanceBetweenAdjacent()
 [100_000_001, 0].findMinimumDistanceBetweenAdjacent()
-[0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent()
+[0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent()*/
+[2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3)
 
 // Binary Search Tree
 /*
