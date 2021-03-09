@@ -51,8 +51,8 @@ integers2.shiftZeros()
 [1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()
 [Int]().findMinimumDistanceBetweenAdjacent()
 [100_000_001, 0].findMinimumDistanceBetweenAdjacent()
-[0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent()*/
-[2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3)
+[0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent()
+[2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3)*/
 
 // Binary Search Tree
 /*

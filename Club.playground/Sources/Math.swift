@@ -13,7 +13,7 @@ func power(_ x: Double, _ n: Int) -> Double {
     }
     
     let temp = power(x, n / 2)
-    if n % 2 == 0 {
+    if n.isMultiple(of: 2) {
         return temp * temp // For instance, 2^8 = 2^4 * 2^4
     } else {
         return x * temp * temp // For instance, 2^9 = 2 * 2^4 * 2^4

@@ -547,10 +547,11 @@ extension Array where Element == Int {
         var resultOfA = [max]
         var sumOfA = max
         while sumOfA < sumOfReminders {
-            if let (_, max) = reminders.findMaxAndIndex() {
-                resultOfA = [max] + resultOfA
-                sumOfA += max
-                sumOfReminders -= max
+            if let (index, maxOfReminders) = reminders.findMaxAndIndex() {
+                resultOfA = [maxOfReminders] + resultOfA
+                sumOfA += maxOfReminders
+                sumOfReminders -= maxOfReminders
+                reminders.remove(at: index)
             } else {
                 break
             }
@@ -724,6 +725,7 @@ extension Array where Element == Int {
         recursivelyFindInRotated(key: key, start: 0, end: count - 1)
     }
     
+    // TODO: Not correct yet, for example, find 2 in [5, 6, 7, 1, 2, 3, 4] will return -1
     private func recursivelyFindInRotated(key: Int, start: Int, end: Int) -> Int {
         guard start < end else {
             return -1
