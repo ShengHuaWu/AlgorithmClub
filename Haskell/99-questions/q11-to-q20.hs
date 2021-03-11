@@ -84,6 +84,12 @@ myRotate list@(x:xs) n
   | n < 0 = myRotate list (length list + n) -- If `n` is negative, replace it with `length list + n` to get the result
   | otherwise = list
 
+-- #20: Remove the K'th element from a list.
+myRemoveAt :: Int -> [a] -> (Maybe a, [a])
+myRemoveAt _ [] = (Nothing, [])
+myRemoveAt 1 (x:xs) = (Just x, xs)
+myRemoveAt n (x:xs) = (a, x:rest) where (a, rest) = myRemoveAt (n-1) xs
+
 main = do
   print "#11"
   print $ myEncodeModified ""
@@ -125,3 +131,8 @@ main = do
   print $ myRotate "abc" 2
   print $ myRotate "abc" (-1)
   print $ myRotate [1, 2, 3, 5, 6] 3
+  print "#20"
+  print $ myRemoveAt 0 "abcd"
+  print $ myRemoveAt 10 "abcd"
+  print $ myRemoveAt 2 ""
+  print $ myRemoveAt 2 "abcd"
