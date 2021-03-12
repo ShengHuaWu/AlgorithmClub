@@ -393,3 +393,25 @@ extension Substring {
         return File(extType: .init(ext), size: size)
     }
 }
+
+// Parse Accept Language
+//
+// The accept language headers is comma-separated list and it could contain spaces, for example, `"en-US, fr-CA"`.
+// In addition, it could also contain non-region form, such as, `"en, fr-CA"`,
+// and there could also be a wildcard tag `"*"` inside the accept language headers.
+// The order of the accept language headers matters.
+public func parseAcceptLanguage(
+    _ acceptLanguageHeaders: String,
+    _ supportedLanguages: [String]
+) -> [String] {
+    acceptLanguageHeaders
+        .split(separator: ",")
+        .map { tag in tag.replacingOccurrences(of: " ", with: "") }
+        .reduce([]) { results, tag in
+            let languages = supportedLanguages.filter { language in
+                language == tag || language.contains(tag) || tag == "*" // wildcard
+            }
+            
+            return results + languages.filter { language in !results.contains(language) }
+        }
+}
