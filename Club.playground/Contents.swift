@@ -53,7 +53,10 @@ integers2.shiftZeros()
 [Int]().findMinimumDistanceBetweenAdjacent()
 [100_000_001, 0].findMinimumDistanceBetweenAdjacent()
 [0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent()
-[2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3)*/
+[2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3)
+[2, 2, 3, 3, 4, 4].treatsDistribution()
+[1, 1, 2, 4].treatsDistribution()
+[1, 1, 1, 1].treatsDistribution()*/
 
 // Binary Search Tree
 /*

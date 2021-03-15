@@ -874,3 +874,22 @@ extension Array where Element == Int {
         return waitingTime
     }
 }
+
+// Treats Distribution
+//
+// Say we are given an integer array of an even length, where different numbers in the array represent certain kinds of snacks or treats.
+// Each number maps to, or represents, one kind of snack.
+// So the following array would have two kinds: snack type 3 and type 2: `[3, 3, 2, 2]`.
+// You need to distribute these snacks equally in number to a brother and sister duo.
+// Write a function to return the maximum number of unique kinds of snacks the sister could gain.
+extension Array where Element == Int {
+    public func treatsDistribution() -> Int {
+        let uniqueSnacks = Set(self)
+        let countDividedBy2 = count / 2
+        if uniqueSnacks.count < countDividedBy2 {
+            return uniqueSnacks.count
+        } else {
+            return countDividedBy2
+        }
+    }
+}
