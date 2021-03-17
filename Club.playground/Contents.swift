@@ -160,7 +160,10 @@ not3.txt 5b
 video.mp4 200b
 game.exe 100b
 mov!e.mkv 10000b
-""".hardDriveStatistics()*/
+""".hardDriveStatistics()
+"".validateBalancedBrackets()
+"{{{{{[[()()]]}}}}}[]{}".validateBalancedBrackets()
+"{{]](())".validateBalancedBrackets()*/
 
 class StringTests: XCTestCase {
     func testParseAcceptLanguage() {

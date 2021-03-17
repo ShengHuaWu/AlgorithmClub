@@ -415,3 +415,80 @@ public func parseAcceptLanguage(
             return results + languages.filter { language in !results.contains(language) }
         }
 }
+
+// Balanced Brackets
+//
+// We're provided a string like the following: "{[])}" that is inclusive of the following symbols:
+// parentheses `()`, brackets `[]`, and curly braces `{}`.
+// Write a function that will check if the symbol pairings in the string follow these below conditions:
+// They are correctly ordered, meaning opening braces/symbols should come first.
+// They contain the correct pairings, so every opening brace has a closing one.
+// They are both of the same kind in a pair, so an opening parenthesis does not close with a closing curly brace.
+// For example, `()` is valid. `((` is not. Similarly, `{{[]}}` is valid. `[[}}` is not.
+extension String {
+    public func validateBalancedBrackets() -> Bool {
+        guard !isEmpty else {
+            return true
+        }
+        
+        var bracketsWithIndices = [Character: [String.Index]]()
+        zip(indices, self).forEach { index, character in
+            if let indices = bracketsWithIndices[character] {
+                bracketsWithIndices[character] = indices + [index]
+            } else {
+                bracketsWithIndices[character] = [index]
+            }
+        }
+        
+        let openParenthese: Character = "("
+        let closeParenthese: Character = ")"
+        let openBracket: Character = "["
+        let closeBracket: Character = "]"
+        let openCurlyBrace: Character = "{"
+        let closeCurlyBrace: Character = "}"
+        
+        // First of all, check the amount of the open and close pairs are the same
+        guard bracketsWithIndices[openParenthese]?.count == bracketsWithIndices[closeParenthese]?.count,
+              bracketsWithIndices[openBracket]?.count == bracketsWithIndices[closeBracket]?.count,
+              bracketsWithIndices[openCurlyBrace]?.count == bracketsWithIndices[closeCurlyBrace]?.count else {
+            return false
+        }
+        
+        // The first open one must occur before the first close one,
+        // and this rule should apply for all the indices, for instance, `(())` or `()()`
+        if let openParentheseIndices = bracketsWithIndices[openParenthese],
+           let closeParentheseIndices = bracketsWithIndices[closeParenthese] {
+            let isBalanced = zip(openParentheseIndices, closeParentheseIndices).reduce(true) { result, indexPair in
+                result && indexPair.0 < indexPair.1
+            }
+            
+            if !isBalanced {
+                return false
+            }
+        }
+        
+        if let openBracketIndices = bracketsWithIndices[openBracket],
+           let closeBracketIndices = bracketsWithIndices[closeBracket] {
+            let isBalanced = zip(openBracketIndices, closeBracketIndices).reduce(true) { result, indexPair in
+                result && indexPair.0 < indexPair.1
+            }
+            
+            if !isBalanced {
+                return false
+            }
+        }
+        
+        if let openCurlyBraceIndices = bracketsWithIndices[openCurlyBrace],
+           let closeCurlyBraceIndices = bracketsWithIndices[closeCurlyBrace] {
+            let isBalanced = zip(openCurlyBraceIndices, closeCurlyBraceIndices).reduce(true) { result, indexPair in
+                result && indexPair.0 < indexPair.1
+            }
+            
+            if !isBalanced {
+                return false
+            }
+        }
+        
+        return true
+    }
+}
