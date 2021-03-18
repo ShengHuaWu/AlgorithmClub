@@ -164,6 +164,10 @@ mov!e.mkv 10000b
 "".validateBalancedBrackets()
 "{{{{{[[()()]]}}}}}[]{}".validateBalancedBrackets()
 "{{]](())".validateBalancedBrackets()*/
+"bell".isSubsequence(of: "barbell")
+"hen".isSubsequence(of: "chicken")
+"kgb".isSubsequence(of: "kfcapple")
+"kgb".isSubsequence(of: "gbkfcapple")
 
 class StringTests: XCTestCase {
     func testParseAcceptLanguage() {

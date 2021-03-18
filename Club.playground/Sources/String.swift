@@ -492,3 +492,26 @@ extension String {
         return true
     }
 }
+
+// Is A Subsequence
+//
+// Given two strings, one named `sub` and the other `str`, determine if `sub` is a subsequence of `str`.
+extension String {
+    public func isSubsequence(of str: String) -> Bool {
+        guard !isEmpty, !str.isEmpty else {
+            return false
+        }
+        
+        var indexOfPreviousCharInStr = str.startIndex
+        // ???: Perhaps we can check the first and last together and exclude them at once
+        for char in self {
+            if let indexOfCharInStr = str[indexOfPreviousCharInStr...].firstIndex(of: char) {
+                indexOfPreviousCharInStr = indexOfCharInStr
+            } else {
+                return false
+            }
+        }
+        
+        return true
+    }
+}
