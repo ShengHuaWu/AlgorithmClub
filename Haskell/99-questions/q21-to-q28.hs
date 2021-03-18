@@ -17,6 +17,12 @@ randomSelect xs n = do
   gen <- getStdGen
   return $ take n [xs !! x | x <- randomRs (0, (length xs) - 1) gen] -- why???
 
+-- #24: Draw N different random numbers from the set 1..M.
+randomDraw :: Int -> Int -> IO [Int]
+randomDraw n m = do
+  gen <- getStdGen
+  return . take n $ randomRs (1, m) gen -- `randomRs :: RandomGen g => (a, a) -> g -> [a]`
+
 main = do
   print "#21"
   print $ myInsert 'x' "" 9
@@ -30,3 +36,5 @@ main = do
   print "#23"
   randomSelect "" 3 >>= putStrLn
   randomSelect "abcdefgh" 3 >>= putStrLn
+  print "#24"
+  randomDraw 6 49 >>= print
