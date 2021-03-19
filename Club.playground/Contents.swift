@@ -163,11 +163,14 @@ mov!e.mkv 10000b
 """.hardDriveStatistics()
 "".validateBalancedBrackets()
 "{{{{{[[()()]]}}}}}[]{}".validateBalancedBrackets()
-"{{]](())".validateBalancedBrackets()*/
+"{{]](())".validateBalancedBrackets()
 "bell".isSubsequence(of: "barbell")
 "hen".isSubsequence(of: "chicken")
 "kgb".isSubsequence(of: "kfcapple")
-"kgb".isSubsequence(of: "gbkfcapple")
+"kgb".isSubsequence(of: "gbkfcapple")*/
+"341".getTargetsVicinities(for: "341")
+"341".getTargetsVicinities(for: "123")
+"341".getTargetsVicinities(for: "134")
 
 class StringTests: XCTestCase {
     func testParseAcceptLanguage() {
