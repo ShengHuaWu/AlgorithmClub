@@ -133,6 +133,12 @@ list2.append(newValue: 10)
 list2.append(newValue: 16)
 
 list1.merged(list2)*/
+let list1 = SinglyLinkedList<Int>()
+list1.append(newValue: 1)
+list1.append(newValue: 2)
+list1.append(newValue: 3)
+list1.append(newValue: 4)
+list1.getRandomNode()
 
 
 // String
@@ -167,10 +173,10 @@ mov!e.mkv 10000b
 "bell".isSubsequence(of: "barbell")
 "hen".isSubsequence(of: "chicken")
 "kgb".isSubsequence(of: "kfcapple")
-"kgb".isSubsequence(of: "gbkfcapple")*/
+"kgb".isSubsequence(of: "gbkfcapple")
 "341".getTargetsVicinities(for: "341")
 "341".getTargetsVicinities(for: "123")
-"341".getTargetsVicinities(for: "134")
+"341".getTargetsVicinities(for: "134")*/
 
 class StringTests: XCTestCase {
     func testParseAcceptLanguage() {
