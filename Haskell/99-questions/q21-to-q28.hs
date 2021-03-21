@@ -23,6 +23,10 @@ randomDraw n m = do
   gen <- getStdGen
   return . take n $ randomRs (1, m) gen -- `randomRs :: RandomGen g => (a, a) -> g -> [a]`
 
+-- #25: Generate a random permutation of the elements of a list.
+randomPermutation :: [a] -> IO [a]
+randomPermutation xs = randomSelect xs (length xs) -- This is not correct
+
 main = do
   print "#21"
   print $ myInsert 'x' "" 9
@@ -38,3 +42,5 @@ main = do
   randomSelect "abcdefgh" 3 >>= putStrLn
   print "#24"
   randomDraw 6 49 >>= print
+  print "#25"
+  randomPermutation "ABCDEFGH" >>= print
