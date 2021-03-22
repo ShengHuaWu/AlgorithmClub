@@ -725,8 +725,11 @@ extension Array where Element == Int {
         recursivelyFindInRotated(key: key, start: 0, end: count - 1)
     }
     
-    // TODO: Not correct yet, for example, find 2 in [5, 6, 7, 1, 2, 3, 4] will return -1
     private func recursivelyFindInRotated(key: Int, start: Int, end: Int) -> Int {
+        if start == end, self[start] == key {
+            return start
+        }
+        
         guard start < end else {
             return -1
         }
@@ -740,11 +743,11 @@ extension Array where Element == Int {
             return mid
         }
         
-        if startValue < midValue, midValue > key, key > startValue {
+        if startValue < midValue, midValue > key, key >= startValue {
             return recursivelyFindInRotated(key: key, start: start, end: mid - 1)
         }
         
-        if endValue > midValue, key > midValue, key < endValue {
+        if endValue > midValue, key > midValue, key <= endValue {
             return recursivelyFindInRotated(key: key, start: mid + 1, end: end)
         }
         
@@ -878,9 +881,9 @@ extension Array where Element == Int {
 // Treats Distribution
 //
 // Say we are given an integer array of an even length, where different numbers in the array represent certain kinds of snacks or treats.
-// Each number maps to, or represents, one kind of snack.
+// Each number represents, one kind of snack.
 // So the following array would have two kinds: snack type 3 and type 2: `[3, 3, 2, 2]`.
-// You need to distribute these snacks equally in number to a brother and sister duo.
+// You need to distribute these snacks equally in number to a brother and sister.
 // Write a function to return the maximum number of unique kinds of snacks the sister could gain.
 extension Array where Element == Int {
     public func treatsDistribution() -> Int {

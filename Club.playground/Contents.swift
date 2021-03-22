@@ -2,6 +2,49 @@ import Foundation
 import XCTest
 
 // Array
+final class ArrayTests: XCTestCase {
+    func testTreatsDistribution() {
+        XCTAssertEqual([2, 2, 3, 3, 4, 4].treatsDistribution(), 3)
+        XCTAssertEqual([1, 1, 2, 4].treatsDistribution(), 2)
+        XCTAssertEqual([1, 1, 1, 1].treatsDistribution(), 1)
+    }
+    
+    func testFindMaximumWaitingTime() {
+        XCTAssertEqual([2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3), 8)
+    }
+    
+    func testFindMinimumDistanceBetweenAdjacent() {
+        XCTAssertEqual([Int]().findMinimumDistanceBetweenAdjacent(), -2)
+        XCTAssertEqual([100_000_001, 0].findMinimumDistanceBetweenAdjacent(), -1)
+        XCTAssertEqual([0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent(), 0)
+    }
+    
+    func testFindInRotated() {
+        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 6), 1)
+        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 3), 5)
+        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 8), -1)
+        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 2), 4)
+    }
+    
+    func testFindAllSumCombinations() {
+        XCTAssertEqual(
+            [1, 2, 3].findAllSumCombinations(for: 7),
+            [
+                [1, 1, 1, 1, 1, 1, 1],
+                [1, 1, 1, 1, 1, 2],
+                [1, 1, 1, 1, 3],
+                [1, 1, 1, 2, 2],
+                [1, 1, 2, 3],
+                [1, 2, 2, 2],
+                [1, 3, 3],
+                [2, 2, 3]
+            ]
+        )
+    }
+}
+
+ArrayTests.defaultTestSuite.run()
+
 /*
 let integers = [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29]
 assertEqual(integers.binarySearch(for: 1), 3)
@@ -43,20 +86,10 @@ integers2.shiftZeros()
 [(10, 12), (12, 15)].mergeOverlapping()
 [-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray()
 [3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)
-[1, 2, 3].findAllSumCombinations(for: 7)
-[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 6)
-[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 3)
-[7, 6, 5, 1, 2, 3, 4].findInRotated(key: 8)
 [5, 8, 3, 2, 1].findSubset()
 [-5, 8, 3, 2, 1, 7].findSubset()
 [1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()
-[Int]().findMinimumDistanceBetweenAdjacent()
-[100_000_001, 0].findMinimumDistanceBetweenAdjacent()
-[0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent()
-[2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3)
-[2, 2, 3, 3, 4, 4].treatsDistribution()
-[1, 1, 2, 4].treatsDistribution()
-[1, 1, 1, 1].treatsDistribution()*/
+*/
 
 // Binary Search Tree
 /*
@@ -178,7 +211,7 @@ mov!e.mkv 10000b
 "341".getTargetsVicinities(for: "123")
 "341".getTargetsVicinities(for: "134")*/
 
-class StringTests: XCTestCase {
+final class StringTests: XCTestCase {
     func testParseAcceptLanguage() {
         XCTAssertEqual(
             parseAcceptLanguage("en-US, fr-CA, fr-FR", ["fr-FR", "en-US"]),
