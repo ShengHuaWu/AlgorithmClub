@@ -375,6 +375,12 @@ extension String {
             .reduce(into: Statistic()) { $0.include($1) }
             .description
     }
+    
+    public func hardDriveStatisticsWithParser() -> String {
+        var copy = self
+        
+        return files().run(&copy)?.reduce(into: Statistic()) { $0.include($1) }.description ?? ""
+    }
 }
 
 extension Substring {
@@ -391,6 +397,133 @@ extension Substring {
         let ext = self[startIndexOfExt ..< indexOfSpace]
         
         return File(extType: .init(ext), size: size)
+    }
+}
+
+struct Parser<Result> {
+    let run: (inout String) -> Result?
+}
+
+extension Parser {
+    static var never: Self {
+        Parser { _ in nil }
+    }
+    
+    func map<NewResult>(_ f: @escaping (Result) -> NewResult) -> Parser<NewResult> {
+        Parser<NewResult> { string in
+            self.run(&string).map(f)
+        }
+    }
+    
+    func flatMap<NewResult>(_ f: @escaping (Result) -> Parser<NewResult>) -> Parser<NewResult> {
+        Parser<NewResult> { string in
+            let original = string
+            let result = self.run(&string)
+            let newParser = result.map(f)
+            
+            guard let newResult = newParser?.run(&string) else {
+                string = original
+                return nil
+            }
+            
+            return newResult
+        }
+    }
+}
+
+func always<Result>(_ result: Result) -> Parser<Result> {
+    Parser { _ in result }
+}
+
+func zeroOrMore<Result>(_ parser: Parser<Result>, separatedBy separator: Parser<Void>) -> Parser<[Result]> {
+    Parser { string in
+        var reminder = string
+        var matches = [Result]()
+        while let match = parser.run(&string) {
+            reminder = string
+            matches.append(match)
+            if separator.run(&string) == nil {
+                return matches
+            }
+        }
+        string = reminder
+        return matches
+    }
+}
+
+func oneOrMore<Result>(_ parser: Parser<Result>, separatedBy separator: Parser<Void>) -> Parser<[Result]> {
+    zeroOrMore(parser, separatedBy: separator).flatMap { $0.isEmpty ? .never : always($0) }
+}
+
+func literal(_ text: String) -> Parser<Void> {
+    Parser { string in
+        guard string.hasPrefix(text) else {
+            return nil
+        }
+        
+        string.removeFirst(text.count)
+        return ()
+    }
+}
+
+fileprivate func files() -> Parser<[File]> {
+    oneOrMore(.file, separatedBy: literal("\n"))
+}
+
+func zip<A, B>(_ a: Parser<A>, _ b: Parser<B>) -> Parser<(A, B)> {
+  return Parser<(A, B)> { str -> (A, B)? in
+    let original = str
+    guard let matchA = a.run(&str) else {
+        return nil
+    }
+    
+    guard let matchB = b.run(&str) else {
+      str = original
+      return nil
+    }
+    
+    return (matchA, matchB)
+  }
+}
+
+func zip<A, B, C>(_ a: Parser<A>, _ b: Parser<B>, _ c: Parser<C>) -> Parser<(A, B, C)> {
+  return zip(a, zip(b, c)).map { a, bc in (a, bc.0, bc.1) }
+}
+
+fileprivate extension Parser {
+    static var file: Parser<File> {
+        zip(.ext, literal(" "), .size).map { ext, _, size in
+            File(extType: ext, size: size)
+        }
+    }
+    
+    static var ext: Parser<File.ExtType> {
+        Parser<File.ExtType> { string in
+            let line = string.prefix(while: { $0 != "\n" })
+            guard let indexOfLastDot = line.lastIndex(of: "."),
+                  let startOfExt = line.index(indexOfLastDot, offsetBy: 1, limitedBy: line.endIndex),
+                  let indexOfSpace = line.lastIndex(of: " ") else {
+                return nil
+            }
+            
+            let ext = File.ExtType(string[startOfExt ..< indexOfSpace])
+            string.removeSubrange(string.startIndex ..< indexOfSpace)
+            
+            return ext
+        }
+    }
+    
+    static var size: Parser<Int> {
+        Parser<Int> { string in
+            let sizeString = string.prefix(while: { $0 != "b" })
+            guard let size = Int(String(sizeString)) else {
+                return nil
+            }
+            
+            string.removeFirst(sizeString.count + 1) // Remove the `b` symbol as well
+            
+            return size
+        }
     }
 }
 

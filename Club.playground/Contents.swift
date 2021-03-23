@@ -200,6 +200,14 @@ video.mp4 200b
 game.exe 100b
 mov!e.mkv 10000b
 """.hardDriveStatistics()
+"""
+my.song.mp3 11b
+greatSong.flac 1000b
+not3.txt 5b
+video.mp4 200b
+game.exe 100b
+mov!e.mkv 10000b
+""".hardDriveStatisticsWithParser()
 "".validateBalancedBrackets()
 "{{{{{[[()()]]}}}}}[]{}".validateBalancedBrackets()
 "{{]](())".validateBalancedBrackets()
