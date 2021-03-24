@@ -41,6 +41,34 @@ final class ArrayTests: XCTestCase {
             ]
         )
     }
+    
+    func testFindLargestSumOfSubarray() {
+        XCTAssertEqual([-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray(), 12)
+        XCTAssertEqual([3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3), 16)
+    }
+    
+    func testMergeOverlapping() {
+        [(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping() // [(1, 8)]
+        [(1, 5), (7, 9)].mergeOverlapping() // [(1, 5), (7, 9)]
+        [(10, 12), (12, 15)].mergeOverlapping() // [(10, 15)]
+    }
+    
+    func testFindLargestLengthOfAdjacent() {
+        XCTAssertEqual([1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent(), 4)
+    }
+    
+    func testFindSubset() {
+        XCTAssertEqual([5, 8, 3, 2, 1].findSubset(), [5, 8])
+        XCTAssertEqual([-5, 8, 3, 2, 1, 7].findSubset(), [8])
+    }
+    
+    func testFindThreeElements() {
+        XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.0, 7)
+        XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.1, 5)
+        XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.2, 8)
+        
+        XCTAssertNil([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21))
+    }
 }
 
 ArrayTests.defaultTestSuite.run()
@@ -78,17 +106,6 @@ source2.minAndMax()
 var integers2 = [0, 20, -3, 0, 0, 9, 7, 2, 1, 0]
 integers2.shiftingZeros()
 integers2.shiftZeros()
-
-[3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)
-[3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21)
-[(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping()
-[(1, 5), (7, 9)].mergeOverlapping()
-[(10, 12), (12, 15)].mergeOverlapping()
-[-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray()
-[3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3)
-[5, 8, 3, 2, 1].findSubset()
-[-5, 8, 3, 2, 1, 7].findSubset()
-[1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent()
 */
 
 // Binary Search Tree
