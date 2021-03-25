@@ -71,7 +71,7 @@ final class ArrayTests: XCTestCase {
     }
 }
 
-ArrayTests.defaultTestSuite.run()
+//ArrayTests.defaultTestSuite.run()
 
 /*
 let integers = [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29]
@@ -182,16 +182,73 @@ list2.append(newValue: 9)
 list2.append(newValue: 10)
 list2.append(newValue: 16)
 
-list1.merged(list2)*/
+list1.merged(list2)
+ 
 let list1 = SinglyLinkedList<Int>()
 list1.append(newValue: 1)
 list1.append(newValue: 2)
 list1.append(newValue: 3)
 list1.append(newValue: 4)
-list1.getRandomNode()
+list1.getRandomNode()*/
 
 
 // String
+final class StringTests: XCTestCase {
+    func testParseAcceptLanguage() {
+        XCTAssertEqual(parseAcceptLanguage("en-US, fr-CA, fr-FR", ["fr-FR", "en-US"]), ["en-US", "fr-FR"])
+        XCTAssertEqual(parseAcceptLanguage("fr-CA, fr-FR", ["en-US", "fr-FR"]), ["fr-FR"])
+        XCTAssertEqual(parseAcceptLanguage("en-US", ["en-US", "fr-CA"]), ["en-US"])
+        XCTAssertEqual(parseAcceptLanguage("", ["en-US", "fr-CA"]), [])
+        XCTAssertEqual(parseAcceptLanguage("fr-FR", []), [])
+        XCTAssertEqual(parseAcceptLanguage("fr-FR", ["en-US", "fr-CA"]), [])
+        XCTAssertEqual(parseAcceptLanguage("en", ["en-US", "fr-CA", "fr-FR"]), ["en-US"])
+        XCTAssertEqual(parseAcceptLanguage("fr", ["en-US", "fr-CA", "fr-FR"]), ["fr-CA", "fr-FR"])
+        XCTAssertEqual(parseAcceptLanguage("fr-FR, fr", ["en-US", "fr-CA", "fr-FR"]), ["fr-FR", "fr-CA"])
+    }
+    
+    func testGetTargetsVicinities() {
+        XCTAssertEqual("341".getTargetsVicinities(for: "341"), "3T0V")
+        XCTAssertEqual("341".getTargetsVicinities(for: "123"), "0T2V")
+        XCTAssertEqual("341".getTargetsVicinities(for: "134"), "0T3V")
+    }
+    
+    func testIsSubsequence() {
+        XCTAssertTrue("bell".isSubsequence(of: "barbell"))
+        XCTAssertTrue("hen".isSubsequence(of: "chicken"))
+        XCTAssertFalse("kgb".isSubsequence(of: "kfcapple"))
+        XCTAssertFalse("kgb".isSubsequence(of: "gbkfcapple"))
+    }
+    
+    func testValidateBalancedBrackets() {
+        XCTAssertTrue("".validateBalancedBrackets())
+        XCTAssertTrue("{{{{{[[()()]]}}}}}[]{}".validateBalancedBrackets())
+        XCTAssertFalse("{{]](())".validateBalancedBrackets())
+    }
+    
+    func testHardDriveStatistics() {
+        let report = """
+        my.song.mp3 11b
+        greatSong.flac 1000b
+        not3.txt 5b
+        video.mp4 200b
+        game.exe 100b
+        mov!e.mkv 10000b
+        """
+        
+        let expect = """
+        music 1011b
+        images 0b
+        movies 10200b
+        others 105b
+        """
+        
+        XCTAssertEqual(report.hardDriveStatistics(),  expect)
+        XCTAssertEqual(report.hardDriveStatisticsWithParser(), expect)
+    }
+}
+
+//StringTests.defaultTestSuite.run()
+
 /*
 let str1 = "zoookkkklfuckaabbbccdceff"
 str1.recursiveCountNumberOfPrettyStrings(with: 3)
@@ -209,83 +266,7 @@ String.recursiveFizzBuss(in: 15)
 """
 Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
 """.reversedWords()
-"""
-my.song.mp3 11b
-greatSong.flac 1000b
-not3.txt 5b
-video.mp4 200b
-game.exe 100b
-mov!e.mkv 10000b
-""".hardDriveStatistics()
-"""
-my.song.mp3 11b
-greatSong.flac 1000b
-not3.txt 5b
-video.mp4 200b
-game.exe 100b
-mov!e.mkv 10000b
-""".hardDriveStatisticsWithParser()
-"".validateBalancedBrackets()
-"{{{{{[[()()]]}}}}}[]{}".validateBalancedBrackets()
-"{{]](())".validateBalancedBrackets()
-"bell".isSubsequence(of: "barbell")
-"hen".isSubsequence(of: "chicken")
-"kgb".isSubsequence(of: "kfcapple")
-"kgb".isSubsequence(of: "gbkfcapple")
-"341".getTargetsVicinities(for: "341")
-"341".getTargetsVicinities(for: "123")
-"341".getTargetsVicinities(for: "134")*/
-
-final class StringTests: XCTestCase {
-    func testParseAcceptLanguage() {
-        XCTAssertEqual(
-            parseAcceptLanguage("en-US, fr-CA, fr-FR", ["fr-FR", "en-US"]),
-            ["en-US", "fr-FR"]
-        )
-
-        XCTAssertEqual(
-            parseAcceptLanguage("fr-CA, fr-FR", ["en-US", "fr-FR"]),
-            ["fr-FR"]
-        )
-
-        XCTAssertEqual(
-            parseAcceptLanguage("en-US", ["en-US", "fr-CA"]),
-            ["en-US"]
-        )
-        
-        XCTAssertEqual(
-            parseAcceptLanguage("", ["en-US", "fr-CA"]),
-            []
-        )
-        
-        XCTAssertEqual(
-            parseAcceptLanguage("fr-FR", []),
-            []
-        )
-        
-        XCTAssertEqual(
-            parseAcceptLanguage("fr-FR", ["en-US", "fr-CA"]),
-            []
-        )
-        
-        XCTAssertEqual(
-            parseAcceptLanguage("en", ["en-US", "fr-CA", "fr-FR"]),
-            ["en-US"]
-        )
-        
-        XCTAssertEqual(
-            parseAcceptLanguage("fr", ["en-US", "fr-CA", "fr-FR"]),
-            ["fr-CA", "fr-FR"]
-        )
-        
-        XCTAssertEqual(
-            parseAcceptLanguage("fr-FR, fr", ["en-US", "fr-CA", "fr-FR"]),
-            ["fr-FR", "fr-CA"]
-        )
-    }
-}
-
-StringTests.defaultTestSuite.run()
+*/
 
 // Graph
 /*

@@ -446,7 +446,7 @@ func zeroOrMore<Result>(_ parser: Parser<Result>, separatedBy separator: Parser<
                 return matches
             }
         }
-        string = reminder
+        string = reminder // Assign the reminder back to ensure not accidentally removing anything
         return matches
     }
 }
@@ -533,10 +533,7 @@ fileprivate extension Parser {
 // In addition, it could also contain non-region form, such as, `"en, fr-CA"`,
 // and there could also be a wildcard tag `"*"` inside the accept language headers.
 // The order of the accept language headers matters.
-public func parseAcceptLanguage(
-    _ acceptLanguageHeaders: String,
-    _ supportedLanguages: [String]
-) -> [String] {
+public func parseAcceptLanguage(_ acceptLanguageHeaders: String, _ supportedLanguages: [String]) -> [String] {
     acceptLanguageHeaders
         .split(separator: ",")
         .map { tag in tag.replacingOccurrences(of: " ", with: "") }
@@ -587,42 +584,21 @@ extension String {
             return false
         }
         
-        // The first open one must occur before the first close one,
-        // and this rule should apply for all the indices, for instance, `(())` or `()()`
-        if let openParentheseIndices = bracketsWithIndices[openParenthese],
-           let closeParentheseIndices = bracketsWithIndices[closeParenthese] {
-            let isBalanced = zip(openParentheseIndices, closeParentheseIndices).reduce(true) { result, indexPair in
-                result && indexPair.0 < indexPair.1
-            }
-            
-            if !isBalanced {
-                return false
-            }
+        return checkOpenOccurBeforeClose(open: openParenthese, close: closeParenthese, in: bracketsWithIndices)
+            && checkOpenOccurBeforeClose(open: openBracket, close: closeBracket, in: bracketsWithIndices)
+            && checkOpenOccurBeforeClose(open: openCurlyBrace, close: closeCurlyBrace, in: bracketsWithIndices)
+    }
+    
+    // The first open one must occur before the first close one,
+    // and this rule should apply for all the indices, for instance, `(())` or `()()`
+    private func checkOpenOccurBeforeClose(open: Character, close: Character, in dictionary: [Character: [String.Index]]) -> Bool {
+        guard let openIndices = dictionary[open], let closeIndices = dictionary[close] else {
+            return false
         }
         
-        if let openBracketIndices = bracketsWithIndices[openBracket],
-           let closeBracketIndices = bracketsWithIndices[closeBracket] {
-            let isBalanced = zip(openBracketIndices, closeBracketIndices).reduce(true) { result, indexPair in
-                result && indexPair.0 < indexPair.1
-            }
-            
-            if !isBalanced {
-                return false
-            }
+        return zip(openIndices, closeIndices).reduce(true) { result, indexPair in
+            result && indexPair.0 < indexPair.1
         }
-        
-        if let openCurlyBraceIndices = bracketsWithIndices[openCurlyBrace],
-           let closeCurlyBraceIndices = bracketsWithIndices[closeCurlyBrace] {
-            let isBalanced = zip(openCurlyBraceIndices, closeCurlyBraceIndices).reduce(true) { result, indexPair in
-                result && indexPair.0 < indexPair.1
-            }
-            
-            if !isBalanced {
-                return false
-            }
-        }
-        
-        return true
     }
 }
 
@@ -662,13 +638,13 @@ extension String {
             return "0T0V"
         }
         
-        let actualDictionary = getCharsIndicesDictionary()
-        let guessDictionary = guess.getCharsIndicesDictionary()
+        let actualIndices = getCharsIndicesDictionary()
+        let guessIndices = guess.getCharsIndicesDictionary()
         
         var numberOfTarget = 0
         var numberOfVicinity = 0
-        for (char, indices) in guessDictionary {
-            guard let indicesOfCharInActual = actualDictionary[char] else {
+        for (char, indices) in guessIndices {
+            guard let indicesOfCharInActual = actualIndices[char] else {
                 continue
             }
             
