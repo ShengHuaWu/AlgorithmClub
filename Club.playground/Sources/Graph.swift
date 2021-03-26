@@ -37,14 +37,14 @@ extension GraphNode: Hashable {
 extension GraphNode {
     public func cloned() -> GraphNode {
         var nodes = [self]
-        var temp = [GraphNode: GraphNode]()
+        var visited = [GraphNode: GraphNode]()
         while let first = nodes.first {
             let newNode = GraphNode(title: first.title + "-cloned")
-            temp[first] = newNode
+            visited[first] = newNode
             
             // Add nodes that we haven't visited before only
             for neighbor in first.neighbors {
-                if !temp.keys.contains(neighbor) {
+                if !visited.keys.contains(neighbor) {
                     nodes.append(neighbor)
                 }
             }
@@ -53,14 +53,14 @@ extension GraphNode {
         }
         
         // Re-assign neigbors
-        for (original, new) in temp {
+        for (original, new) in visited {
             for neighbor in original.neighbors {
-                if let newNeighbor = temp[neighbor] {
+                if let newNeighbor = visited[neighbor] {
                     new.neighbors.append(newNeighbor)
                 }
             }
         }
         
-        return temp[self]!
+        return visited[self]!
     }
 }

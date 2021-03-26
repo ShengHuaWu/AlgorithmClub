@@ -108,7 +108,24 @@ integers2.shiftingZeros()
 integers2.shiftZeros()
 */
 
-// Binary Search Tree
+// Binary Tree
+final class BinaryTreeTests: XCTestCase {
+    func testIsIdenticial() {
+        let tree = BinaryTree.leaf
+            .adding(5)
+            .adding(3)
+            .adding(2)
+            .adding(8)
+            .adding(4)
+
+        let anotherTree = tree
+        XCTAssertTrue(tree.isIdenticial(with: anotherTree))
+        XCTAssertFalse(tree.isIdenticial(with: tree.mirroring()))
+    }
+}
+
+//BinaryTreeTests.defaultTestSuite.run()
+
 /*
 var tree = BinarySearchTree<Int>.empty
 tree.append(2)
@@ -124,23 +141,53 @@ tree.append(3)
  
 tree.remove(8)
 dump(tree)
-
-// Binary Tree
-let tree = BinaryTree.leaf
-    .adding(5)
-    .adding(3)
-    .adding(2)
-    .adding(8)
-    .adding(4)
-tree.mirroring()
-
-let anotherTree = tree
-tree.isIdenticial(with: anotherTree)
-tree.isIdenticial(with: tree.mirroring())*/
-
-
+*/
 
 // Singly Linked List
+final class SinglyLinkedListTests: XCTestCase {
+    func testMerge() {
+        let list1 = SinglyLinkedList<Int>()
+        list1.append(newValue: 4)
+        list1.append(newValue: 8)
+        list1.append(newValue: 15)
+        list1.append(newValue: 19)
+        
+        let list2 = SinglyLinkedList<Int>()
+        list2.append(newValue: 7)
+        list2.append(newValue: 9)
+        list2.append(newValue: 10)
+        list2.append(newValue: 16)
+
+        XCTAssertEqual(list1.merged(list2).description, "4 -> 7 -> 8 -> 9 -> 10 -> 15 -> 16 -> 19")
+    }
+    
+    func testAddition() {
+        let list1 = SinglyLinkedList<Int>()
+        list1.append(newValue: 1)
+        list1.append(newValue: 2)
+        list1.append(newValue: 3)
+        let list2 = SinglyLinkedList<Int>()
+        list2.append(newValue: 9)
+        list2.append(newValue: 9)
+
+        XCTAssertEqual(list1.add(list2).description, "0 -> 2 -> 4")
+
+        let list3 = SinglyLinkedList<Int>()
+        list3.append(newValue: 1)
+        list3.append(newValue: 0)
+        list3.append(newValue: 9)
+        list3.append(newValue: 9)
+        let list4 = SinglyLinkedList<Int>()
+        list4.append(newValue: 7)
+        list4.append(newValue: 3)
+        list4.append(newValue: 2)
+
+        XCTAssertEqual(list3.add(list4).description, "8 -> 3 -> 1 -> 0 -> 1")
+    }
+}
+
+//SinglyLinkedListTests.defaultTestSuite.run()
+
 /*
 let list = SinglyLinkedList<Int>()
 list.append(newValue: 1)
@@ -148,41 +195,6 @@ list.append(newValue: 2)
 list.append(newValue: 3)
 
 list.remove(with: 3)
-
-let list1 = SinglyLinkedList<Int>()
-list1.append(newValue: 1)
-list1.append(newValue: 2)
-list1.append(newValue: 3)
-let list2 = SinglyLinkedList<Int>()
-list2.append(newValue: 9)
-list2.append(newValue: 9)
-
-list1.add(list2)
-
-let list3 = SinglyLinkedList<Int>()
-list3.append(newValue: 1)
-list3.append(newValue: 0)
-list3.append(newValue: 9)
-list3.append(newValue: 9)
-let list4 = SinglyLinkedList<Int>()
-list4.append(newValue: 7)
-list4.append(newValue: 3)
-list4.append(newValue: 2)
-
-list3.add(list4)
-
-let list1 = SinglyLinkedList<Int>()
-list1.append(newValue: 4)
-list1.append(newValue: 8)
-list1.append(newValue: 15)
-list1.append(newValue: 19)
-let list2 = SinglyLinkedList<Int>()
-list2.append(newValue: 7)
-list2.append(newValue: 9)
-list2.append(newValue: 10)
-list2.append(newValue: 16)
-
-list1.merged(list2)
  
 let list1 = SinglyLinkedList<Int>()
 list1.append(newValue: 1)
@@ -245,6 +257,10 @@ final class StringTests: XCTestCase {
         XCTAssertEqual(report.hardDriveStatistics(),  expect)
         XCTAssertEqual(report.hardDriveStatisticsWithParser(), expect)
     }
+    
+    func testFindAllPalindromeSubstrings() {
+        XCTAssertEqual("aabbbaa".findAllPalindromeSubstrings(), ["aabbbaa", "aa", "abbba", "bbb", "bb"])
+    }
 }
 
 //StringTests.defaultTestSuite.run()
@@ -261,7 +277,6 @@ let str3 = "Grab, the ride-hailing company competing with Uber in Southeast Asia
 assertEqual(str3.recursiveTruncate(with: 16), "Grab, the ")
 
 String.recursiveFizzBuss(in: 15)
-"aabbbaa".findAllPalindromeSubstrings()
 "Hello World".reversedWords()
 """
 Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
@@ -269,29 +284,42 @@ Playing a text adventure game about the zombie apocalypse, with text on the scre
 */
 
 // Graph
-/*
-let tempNodeA = GraphNode(title: "A")
-let tempNodeB = GraphNode(title: "B")
-let tempNodeC = GraphNode(title: "C")
-let tempNodeD = GraphNode(title: "D")
-tempNodeA.neighbors.append(tempNodeB)
-tempNodeA.neighbors.append(tempNodeD)
-tempNodeB.neighbors.append(tempNodeA)
-tempNodeB.neighbors.append(tempNodeC)
-tempNodeC.neighbors.append(tempNodeB)
-tempNodeC.neighbors.append(tempNodeD)
-tempNodeD.neighbors.append(tempNodeA)
-tempNodeD.neighbors.append(tempNodeC)
-tempNodeA.cloned()*/
+final class GraphTests: XCTestCase {
+    func testClone() {
+        let tempNodeA = GraphNode(title: "A")
+        let tempNodeB = GraphNode(title: "B")
+        let tempNodeC = GraphNode(title: "C")
+        let tempNodeD = GraphNode(title: "D")
+        
+        tempNodeA.neighbors.append(tempNodeB)
+        tempNodeA.neighbors.append(tempNodeD)
+        tempNodeB.neighbors.append(tempNodeA)
+        tempNodeB.neighbors.append(tempNodeC)
+        tempNodeC.neighbors.append(tempNodeB)
+        tempNodeC.neighbors.append(tempNodeD)
+        tempNodeD.neighbors.append(tempNodeA)
+        tempNodeD.neighbors.append(tempNodeC)
+        
+        tempNodeA.cloned().description // ???: How to verify?
+    }
+}
+
+//GraphTests.defaultTestSuite.run()
 
 // LRU Cache
-/*
-let cache = LRUCache<Int, String>(capacity: 4)
-cache.set(key: 1, value: "one")
-cache.set(key: 2, value: "two")
-cache.set(key: 3, value: "three")
-cache.set(key: 4, value: "four")
-cache.set(key: 2, value: "new two")
-cache.get(key: 4)
-cache.set(key: 5, value: "five")
-cache.set(key: 6, value: "six")*/
+final class LRUCacheTests: XCTestCase {
+    func testGetSet() {
+        let cache = LRUCache<Int, String>(capacity: 4)
+        cache.set(key: 1, value: "one")
+        cache.set(key: 2, value: "two")
+        cache.set(key: 3, value: "three")
+        cache.set(key: 4, value: "four")
+        cache.set(key: 2, value: "new two")
+        cache.get(key: 4)
+        cache.set(key: 5, value: "five")
+        cache.set(key: 6, value: "six")
+        // ???: How to verify?
+    }
+}
+
+//LRUCacheTests.defaultTestSuite.run()
