@@ -62,51 +62,69 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([-5, 8, 3, 2, 1, 7].findSubset(), [8])
     }
     
-    func testFindThreeElements() {
+    func testFindTwoElementsSum() {
+        let numbers = [-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8]
+        XCTAssertEqual([-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8].indices(for: 8)?.0, 4)
+        XCTAssertEqual([-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8].indices(for: 8)?.1, 5)
+        
+        let sorted = numbers.sorted()
+        XCTAssertEqual(sorted.indicesAfterSorting(for: 17)?.0, 10)
+        XCTAssertEqual(sorted.indicesAfterSorting(for: 17)?.1, 11)
+    }
+    
+    func testFindThreeElementsSum() {
         XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.0, 7)
         XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.1, 5)
         XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.2, 8)
         
         XCTAssertNil([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21))
     }
+    
+    func testShiftZeros() {
+        XCTAssertEqual([0, 20, -3, 0, 0, 9, 7, 2, 1, 0].shiftingZeros(), [20, -3, 9, 7, 2, 1, 0, 0, 0, 0])
+
+        var integers = [0, 20, -3, 0, 0, 9, 7, 2, 1, 0]
+        integers.shiftZeros()
+        XCTAssertEqual(integers, [20, -3, 9, 7, 2, 1, 0, 0, 0, 0])
+    }
+    
+    func testMinAndMax() {
+        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].minAndMax()?.0, -1)
+        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].minAndMax()?.1, 11)
+    }
+    
+    func testOccurrence() {
+        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].occurrence(of: 2), 4)
+    }
+    
+    func testBinarySearch() {
+        XCTAssertEqual([-10, -3, 0, 1, 3, 4, 6, 9, 12, 29].binarySearch(for: 1), 3)
+        XCTAssertEqual([-10, -3, 0, 1, 3, 4, 6, 9, 12, 29].recursiveBinarySearch(for: 10), nil)
+    }
+    
+    func testFindLargestPerimetersSum() {
+        XCTAssertEqual([1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17].findLargestPerimetersSum(), 38)
+        XCTAssertEqual([1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17].recursiveFindLargestPerimetersSum(), 38)
+    }
+    
+    func testRecursiveCompress() {
+        XCTAssertEqual([1, 2, 3, 4, 5, 8, 9, 11, 14, 17].compress(), ["1-5", "8-9", "11", "14", "17"])
+        XCTAssertEqual([1, 2, 3, 4, 5, 8, 9, 11, 14, 17].recursiveCompress(), ["1-5", "8-9", "11", "14", "17"])
+    }
+    
+    func testSorting() {
+        let numbers = [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29]
+        XCTAssertEqual(numbers.quickSorting(), [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29])
+        XCTAssertEqual(numbers.mergeSorting(), [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29])
+    }
+    
+    func testIntersection() {
+        XCTAssertEqual([3, 7, 1, 4, 6].intersecting(with: [2, 4, 5, 6, 1, 0, 9]), [1, 4, 6])
+    }
 }
 
 //ArrayTests.defaultTestSuite.run()
 
-/*
-let integers = [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29]
-assertEqual(integers.binarySearch(for: 1), 3)
-assertEqual(integers.recursiveBinarySearch(for: 10), nil)
-
-let source = [-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8]
-let indices = source.indices(for: 8)
-assertEqual(indices!.0, 4)
-assertEqual(indices!.1, 5)
-
-let sortedSource = source.sorted()
-let indicesAfterSorting = sortedSource.indicesAfterSorting(for: 17)
-assertEqual(indicesAfterSorting!.0, 10)
-assertEqual(indicesAfterSorting!.1, 11)
-
-let edges = [1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17]
-assertEqual(edges.findLargestPerimetersSum(), edges.recursiveFindLargestPerimetersSum())
-
-let numbers = [1, 2, 3, 4, 5, 8, 9, 11, 14, 17]
-assertEqual(numbers.compress(), numbers.recursiveCompress())
-
-assertEqual(source.quickSorting(), source.mergeSorting())
-
-let a = [3, 7, 1, 4, 6]
-let b = [2, 4, 5, 6, 1, 0, 9]
-assertEqual(a.intersecting(with: b), [1, 4, 6])
-
-let source2 = [-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11]
-source2.occurrence(of: 2)
-source2.minAndMax()
-var integers2 = [0, 20, -3, 0, 0, 9, 7, 2, 1, 0]
-integers2.shiftingZeros()
-integers2.shiftZeros()
-*/
 
 // Binary Tree
 final class BinaryTreeTests: XCTestCase {

@@ -82,10 +82,11 @@ extension Array where Element: Comparable {
 // while minimizing the number of comparisons we can compare the items in pairs.
 extension Array where Element: Comparable {
     public func minAndMax() -> (Element, Element)? {
-        guard !isEmpty else { return nil }
+        guard var min = first else {
+            return nil
+        }
         
         var copy = self
-        var min = copy.first!
         var max = min
         
         if copy.count % 2 != 0 {
