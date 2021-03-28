@@ -279,27 +279,42 @@ final class StringTests: XCTestCase {
     func testFindAllPalindromeSubstrings() {
         XCTAssertEqual("aabbbaa".findAllPalindromeSubstrings(), ["aabbbaa", "aa", "abbba", "bbb", "bb"])
     }
+    
+    func testReversedWords() {
+        let text = """
+        Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
+        """
+        
+        let expect = """
+        Carlson Peter by “Zombolocaust” Play Links VERSION VIDEO AUDIO] [DOWNLOAD VERSION AUDIO below. links the follow – me with game the Play available. version Video listen. you while me with read can you so screen the on text with apocalypse, zombie the about game adventure text a Playing
+        """
+        XCTAssertEqual(text.reversedWords(), expect)
+    }
+    
+    func testFizzBuss() {
+        XCTAssertEqual(String.recursiveFizzBuss(in: 15), "1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 Fizz Buzz ")
+    }
+    
+    func testTruncation() {
+        let text = """
+        Grab, the ride-hailing company competing with Uber in Southeast Asia, has pulled in $2 billion of new financing from existing investors Didi Chuxing, the company that defeated Uber in China, and SoftBank.
+        """
+        XCTAssertEqual(text.recursiveTruncate(with: 16), "Grab, the ")
+    }
+    
+    func testFindOccurence() {
+        let text = "howimetyourmomgameofthronemommostrangethings"
+        XCTAssertEqual(text.recursiveFindOccurence(of: "mom"), 2)
+    }
+    
+    func testCountNumberOfPrettyStrings() {
+        let text = "zoookkkklfuckaabbbccdceff"
+        XCTAssertEqual(text.recursiveCountNumberOfPrettyStrings(with: 3), 3)
+    }
 }
 
 //StringTests.defaultTestSuite.run()
 
-/*
-let str1 = "zoookkkklfuckaabbbccdceff"
-str1.recursiveCountNumberOfPrettyStrings(with: 3)
-assertEqual(str1.recursiveCountNumberOfPrettyStrings(with: 3), 3)
-
-let str2 = "howimetyourmomgameofthronemommostrangethings"
-assertEqual(str2.recursiveFindOccurence(of: "mom"), 2)
-
-let str3 = "Grab, the ride-hailing company competing with Uber in Southeast Asia, has pulled in $2 billion of new financing from existing investors Didi Chuxing, the company that defeated Uber in China, and SoftBank."
-assertEqual(str3.recursiveTruncate(with: 16), "Grab, the ")
-
-String.recursiveFizzBuss(in: 15)
-"Hello World".reversedWords()
-"""
-Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
-""".reversedWords()
-*/
 
 // Graph
 final class GraphTests: XCTestCase {
