@@ -356,3 +356,41 @@ final class LRUCacheTests: XCTestCase {
 }
 
 //LRUCacheTests.defaultTestSuite.run()
+
+// Rate Limit
+final class RateLimitTests: XCTestCase {
+    func testInvokeEndpointReturnsNilAfterCallingItSixTimesStraight() {
+        let customerId = "One"
+        let api = API()
+        
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        
+        XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
+        XCTAssertNil(api.invokeEndpoint(customerId))
+    }
+    
+    func testInvokeEndpointReturnsResponseAfterCallingItSixTimesStraightButExceedingTwoSeconds() {
+        let e = expectation(description: #function)
+        let customerId = "One"
+        let api = API()
+        
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        
+        XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
+        
+        DispatchQueue(label: #function).asyncAfter(deadline: .now() + 2) {
+            XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
+            e.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+    }
+}
+
+//RateLimitTests.defaultTestSuite.run()
