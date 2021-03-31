@@ -359,6 +359,20 @@ final class LRUCacheTests: XCTestCase {
 
 // Rate Limit
 final class RateLimitTests: XCTestCase {
+    func testInvokeEndpointReturnResponseWithTwoDifferentCustomerIds() {
+        let customerId1 = "One"
+        let customerId2 = "Two"
+        let api = API()
+        
+        api.invokeEndpoint(customerId1)
+        api.invokeEndpoint(customerId2)
+        api.invokeEndpoint(customerId1)
+        api.invokeEndpoint(customerId1)
+        
+        XCTAssertEqual(api.invokeEndpoint(customerId1), "Response for One")
+        XCTAssertEqual(api.invokeEndpoint(customerId2), "Response for Two")
+    }
+    
     func testInvokeEndpointReturnsNilAfterCallingItSixTimesStraight() {
         let customerId = "One"
         let api = API()
