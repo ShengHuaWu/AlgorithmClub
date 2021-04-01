@@ -127,9 +127,16 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([0, -1, 2, 9, 7, 4].findKthLargest(3), 4)
         XCTAssertEqual([0, -1, 2, 9, 7, 4].findKthLargest(9), -1)
     }
+    
+    func testFindKthClosest() {
+        XCTAssertEqual([Int]().findKthClosest(8, to: 3), [])
+        XCTAssertEqual([-1, 2, 3].findKthClosest(4, to: 0), [-1, 2, 3])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosest(3, to: 0), [-1, 0, 1])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosest(2, to: 0), [-1, 0])
+    }
 }
 
-//ArrayTests.defaultTestSuite.run()
+ArrayTests.defaultTestSuite.run()
 
 
 // Binary Tree
