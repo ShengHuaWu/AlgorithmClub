@@ -897,3 +897,55 @@ extension Array where Element == Int {
         }
     }
 }
+
+// Find Kth Largest Element
+//
+// Design a function to efficiently find the Kth largest element in an integer array.
+extension Array where Element == Int {
+    public func findKthLargest(_ k: Int) -> Int? {
+        guard !isEmpty else {
+            return nil
+        }
+        
+        if k > count {
+            return sorted().first
+        } else {
+            return sorted(by: >)[k - 1]
+        }
+    }
+}
+
+// Find Kth Closest Numbers
+//
+// Given a sorted number array and two integers ‘K’ and ‘X’, find ‘K’ closest numbers to ‘X’ in the array.
+// Return the numbers in the sorted order. ‘X’ is not necessarily present in the array.
+extension Array where Element == Int {
+    // TODO: binary search find the closest -> choose its before and after
+    public func findKthClosest(_ k: Int, to key: Int) -> [Int] {
+        guard count > k else {
+            return self
+        }
+        
+        var differences: [Int: [Int]] = [:]
+        for number in self {
+            let diff = abs(key - number)
+            if let numbersWithDiff = differences[diff] {
+                differences[diff] = numbersWithDiff + [number]
+            } else {
+                differences[diff] = [number]
+            }
+        }
+        
+        var diff = 0
+        var results: [Int] = []
+        while results.count < k {
+            if let numbersWithDiff = differences[diff] {
+                results.append(contentsOf: numbersWithDiff)
+            }
+            
+            diff += 1
+        }
+        
+        return Array(results[...(k-1)]).sorted()
+    }
+}

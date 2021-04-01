@@ -121,9 +121,22 @@ final class ArrayTests: XCTestCase {
     func testIntersection() {
         XCTAssertEqual([3, 7, 1, 4, 6].intersecting(with: [2, 4, 5, 6, 1, 0, 9]), [1, 4, 6])
     }
+    
+    func testFindKthLargest() {
+        XCTAssertNil([Int]().findKthLargest(3))
+        XCTAssertEqual([0, -1, 2, 9, 7, 4].findKthLargest(3), 4)
+        XCTAssertEqual([0, -1, 2, 9, 7, 4].findKthLargest(9), -1)
+    }
+    
+    func testFindKthClosest() {
+        XCTAssertEqual([Int]().findKthClosest(8, to: 3), [])
+        XCTAssertEqual([-1, 2, 3].findKthClosest(4, to: 0), [-1, 2, 3])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosest(3, to: 0), [-1, 0, 1])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosest(2, to: 0), [-1, 0])
+    }
 }
 
-//ArrayTests.defaultTestSuite.run()
+ArrayTests.defaultTestSuite.run()
 
 
 // Binary Tree
@@ -356,3 +369,55 @@ final class LRUCacheTests: XCTestCase {
 }
 
 //LRUCacheTests.defaultTestSuite.run()
+
+// Rate Limit
+final class RateLimitTests: XCTestCase {
+    func testInvokeEndpointReturnResponseWithTwoDifferentCustomerIds() {
+        let customerId1 = "One"
+        let customerId2 = "Two"
+        let api = API()
+        
+        api.invokeEndpoint(customerId1)
+        api.invokeEndpoint(customerId2)
+        api.invokeEndpoint(customerId1)
+        api.invokeEndpoint(customerId1)
+        
+        XCTAssertEqual(api.invokeEndpoint(customerId1), "Response for One")
+        XCTAssertEqual(api.invokeEndpoint(customerId2), "Response for Two")
+    }
+    
+    func testInvokeEndpointReturnsNilAfterCallingItSixTimesStraight() {
+        let customerId = "One"
+        let api = API()
+        
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        
+        XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
+        XCTAssertNil(api.invokeEndpoint(customerId))
+    }
+    
+    func testInvokeEndpointReturnsResponseAfterCallingItSixTimesStraightButExceedingTwoSeconds() {
+        let e = expectation(description: #function)
+        let customerId = "One"
+        let api = API()
+        
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        api.invokeEndpoint(customerId)
+        
+        XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
+        
+        DispatchQueue(label: #function).asyncAfter(deadline: .now() + 2) {
+            XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
+            e.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+    }
+}
+
+//RateLimitTests.defaultTestSuite.run()
