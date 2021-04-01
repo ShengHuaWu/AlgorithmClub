@@ -897,3 +897,20 @@ extension Array where Element == Int {
         }
     }
 }
+
+// Find Kth Largest Element
+//
+// Design a function to efficiently find the Kth largest element in an integer array.
+extension Array where Element == Int {
+    public func findKthLargest(_ k: Int) -> Int? {
+        guard !isEmpty else {
+            return nil
+        }
+        
+        if k > count {
+            return sorted().first
+        } else {
+            return sorted(by: >)[k - 1]
+        }
+    }
+}
