@@ -592,7 +592,9 @@ extension String {
     // The first open one must occur before the first close one,
     // and this rule should apply for all the indices, for instance, `(())` or `()()`
     private func checkOpenOccurBeforeClose(open: Character, close: Character, in dictionary: [Character: [String.Index]]) -> Bool {
-        guard let openIndices = dictionary[open], let closeIndices = dictionary[close] else {
+        guard let openIndices = dictionary[open],
+              let closeIndices = dictionary[close],
+              openIndices.count == closeIndices.count else {
             return false
         }
         
