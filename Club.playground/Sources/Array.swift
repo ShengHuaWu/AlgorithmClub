@@ -942,23 +942,20 @@ extension Array where Element == Int {
         }
         
         // Choose before and after of the closest
-        var results: [Int] = [self[closestIndex]]
         var before = closestIndex - 1
         var after = closestIndex + 1
-        // TODO: Use recursive for this while loop
-        while results.count < k {
-            if before < 0 {
-                results.append(self[after])
-                after += 1
-                continue
-            }
-            
-            if after >= count {
-                results = [self[before]] + results
-                before -= 1
-                continue
-            }
-            
+        if before < 0 {
+            // Won't out of bound because we already check the count at the beginning
+            return Array(self[closestIndex ... (closestIndex + k - 1)])
+        }
+        
+        if after >= count {
+            // Won't out of bound because we already check the count at the beginning
+            return Array(self[(closestIndex - k + 1) ... closestIndex])
+        }
+        
+        var results: [Int] = [self[closestIndex]]
+        while results.count < k {            
             let beforeValue = self[before]
             let afterValue = self[after]
             let beforeDiff = abs(key - beforeValue)
