@@ -920,7 +920,69 @@ extension Array where Element == Int {
 // Given a sorted number array and two integers ‘K’ and ‘X’, find ‘K’ closest numbers to ‘X’ in the array.
 // Return the numbers in the sorted order. ‘X’ is not necessarily present in the array.
 extension Array where Element == Int {
-    // TODO: binary search find the closest -> choose its before and after
+    public func findKthClosestAnotherWay(_ k: Int, to key: Int) -> [Int] {
+        guard count > k, !isEmpty else {
+            return self
+        }
+                
+        // Find the closest index with binary search
+        var start = startIndex
+        var end = endIndex
+        var closestIndex = start
+        while start < end {
+            closestIndex = start + (end - start) / 2
+            let value = self[closestIndex]
+            if value == key {
+                break
+            } else if value > key {
+                end = closestIndex
+            } else {
+                start = closestIndex + 1
+            }
+        }
+        
+        // Choose before and after of the closest
+        var results: [Int] = [self[closestIndex]]
+        var before = closestIndex - 1
+        var after = closestIndex + 1
+        // TODO: Use recursive for this while loop
+        while results.count < k {
+            if before < 0 {
+                results.append(self[after])
+                after += 1
+                continue
+            }
+            
+            if after >= count {
+                results = [self[before]] + results
+                before -= 1
+                continue
+            }
+            
+            let beforeValue = self[before]
+            let afterValue = self[after]
+            let beforeDiff = abs(key - beforeValue)
+            let afterDiff = abs(key - afterValue)
+            if beforeDiff == afterDiff {
+                // If the diffs are the same, insert the before value first
+                results = [beforeValue] + results
+                before -= 1
+                if results.count < k {
+                    results.append(afterValue)
+                    after += 1
+                }
+            } else if beforeDiff < afterDiff {
+                results = [beforeValue] + results
+                before -= 1
+            } else {
+                results.append(afterValue)
+                after += 1
+            }
+        }
+        
+        return results
+    }
+    
     public func findKthClosest(_ k: Int, to key: Int) -> [Int] {
         guard count > k else {
             return self

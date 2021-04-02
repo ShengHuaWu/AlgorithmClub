@@ -133,6 +133,13 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([-1, 2, 3].findKthClosest(4, to: 0), [-1, 2, 3])
         XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosest(3, to: 0), [-1, 0, 1])
         XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosest(2, to: 0), [-1, 0])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosest(5, to: -1), [-1, 0, 1, 2, 3])
+        
+        XCTAssertEqual([Int]().findKthClosestAnotherWay(8, to: 3), [])
+        XCTAssertEqual([-1, 2, 3].findKthClosestAnotherWay(4, to: 0), [-1, 2, 3])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosestAnotherWay(3, to: 0), [-1, 0, 1])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosestAnotherWay(2, to: 0), [-1, 0])
+        XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosestAnotherWay(5, to: -1), [-1, 0, 1, 2, 3])
     }
 }
 
