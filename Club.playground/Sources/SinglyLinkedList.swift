@@ -77,6 +77,29 @@ extension SinglyLinkedList {
                 
         return current
     }
+    
+    public func remove(at k: Int, for key: T) {
+        head = remove(node: head, at: k, for: key)
+    }
+    
+    private func remove(node: Node?, at k: Int, for key: T) -> Node? {
+        guard let current = node else {
+            return nil
+        }
+        
+        var temp = k
+        if current.value == key {
+            if k == 1 {
+                return current.next
+            } else {
+                temp -= 1
+            }
+        }
+        
+        current.next = remove(node: current.next, at: temp, for: key)
+        
+        return current
+    }
 }
 
 extension SinglyLinkedList: CustomStringConvertible {

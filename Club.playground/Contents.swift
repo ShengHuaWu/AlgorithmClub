@@ -261,6 +261,21 @@ final class SinglyLinkedListTests: XCTestCase {
         list.removeNodes(for: 9)
         XCTAssertEqual(list.description, "5")
     }
+    
+    func testRemoveKth() {
+        let list = SinglyLinkedList<Int>()
+        list.append(newValue: 4)
+        list.append(newValue: 8)
+        list.append(newValue: 15)
+        list.append(newValue: 8)
+        list.append(newValue: 19)
+        list.append(newValue: 8)
+        list.append(newValue: 10)
+        list.append(newValue: 8)
+        
+        list.remove(at: 3, for: 8)
+        XCTAssertEqual(list.description, "4 -> 8 -> 15 -> 8 -> 19 -> 10 -> 8")
+    }
 }
 
 //SinglyLinkedListTests.defaultTestSuite.run()
