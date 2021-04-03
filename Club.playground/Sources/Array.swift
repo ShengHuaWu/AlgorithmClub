@@ -942,42 +942,39 @@ extension Array where Element == Int {
         }
         
         // Choose before and after of the closest
-        var before = closestIndex - 1
-        var after = closestIndex + 1
-        if before < 0 {
-            // Won't out of bound because we already check the count at the beginning
-            return Array(self[closestIndex ... (closestIndex + k - 1)])
-        }
-        
-        if after >= count {
-            // Won't out of bound because we already check the count at the beginning
-            return Array(self[(closestIndex - k + 1) ... closestIndex])
-        }
-        
-        var results: [Int] = [self[closestIndex]]
-        while results.count < k {            
+        var before = closestIndex
+        var after = closestIndex
+        while after - before + 1 < k {
+            if before == 0 {
+                after += 1
+                continue
+            }
+            
+            if after == count - 1 {
+                before -= 1
+                continue
+            }
+            
             let beforeValue = self[before]
             let afterValue = self[after]
             let beforeDiff = abs(key - beforeValue)
             let afterDiff = abs(key - afterValue)
             if beforeDiff == afterDiff {
-                // If the diffs are the same, insert the before value first
-                results = [beforeValue] + results
                 before -= 1
-                if results.count < k {
-                    results.append(afterValue)
-                    after += 1
-                }
+                after += 1
             } else if beforeDiff < afterDiff {
-                results = [beforeValue] + results
                 before -= 1
             } else {
-                results.append(afterValue)
                 after += 1
             }
         }
         
-        return results
+        // If the diffs of the last step are the same, excluding after
+        if after - before + 1 > k {
+            after -= 1
+        }
+        
+        return Array(self[before ... after])
     }
     
     public func findKthClosest(_ k: Int, to key: Int) -> [Int] {
