@@ -309,6 +309,28 @@ list1.append(newValue: 3)
 list1.append(newValue: 4)
 list1.getRandomNode()*/
 
+// Double Linked List
+final class DoubleLinkedListTests: XCTestCase {
+    func testCopyRandomList() {
+        let original = DoubleLinkedListNode<Int>(1)
+        let next2 = DoubleLinkedListNode<Int>(2)
+        let next3 = DoubleLinkedListNode<Int>(3)
+        original.next = next2
+        next2.next = next3
+        original.random = next3
+        next2.random = original
+        next3.random = next2
+        
+        let copy = original.copyRandomList()
+
+        XCTAssertEqual(original.description, copy?.description)
+        XCTAssertEqual(original.next?.description, copy?.next?.description)
+        XCTAssertEqual(original.random?.description, copy?.random?.description)
+    }
+}
+
+DoubleLinkedListTests.defaultTestSuite.run()
+
 
 // String
 final class StringTests: XCTestCase {
