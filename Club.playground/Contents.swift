@@ -276,6 +276,20 @@ final class SinglyLinkedListTests: XCTestCase {
         list.remove(at: 3, for: 8)
         XCTAssertEqual(list.description, "4 -> 8 -> 15 -> 8 -> 19 -> 10 -> 8")
     }
+    
+    func testDeepCopy() {
+        let list = SinglyLinkedList<Int>()
+        list.append(newValue: 4)
+        list.append(newValue: 8)
+        list.append(newValue: 15)
+        list.append(newValue: 19)
+        
+        let copied = list.deepCopy()
+        XCTAssertEqual(copied.description, list.description)
+        
+        copied.remove(for: 15)
+        XCTAssertNotEqual(copied.description, list.description)
+    }
 }
 
 //SinglyLinkedListTests.defaultTestSuite.run()
