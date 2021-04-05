@@ -327,6 +327,23 @@ final class DoubleLinkedListTests: XCTestCase {
         XCTAssertEqual(original.next?.description, copy?.next?.description)
         XCTAssertEqual(original.random?.description, copy?.random?.description)
     }
+    
+    func testCopyRandomListAnotherWay() {
+        let original = DoubleLinkedListNode<Int>(1)
+        let next2 = DoubleLinkedListNode<Int>(2)
+        let next3 = DoubleLinkedListNode<Int>(3)
+        original.next = next2
+        next2.next = next3
+        original.random = next3
+        next2.random = original
+        next3.random = next2
+        
+        let copy = original.copyRandomListAnotherWay()
+
+        XCTAssertEqual(original.description, copy?.description)
+        XCTAssertEqual(original.next?.description, copy?.next?.description)
+        XCTAssertEqual(original.random?.description, copy?.random?.description)
+    }
 }
 
 DoubleLinkedListTests.defaultTestSuite.run()

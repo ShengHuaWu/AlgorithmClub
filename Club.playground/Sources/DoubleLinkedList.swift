@@ -14,16 +14,27 @@ public final class DoubleLinkedListNode<T> {
 
 extension DoubleLinkedListNode: CustomStringConvertible {
     public var description: String {
-        var s = "\(value) -> "
+        var s = "\(value)"
         var node = next
         while let current = node {
-            s += "\(current.value)"
+            s += " -> \(current.value)"
             node = current.next
-            if node != nil {
-                s += " -> "
-            }
         }
         return s
+    }
+}
+
+// TODO: Support more general case
+extension DoubleLinkedListNode: Equatable where T: Equatable {
+    public static func == (lhs: DoubleLinkedListNode<T>, rhs: DoubleLinkedListNode<T>) -> Bool {
+        lhs === rhs
+    }
+}
+
+// TODO: Only support different values for now
+extension DoubleLinkedListNode: Hashable where T: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
     }
 }
 
@@ -33,14 +44,30 @@ extension DoubleLinkedListNode: CustomStringConvertible {
 // The first is the regular ‘next’ pointer.
 // The second pointer is called ‘random’ and it can point to any node in the linked list.
 // Write code to make a deep copy of the given linked list.
-// Here, deep copy means that any operations on the original list (inserting, modifying and removing) should not affect the copied list.
-extension DoubleLinkedListNode {
-    // TODO: This is not finished
+// Here, deep copy means that any operations on the original list
+// (inserting, modifying and removing) should not affect the copied list.
+extension DoubleLinkedListNode where T: Hashable {
+    // Time comlexity: O(n)
+    // Space complexity: O(n) (because of the dictionary)
     public func copyRandomList() -> DoubleLinkedListNode? {
         let result = copy(self) // Create a new list by copying the original
         
-        // Use dictionary to store [original: copied]
-        // and assign the random pointer
+        // Use a dictionary to store [original: copied]
+        var pairs: [DoubleLinkedListNode: DoubleLinkedListNode] = [:]
+        var original: DoubleLinkedListNode? = self
+        var copied = result
+        while let unwrappedOriginal = original, let unwrappedCopied = copied {
+            pairs[unwrappedOriginal] = unwrappedCopied
+            original = original?.next
+            copied = copied?.next
+        }
+        
+        // Assign the random pointer based on the dictionary
+        for (original, copied) in pairs {
+            if let originalRandom = original.random {
+                copied.random = pairs[originalRandom]
+            }
+        }
         
         return result
     }
@@ -55,27 +82,49 @@ extension DoubleLinkedListNode {
         
         return newNode
     }
-
-    // TODO: This is not correct
-    private func recursivelyCopy(_ node: DoubleLinkedListNode?) -> DoubleLinkedListNode? {
-        guard let original = node else {
-            return nil
-        }
-        
-        let newNode = DoubleLinkedListNode(original.value)
-        let newNext = recursivelyCopy(original.next)
+    
+    // Time comlexity: O(n)
+    // Space complexity: O(1)
+    public func copyRandomListAnotherWay() -> DoubleLinkedListNode? {
+        var current: DoubleLinkedListNode? = self
+        var temp: DoubleLinkedListNode? = nil
         
         // Insert new node after original node
-        newNode.next = original.next
-        original.next = newNode
+        while let unwrappedCurrent = current {
+            temp = unwrappedCurrent.next
+            
+            unwrappedCurrent.next = DoubleLinkedListNode(unwrappedCurrent.value)
+            unwrappedCurrent.next?.next = temp
+            current = temp
+        }
         
-        // Set newNode.random to original.random.next (this doesn't work now)
-        newNode.random = original.random?.next
-
-        // Recovery the original
-        newNode.next = newNext
-        original.next = original.next?.next
+        // Adjust the random pointers of the newly inserted nodes
+        // current.next.random = current.random.next
+        current = self
+        while let unwrappedCurrent = current {
+            if unwrappedCurrent.next != nil {
+                unwrappedCurrent.next?.random = unwrappedCurrent.random != nil ? unwrappedCurrent.random?.next : nil
+            }
+            
+            // Move to the next newly inserted node by skipping an original node
+            current = unwrappedCurrent.next != nil ? unwrappedCurrent.next?.next : nil
+        }
         
-        return newNode
+        var original: DoubleLinkedListNode? = self
+        var copied = original?.next
+        
+        // Save the start of copied linked list for returning
+        temp = copied
+        
+        // Split the original list and copied list
+        while let unwrappedOriginal = original, let unwrappedCopied = copied {
+            unwrappedOriginal.next = unwrappedOriginal.next != nil ? unwrappedOriginal.next?.next : nil
+            unwrappedCopied.next = unwrappedCopied.next != nil ? unwrappedCopied.next?.next : nil
+            
+            original = unwrappedOriginal.next
+            copied = unwrappedCopied.next
+        }
+        
+        return temp
     }
 }
