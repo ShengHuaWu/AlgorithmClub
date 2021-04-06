@@ -146,16 +146,16 @@ public enum BinaryTree<Value> {
 }
 
 extension BinaryTree {
-    public func adding(_ value: Value, predicate: () -> Bool = { Int.random(in: 0...9) % 2 == 0 }) -> BinaryTree {
+    public func adding(_ value: Value, _ predicate: () -> Bool = { Int.random(in: 0...9) % 2 == 0 }) -> BinaryTree {
         switch self {
         case .leaf:
             return .node(.leaf, value, .leaf)
             
         case let .node(left, v, right):
             if predicate() {
-                return .node(left.adding(value), v, right)
+                return .node(left.adding(value, predicate), v, right)
             } else {
-                return .node(left, v, right.adding(value))
+                return .node(left, v, right.adding(value, predicate))
             }
         }
     }
@@ -206,5 +206,43 @@ extension BinaryTree {
         }
         
         return .node(right.mirroring(), value, left.mirroring())
+    }
+}
+
+// Find all paths for a sum
+//
+// Given a binary tree and a number ‘S’, find all paths from root-to-leaf such that the sum of all the node values of each path equals ‘S’.
+extension BinaryTree where Value == Int {
+    public func findAllPaths(for target: Int) -> [[Int]] {
+        var results = [[Int]]()
+        var temp = [Int]()
+        
+        recursivelyFindAllPaths(for: target, currentSum: 0, start: self, temp: &temp, results: &results)
+        
+        return results
+    }
+    
+    private func recursivelyFindAllPaths(for target: Int, currentSum: Int, start: BinaryTree, temp: inout [Int], results: inout [[Int]]) {
+        switch start {
+        case .leaf:
+            if target == currentSum {
+                results.append(temp)
+            }
+            
+        case let .node(.leaf, value, .leaf):
+            let newCurrentSum = value + currentSum
+            if newCurrentSum == target {
+                results.append(temp + [value])
+            }
+            
+        case let .node(left, value, right):
+            let newCurrentSum = value + currentSum
+            if newCurrentSum <= target {
+                temp.append(value)
+                recursivelyFindAllPaths(for: target, currentSum: newCurrentSum, start: left, temp: &temp, results: &results)
+                recursivelyFindAllPaths(for: target, currentSum: newCurrentSum, start: right, temp: &temp, results: &results)
+                temp.removeLast() // Removing the last element from list (backtracking)
+            }
+        }
     }
 }

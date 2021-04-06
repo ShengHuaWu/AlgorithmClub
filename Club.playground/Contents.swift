@@ -164,6 +164,25 @@ final class BinaryTreeTests: XCTestCase {
         XCTAssertTrue(tree.isIdenticial(with: anotherTree))
         XCTAssertFalse(tree.isIdenticial(with: tree.mirroring()))
     }
+    
+    func testFindAllPaths() {
+        var temp = 0
+        let predicate: () -> Bool = {
+            temp += 1            
+            return temp.isMultiple(of: 2)
+        }
+        
+        let tree = BinaryTree.leaf
+            .adding(5, predicate)
+            .adding(3, predicate)
+            .adding(2, predicate)
+            .adding(8, predicate)
+            .adding(7, predicate)
+            .adding(4, predicate)
+            .adding(9, predicate)
+        
+        XCTAssertEqual(tree.findAllPaths(for: 16), [[5, 3, 8]])
+    }
 }
 
 //BinaryTreeTests.defaultTestSuite.run()
