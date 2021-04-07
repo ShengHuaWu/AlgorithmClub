@@ -365,7 +365,7 @@ final class DoubleLinkedListTests: XCTestCase {
     }
 }
 
-DoubleLinkedListTests.defaultTestSuite.run()
+//DoubleLinkedListTests.defaultTestSuite.run()
 
 
 // String
@@ -456,6 +456,12 @@ final class StringTests: XCTestCase {
     func testCountNumberOfPrettyStrings() {
         let text = "zoookkkklfuckaabbbccdceff"
         XCTAssertEqual(text.recursiveCountNumberOfPrettyStrings(with: 3), 3)
+    }
+    
+    func testFindLongestSubstringWithNoMoreThan() {
+        XCTAssertEqual("aabbaacc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "aabbaa")
+        XCTAssertEqual("aaabbcc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "aaabb")
+        XCTAssertEqual("aabbccc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "bbccc")
     }
 }
 

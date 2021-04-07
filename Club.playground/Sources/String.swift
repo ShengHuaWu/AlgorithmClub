@@ -671,3 +671,62 @@ extension String {
         return dictionary
     }
 }
+
+// Longest Substring With No More Than ‘K’ Distinct Characters
+//
+// Given a string, find the length of the longest substring in it with no more than K distinct characters.
+extension String {
+    public func findLongestSubstringWithNoMoreThan(kDistinctCharacters k: Int) -> String {
+        var distinctChars: Set<Character> = []
+        
+        // Store the count of characters present in the distinct characters.
+        var charCounts: [Character: Int] = [:]
+        
+        // Store the longest substring boundaries
+        var start = startIndex
+        var end = start
+        
+        // Maintains the sliding window boundaries
+        var low = start
+        var high = start
+        
+        while let newHigh = index(high, offsetBy: 1, limitedBy: endIndex) {
+            let char = self[high]
+            distinctChars.insert(char)
+            if let count = charCounts[char] {
+                charCounts[char] = count + 1
+            } else {
+                charCounts[char] = 1
+            }
+            
+            // If the size is more than `k`, remove characters from the left
+            while distinctChars.count > k {
+                let charToBeRemoved = self[low]
+                if let count = charCounts[charToBeRemoved] {
+                    let newCount = count - 1
+                    charCounts[charToBeRemoved] = newCount
+                    
+                    // If the leftmost character's count becomes 0 after removing it in the window, remove it from the set as well
+                    if newCount == 0 {
+                        distinctChars.remove(charToBeRemoved)
+                    }
+                }
+                
+                // Reduce window size
+                if let newLow = index(low, offsetBy: 1, limitedBy: endIndex) {
+                    low = newLow
+                }
+            }
+            
+            // Update the maximum window size if necessary
+            if distance(from: start, to: end) < distance(from: low, to: high) {
+                start = low
+                end = high
+            }
+            
+            high = newHigh
+        }
+        
+        return String(self[start ... end])
+    }
+}
