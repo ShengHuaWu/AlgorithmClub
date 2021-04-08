@@ -677,6 +677,10 @@ extension String {
 // Given a string, find the length of the longest substring in it with no more than K distinct characters.
 extension String {
     public func findLongestSubstringWithNoMoreThan(kDistinctCharacters k: Int) -> String {
+        guard !isEmpty else {
+            return ""
+        }
+        
         var distinctChars: Set<Character> = []
         
         // Store the count of characters present in the distinct characters.
@@ -724,9 +728,45 @@ extension String {
                 end = high
             }
             
-            high = newHigh
+            high = newHigh // Update high after the comparison
         }
         
         return String(self[start ... end])
     }
 }
+
+// Longest Substring Without Repeating Characters
+extension String {
+    public func findLongestSubstringWithoutRepeatingCharacters() -> String {
+        guard !isEmpty else {
+            return ""
+        }
+        
+        var nonrepeated: Set<Character> = []
+        
+        var start = startIndex
+        var end = start
+        var high = start
+        var low = start
+        
+        while let newHigh = index(high, offsetBy: 1, limitedBy: endIndex) {
+            let char = self[high]
+            
+            if nonrepeated.contains(char) {
+                nonrepeated.removeAll()
+                low = high
+            }
+            nonrepeated.insert(char)
+            
+            if distance(from: start, to: end) < distance(from: low, to: high) {
+                start = low
+                end = high
+            }
+            
+            high = newHigh // Update high after the comparison
+        }
+        
+        return String(self[start ... end])
+    }
+}
+
