@@ -833,3 +833,75 @@ extension Parser where Result == Int {
         return sum
     }
 }
+
+// Reorganize String
+//
+// Given a string, find if its letters can be rearranged
+// in such a way that no two same characters come next to each other.
+extension String {
+    public func reorganize() -> String? {
+        guard !isEmpty else {
+            return ""
+        }
+        
+        var chars: Set<Character> = []
+        var charCounts: [Character: Int] = [:]
+        for char in self {
+            chars.insert(char)
+            
+            if let count = charCounts[char] {
+                charCounts[char] = count + 1
+            } else {
+                charCounts[char] = 1
+            }
+        }
+        
+        var result = ""
+        while !chars.isEmpty {
+            // Find the char with largest count
+            var charWithMaxCount: Character = first!
+            var maxCount = charCounts[charWithMaxCount] ?? 0
+            for (char, count) in charCounts {
+                if count > maxCount {
+                    charWithMaxCount = char
+                    maxCount = count
+                }
+            }
+            
+            chars.remove(charWithMaxCount)
+            
+            while maxCount > 0 {
+                result.append(charWithMaxCount)
+                maxCount -= 1
+                
+                if chars.isEmpty {
+                    // Not enough character
+                    if maxCount > 0 {
+                        return nil
+                    }
+                    
+                    break // This means the char is the last one
+                }
+                
+                // Find another char to fill in between
+                let anotherChar = chars.removeFirst()
+                let anotherCount = charCounts[anotherChar] ?? 0
+                if anotherCount > 0 {
+                    result.append(anotherChar)
+                    let newCount = anotherCount - 1
+                    charCounts[anotherChar] = newCount
+                    
+                    // Insert the another char back for next iteration
+                    if newCount > 0 {
+                        chars.insert(anotherChar)
+                    }
+                } else {
+                    // This should not happen becasue the char has been removed already
+                    return nil
+                }
+            }
+        }
+        
+        return result
+    }
+}

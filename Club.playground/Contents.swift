@@ -479,9 +479,17 @@ final class StringTests: XCTestCase {
         XCTAssertEqual("12345".toInt(), 12345)
         XCTAssertEqual("012345".toInt(), 12345)
     }
+    
+    func testReorganize() {
+        XCTAssertEqual("".reorganize(), "")
+        XCTAssertEqual("aaabb".reorganize(), "ababa")
+        XCTAssertEqual("aaabbb".reorganize(), "ababab")
+        
+        "aacbbb".reorganize() // This should work
+    }
 }
 
-//StringTests.defaultTestSuite.run()
+StringTests.defaultTestSuite.run()
 
 
 // Graph
