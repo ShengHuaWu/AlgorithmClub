@@ -472,6 +472,13 @@ final class StringTests: XCTestCase {
         XCTAssertEqual("abbced".findLongestSubstringWithoutRepeatingCharacters(), "bced")
         XCTAssertEqual("abcedd".findLongestSubstringWithoutRepeatingCharacters(), "abced")
     }
+    
+    func testToInt() {
+        XCTAssertNil("".toInt())
+        XCTAssertNil(".".toInt())
+        XCTAssertEqual("12345".toInt(), 12345)
+        XCTAssertEqual("012345".toInt(), 12345)
+    }
 }
 
 //StringTests.defaultTestSuite.run()

@@ -770,3 +770,66 @@ extension String {
     }
 }
 
+// Determine If Number Is Valid
+//
+// Given an input string, determine if it makes a valid number or not.
+// For simplicity, assume that white spaces are not present in the input.
+extension String {
+    // Assume that we don't have `Int.init`
+    public func toInt() -> Int? {
+        guard !isEmpty else {
+            return nil
+        }
+        
+        var copy = self
+        
+        return Parser.number.run(&copy)
+    }
+}
+
+extension Parser where Result == Int {
+    static let int: Parser = .init { string in
+        guard !string.isEmpty else {
+            return nil
+        }
+        
+        let numbers: [Character: Int] = [
+            "0": 0,
+            "1": 1,
+            "2": 2,
+            "3": 3,
+            "4": 4,
+            "5": 5,
+            "6": 6,
+            "7": 7,
+            "8": 8,
+            "9": 9
+        ]
+        
+        guard let firstDigital = numbers[string[string.startIndex]] else {
+            return nil
+        }
+                
+        string.removeFirst()
+                
+        return firstDigital
+    }
+    
+    static let number: Parser = oneOrMore(.int, separatedBy: literal("")).map { numbers -> [Int] in
+        guard numbers.first == 0 else {
+            return numbers
+        }
+        
+        return numbers.count == 1 ? [0] : Array(numbers.dropFirst())
+    }.map { numbers -> Int in
+        var power = 0
+        let sum = numbers.reversed().reduce(0) { result, number in
+            let powerOf10 = Int(pow(10.0, Double(power)))
+            power += 1
+            
+            return result + number * powerOf10
+        }
+        
+        return sum
+    }
+}
