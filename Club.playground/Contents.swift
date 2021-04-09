@@ -569,3 +569,15 @@ final class RateLimitTests: XCTestCase {
 }
 
 //RateLimitTests.defaultTestSuite.run()
+
+// Set
+final class SetTests: XCTestCase {
+    func testFindSubsetsWithEqualSum() {
+        XCTAssertNil(Set().findSubsetsWithEqualSum())
+        XCTAssertNil(Set([1, 2, 3, 4]).findSubsetsWithEqualSum())
+        XCTAssertEqual(Set([1, 2, 3, 6]).findSubsetsWithEqualSum()?.0, [1, 2, 3])
+        XCTAssertEqual(Set([1, 2, 3, 6]).findSubsetsWithEqualSum()?.1, [6])
+    }
+}
+
+//SetTests.defaultTestSuite.run()
