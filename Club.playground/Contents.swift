@@ -48,9 +48,13 @@ final class ArrayTests: XCTestCase {
     }
     
     func testMergeOverlapping() {
-        [(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping() // [(1, 8)]
-        [(1, 5), (7, 9)].mergeOverlapping() // [(1, 5), (7, 9)]
-        [(10, 12), (12, 15)].mergeOverlapping() // [(10, 15)]
+        XCTAssertEqual([(Int, Int)]().mergeOverlapping().count, 0)
+        XCTAssertEqual([(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping().first?.0, 1)
+        XCTAssertEqual([(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping().first?.1, 8)
+        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().first?.0, 1)
+        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().first?.1, 5)
+        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().last?.0, 7)
+        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().last?.1, 9)
     }
     
     func testFindLargestLengthOfAdjacent() {
