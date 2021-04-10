@@ -504,9 +504,14 @@ final class StringTests: XCTestCase {
         
         "aacbbb".reorganize() // This should work
     }
+    
+    func testFindAllBraceCombinations() {
+        XCTAssertEqual(findAllBraceCombinations(for: 0), [])
+        XCTAssertEqual(findAllBraceCombinations(for: 3), ["{}{}{}", "{}{{}}", "{{}}{}", "{{}{}}", "{{{}}}"])
+    }
 }
 
-//StringTests.defaultTestSuite.run()
+// StringTests.defaultTestSuite.run()
 
 
 // Graph
