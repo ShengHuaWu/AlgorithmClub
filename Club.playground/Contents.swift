@@ -156,6 +156,12 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosestAnotherWay(5, to: 3), [0, 1, 2, 3, 4])
         XCTAssertEqual([-1, 0, 1, 2, 3, 4].findKthClosestAnotherWay(5, to: 4), [0, 1, 2, 3, 4])
     }
+    
+    func testHasEqualSumsubSet() {
+        XCTAssertFalse([Int]().hasEqualSumsubSet())
+        XCTAssertFalse([1, 2, 3, 5].hasEqualSumsubSet())
+        XCTAssertTrue([1, 6, 6, 11].hasEqualSumsubSet())
+    }
 }
 
 //ArrayTests.defaultTestSuite.run()

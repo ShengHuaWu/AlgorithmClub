@@ -1061,3 +1061,35 @@ extension Array where Element == Int {
         return start
     }
 }
+
+// Equal Subset Sum Partition
+//
+// Given a set of positive numbers,
+// find if we can partition it into two subsets such that the sum of elements in both subsets is equal.
+extension Array where Element == Int {
+    public func hasEqualSumsubSet() -> Bool {
+        guard !isEmpty else {
+            return false
+        }
+        
+        let sum = reduce(0, +)
+        if !sum.isMultiple(of: 2) {
+            return false
+        }
+        
+        return hasEqualSumsubSet(at: startIndex, reminder: sum / 2)
+    }
+    
+    private func hasEqualSumsubSet(at index: Int, reminder: Int) -> Bool {
+        guard index < count, reminder >= 0 else {
+            return false
+        }
+        
+        if reminder == 0 {
+            return true
+        }
+        
+        return hasEqualSumsubSet(at: index + 1, reminder: reminder - self[index]) // Include this element
+            || hasEqualSumsubSet(at: index + 1, reminder: reminder) // Exclude this element
+    }
+}
