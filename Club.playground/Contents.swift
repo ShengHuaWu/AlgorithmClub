@@ -517,10 +517,10 @@ final class StringTests: XCTestCase {
 // Graph
 final class GraphTests: XCTestCase {
     func testClone() {
-        let tempNodeA = GraphNode(title: "A")
-        let tempNodeB = GraphNode(title: "B")
-        let tempNodeC = GraphNode(title: "C")
-        let tempNodeD = GraphNode(title: "D")
+        let tempNodeA = GraphNode<String>("A")
+        let tempNodeB = GraphNode<String>("B")
+        let tempNodeC = GraphNode<String>("C")
+        let tempNodeD = GraphNode<String>("D")
         
         tempNodeA.neighbors.append(tempNodeB)
         tempNodeA.neighbors.append(tempNodeD)
@@ -535,7 +535,7 @@ final class GraphTests: XCTestCase {
     }
 }
 
-//GraphTests.defaultTestSuite.run()
+GraphTests.defaultTestSuite.run()
 
 // LRU Cache
 final class LRUCacheTests: XCTestCase {

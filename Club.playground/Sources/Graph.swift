@@ -1,32 +1,34 @@
 import Foundation
 
-public class GraphNode {
-    let title: String
+public class GraphNode<T> {
+    let value: T
     public var neighbors: [GraphNode]
     
-    public init(title: String) {
-        self.title = title
+    public init(_ value: T) {
+        self.value = value
         self.neighbors = []
     }
 }
 
-extension GraphNode: CustomStringConvertible {
+extension GraphNode: CustomStringConvertible where T: CustomStringConvertible {
     public var description: String {
         var temp = ""
         for node in neighbors {
-            temp += node.title + " "
+            temp += node.value.description + " "
         }
-        return "Node: \(title) with Neigbors: \(temp)"
+        return "Node: \(value) with Neigbors: \(temp)"
     }
 }
 
-extension GraphNode: Hashable {
+extension GraphNode: Equatable where T: Equatable {
     public static func == (lhs: GraphNode, rhs: GraphNode) -> Bool {
-        lhs.title == rhs.title && lhs.neighbors == rhs.neighbors
+        lhs.value == rhs.value && lhs.neighbors == rhs.neighbors
     }
-    
+}
+
+extension GraphNode: Hashable where T: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(title)
+        hasher.combine(value)
     }
 }
 
@@ -34,12 +36,12 @@ extension GraphNode: Hashable {
 //
 // Given the root node of a directed graph, clone this graph by creating its deep copy so that the cloned graph has the same vertices and edges as the original graph.
 // We are assuming that all vertices are reachable from the root vertex. i.e. we have a connected graph.
-extension GraphNode {
+extension GraphNode where T == String {
     public func cloned() -> GraphNode {
         var nodes = [self]
         var visited = [GraphNode: GraphNode]()
         while let first = nodes.first {
-            let newNode = GraphNode(title: first.title + "-cloned")
+            let newNode = GraphNode(first.value + "-cloned")
             visited[first] = newNode
             
             // Add nodes that we haven't visited before only
