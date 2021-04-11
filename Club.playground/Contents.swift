@@ -533,9 +533,16 @@ final class GraphTests: XCTestCase {
         
         tempNodeA.cloned().description // ???: How to verify?
     }
+    
+    func testCanAllBeScheduled() {
+        XCTAssertFalse(canAllBeScheduled(with: []))
+        XCTAssertTrue(canAllBeScheduled(with: [(1, 0)]))
+        XCTAssertTrue(canAllBeScheduled(with: [(1, 0), (2, 1), (3, 2)]))
+        XCTAssertFalse(canAllBeScheduled(with: [(1, 0), (0, 1), (3, 2)]))
+    }
 }
 
-GraphTests.defaultTestSuite.run()
+//GraphTests.defaultTestSuite.run()
 
 // LRU Cache
 final class LRUCacheTests: XCTestCase {

@@ -22,7 +22,7 @@ extension GraphNode: CustomStringConvertible where T: CustomStringConvertible {
 
 extension GraphNode: Equatable where T: Equatable {
     public static func == (lhs: GraphNode, rhs: GraphNode) -> Bool {
-        lhs.value == rhs.value && lhs.neighbors == rhs.neighbors
+        lhs.value == rhs.value// && lhs.neighbors == rhs.neighbors
     }
 }
 
@@ -64,5 +64,77 @@ extension GraphNode where T == String {
         }
         
         return visited[self]!
+    }
+}
+
+// Determine If Tasks Can All Be Scheduled
+//
+// There are ‘N’ tasks, labeled from ‘0’ to ‘N-1’.
+// Each task can have some prerequisite tasks which need to be completed before it can be scheduled.
+// Given the number of tasks and a list of prerequisite pairs, find out if it is possible to schedule all the tasks.
+// This problem is equivalent to detecting a cycle in the graph represented by prerequisites.
+
+// TODO: This doesn't work yet
+public func canAllBeScheduled(with prerequisites: [(Int, Int)]) -> Bool {
+    guard !prerequisites.isEmpty else {
+        return false
+    }
+    
+    var nodes: Set<GraphNode<Int>> = []
+    for (first, second) in prerequisites {
+        if let firstNode = nodes.first(where: { $0.value == first }),
+           let secondNode = nodes.first(where: { $0.value == second }) {
+            nodes.remove(firstNode)
+            nodes.remove(secondNode)
+            secondNode.neighbors.append(firstNode)
+            nodes.insert(secondNode)
+        } else if let firstNode = nodes.first(where: { $0.value == first }) {
+            nodes.remove(firstNode)
+            let secondNode = GraphNode<Int>(second)
+            secondNode.neighbors.append(firstNode)
+            nodes.insert(secondNode)
+        } else if let secondNode = nodes.first(where: { $0.value == second }) {
+            nodes.remove(secondNode)
+            let firstNode = GraphNode<Int>(first)
+            secondNode.neighbors.append(firstNode)
+            nodes.insert(secondNode)
+        } else {
+            let firstNode = GraphNode<Int>(first)
+            let secondNode = GraphNode<Int>(second)
+            secondNode.neighbors.append(firstNode)
+            nodes.insert(secondNode)
+        }
+    }
+    
+    var visited: Set<GraphNode<Int>> = []
+    
+    var result = false
+    while !nodes.isEmpty {
+        let node = nodes.removeFirst()
+        result = result || hasCycle(for: node, onPath: nodes, visited: &visited)
+    }
+    
+    return !result
+}
+
+private func hasCycle(for node: GraphNode<Int>, onPath: Set<GraphNode<Int>>, visited: inout Set<GraphNode<Int>>) -> Bool {
+    print("node:")
+    print(node.value)
+    
+    print("visited:")
+    visited.forEach {
+        print($0.value)
+    }
+    
+    if visited.contains(node) {
+        return true
+    }
+    
+    if !onPath.contains(node) {
+        visited.insert(node)
+    }
+        
+    return node.neighbors.reduce(false) { result, neighbor in
+        result || hasCycle(for: neighbor, onPath: onPath, visited: &visited)
     }
 }
