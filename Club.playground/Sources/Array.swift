@@ -1123,20 +1123,14 @@ extension Array where Element == Int {
             let y = copy.removeFirst()
             
             if x > y {
-                if let set = groups[x] {
-                    groups[x] = set.union([y])
-                } else {
-                    groups[x] = [y]
-                }
+                let set = groups[x, default: []]
+                groups[x] = set.union([y])
                 
                 copy.append(x) // Append the larger back for the next round of comparison
                 largest = Swift.max(largest, x)
             } else if y > x {
-                if let set = groups[y] {
-                    groups[y] = set.union([x])
-                } else {
-                    groups[y] = [x]
-                }
+                let set = groups[y, default: []]
+                groups[y] = set.union([x])
                 
                 copy.append(y) // Append the larger back for the next round of comparison
                 largest = Swift.max(largest, y)
