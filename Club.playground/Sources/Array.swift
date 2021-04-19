@@ -1093,3 +1093,58 @@ extension Array where Element == Int {
             || hasEqualSumsubSet(at: index + 1, reminder: reminder) // Exclude this element
     }
 }
+
+// Find Second Largest
+//
+// Given a list of unique numbers, find the second largest number with less possibile comparison
+extension Array where Element == Int {
+    /*
+     This algorithm works because the numbers are unique.
+
+     1. Early exit and ensure the count of numbers is even
+     2. Compare two numbers at once and store the larger as the key and the smaller as the value, e.g. [larger: [smaller1, smaller2, ...]]
+     3. The second largest number must be located at the value of the largest number (This is the important observation)
+     4. Use a simple loop to find the second largest
+     */
+    public func findSecondLargest() -> Int? {
+        guard count > 1, let first = first else {
+            return nil
+        }
+        
+        var copy = self
+        if !copy.count.isMultiple(of: 2) {
+            copy.append(first) // Ensure there are no equal numbers in each comparison
+        }
+        
+        var groups: [Int: Set<Int>] = [:]
+        var largest = first
+        while copy.count > 1 {
+            let x = copy.removeFirst()
+            let y = copy.removeFirst()
+            
+            if x > y {
+                if let set = groups[x] {
+                    groups[x] = set.union([y])
+                } else {
+                    groups[x] = [y]
+                }
+                
+                copy.append(x) // Append the larger back for the next round of comparison
+                largest = Swift.max(largest, x)
+            } else if y > x {
+                if let set = groups[y] {
+                    groups[y] = set.union([x])
+                } else {
+                    groups[y] = [x]
+                }
+                
+                copy.append(y) // Append the larger back for the next round of comparison
+                largest = Swift.max(largest, y)
+            } else {
+                assertionFailure("Should not happen")
+            }
+        }
+        
+        return groups[largest]?.reduce(Int.min, Swift.max)
+    }
+}

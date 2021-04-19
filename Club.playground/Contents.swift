@@ -162,6 +162,13 @@ final class ArrayTests: XCTestCase {
         XCTAssertFalse([1, 2, 3, 5].hasEqualSumsubSet())
         XCTAssertTrue([1, 6, 6, 11].hasEqualSumsubSet())
     }
+    
+    func testFindSecondLargest() {
+        XCTAssertNil([Int]().findSecondLargest())
+        XCTAssertNil([9].findSecondLargest())
+        XCTAssertEqual([2, 0, 8, 1, 3, 4].findSecondLargest(), 4)
+        XCTAssertEqual([2, 0, 8, 1, 3, 4, 9].findSecondLargest(), 8)
+    }
 }
 
 //ArrayTests.defaultTestSuite.run()
