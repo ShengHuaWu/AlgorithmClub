@@ -920,12 +920,16 @@ extension Array where Element == Int {
 // Given a sorted number array and two integers ‘K’ and ‘X’, find ‘K’ closest numbers to ‘X’ in the array.
 // Return the numbers in the sorted order. ‘X’ is not necessarily present in the array.
 extension Array where Element == Int {
+    /*
+     1. Find the closest index with binary search
+     2. Choose before and after of the closest
+     3. If the diffs of the last step are the same, excluding after
+     */
     public func findKthClosestAnotherWay(_ k: Int, to key: Int) -> [Int] {
         guard count > k, !isEmpty else {
             return self
         }
-                
-        // Find the closest index with binary search
+        
         var start = startIndex
         var end = endIndex
         var closestIndex = start
@@ -941,7 +945,6 @@ extension Array where Element == Int {
             }
         }
         
-        // Choose before and after of the closest
         var before = closestIndex
         var after = closestIndex
         while after - before + 1 < k {
@@ -969,7 +972,6 @@ extension Array where Element == Int {
             }
         }
         
-        // If the diffs of the last step are the same, excluding after
         if after - before + 1 > k {
             after -= 1
         }
@@ -985,11 +987,8 @@ extension Array where Element == Int {
         var differences: [Int: [Int]] = [:]
         for number in self {
             let diff = abs(key - number)
-            if let numbersWithDiff = differences[diff] {
-                differences[diff] = numbersWithDiff + [number]
-            } else {
-                differences[diff] = [number]
-            }
+            let numbersWithDiff = differences[diff, default: []]
+            differences[diff] = numbersWithDiff + [number]
         }
         
         var diff = 0
@@ -1064,7 +1063,7 @@ extension Array where Element == Int {
 
 // Equal Subset Sum Partition
 //
-// Given a set of positive numbers,
+// Given a list of positive numbers,
 // find if we can partition it into two subsets such that the sum of elements in both subsets is equal.
 extension Array where Element == Int {
     public func hasEqualSumsubSet() -> Bool {
