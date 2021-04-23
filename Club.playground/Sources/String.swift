@@ -697,13 +697,10 @@ extension String {
         while let newHigh = index(high, offsetBy: 1, limitedBy: endIndex) {
             let char = self[high]
             distinctChars.insert(char)
-            if let count = charCounts[char] {
-                charCounts[char] = count + 1
-            } else {
-                charCounts[char] = 1
-            }
+            let count = charCounts[char, default: 0]
+            charCounts[char] = count + 1
             
-            // If the size is more than `k`, remove characters from the left
+            // If the count is more than `k`, remove characters from the left
             while distinctChars.count > k {
                 let charToBeRemoved = self[low]
                 if let count = charCounts[charToBeRemoved] {
@@ -849,11 +846,8 @@ extension String {
         for char in self {
             chars.insert(char)
             
-            if let count = charCounts[char] {
-                charCounts[char] = count + 1
-            } else {
-                charCounts[char] = 1
-            }
+            let count = charCounts[char, default: 0]
+            charCounts[char] = count + 1
         }
         
         var result = ""
