@@ -1147,19 +1147,21 @@ extension Array where Element == Int {
 // 1. Given an list of strings, remove duplications but keep the order
 // 2. If the list is stored on the disk and it's huge (< 10 TB), remove duplications with any new order
 extension Array where Element == String {
-    public func removeDuplications(from input: [String]) -> [String] {
+    public func removeDuplications() -> [String] {
+        var start = 0
         var stringWithIndex: [String: Int] = [:]
-          zip(input.indices, input).forEach { index, string in
-             if stringWithIndex[string] == nil {
-              stringWithIndex[string] = index
+        for string in self {
+            if stringWithIndex[string] == nil {
+                stringWithIndex[string] = start
+                start += 1
             }
-          }
-          
-          var results = Array(repeating: "", count: stringWithIndex.values.count)
-          for (string, index) in stringWithIndex {
+        }
+        
+        var results = Array(repeating: "", count: stringWithIndex.count)
+        for (string, index) in stringWithIndex {
             results[index] = string
-          }
-          
-          return results
+        }
+        
+        return results
     }
 }

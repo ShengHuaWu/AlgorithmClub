@@ -169,6 +169,11 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([2, 0, 8, 1, 3, 4].findSecondLargest(), 4)
         XCTAssertEqual([2, 0, 8, 1, 3, 4, 9].findSecondLargest(), 8)
     }
+    
+    func testRemoveDuplications() {
+        XCTAssertEqual([String]().removeDuplications().count, 0)
+        XCTAssertEqual(["pear", "apple", "orange", "tea", "apple", "apple", "apple", "apple", "banana", "pear"].removeDuplications(), ["pear", "apple", "orange", "tea", "banana"])
+    }
 }
 
 //ArrayTests.defaultTestSuite.run()
