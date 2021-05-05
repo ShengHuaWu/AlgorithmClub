@@ -629,6 +629,19 @@ final class SetTests: XCTestCase {
         XCTAssertEqual(Set([1, 2, 3, 6]).findSubsetsWithEqualSum()?.0, [1, 2, 3])
         XCTAssertEqual(Set([1, 2, 3, 6]).findSubsetsWithEqualSum()?.1, [6])
     }
+    
+    func testFindKthLargestElement() {
+        XCTAssertNil(Set().findKthLargestElement(9))
+        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElement(9), 1)
+        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElement(2), 3)
+        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElement(3), 2)
+        
+        
+        XCTAssertNil(Set().findKthLargestElementAnotherWay(9))
+        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElementAnotherWay(9), 1)
+        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElementAnotherWay(2), 3)
+        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElementAnotherWay(3), 2)
+    }
 }
 
 //SetTests.defaultTestSuite.run()

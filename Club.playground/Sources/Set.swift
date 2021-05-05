@@ -32,3 +32,41 @@ extension Set where Element == Int {
         return (Set(sorted[start ... mid]), Set(sorted[mid+1 ... end]))
     }
 }
+
+// Find the kth greatest element in a set
+extension Set where Element == Int {
+    // Time complexity: O(n ln n)
+    public func findKthLargestElement(_ k: Int) -> Int? {
+        guard !isEmpty else {
+            return nil
+        }
+        
+        if count <= k {
+            return self.min()
+        }
+        
+        return sorted(by: >)[k - 1]
+    }
+    
+    // Time complexity: O(n * k)
+    public func findKthLargestElementAnotherWay(_ k: Int) -> Int? {
+        guard !isEmpty else {
+            return nil
+        }
+        
+        if count <= k {
+            return self.min()
+        }
+        
+        var copy = self
+        var temp = k
+        var result = Int.min
+        while temp > 0, let max = copy.max() {
+            copy.remove(max)
+            temp -= 1
+            result = max
+        }
+        
+        return result
+    }
+}
