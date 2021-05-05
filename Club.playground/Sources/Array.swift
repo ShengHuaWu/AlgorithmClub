@@ -1141,3 +1141,27 @@ extension Array where Element == Int {
         return groups[largest]?.reduce(Int.min, Swift.max)
     }
 }
+
+// Remove duplication
+//
+// 1. Given an list of strings, remove duplications but keep the order
+// 2. If the list is stored on the disk and it's huge (< 10 TB), remove duplications with any new order
+extension Array where Element == String {
+    public func removeDuplications() -> [String] {
+        var start = 0
+        var stringWithIndex: [String: Int] = [:]
+        for string in self {
+            if stringWithIndex[string] == nil {
+                stringWithIndex[string] = start
+                start += 1
+            }
+        }
+        
+        var results = Array(repeating: "", count: stringWithIndex.count)
+        for (string, index) in stringWithIndex {
+            results[index] = string
+        }
+        
+        return results
+    }
+}
