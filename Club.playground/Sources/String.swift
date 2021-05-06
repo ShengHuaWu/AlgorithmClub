@@ -935,3 +935,25 @@ private func findAllBraceCombinations(openCount: Int, closeCount: Int, target: I
         temp.removeLast() // Removing the last element from list (backtracking)
     }
 }
+
+// Find Most Often Character
+//
+// Given a string, find the character that appears the most often in the string.
+extension String {
+    public func findMostOftenCharacter() -> Character? {
+        guard let first = first else {
+            return nil
+        }
+        
+        var charCounts: [Character: Int] = [:]
+        for character in self {
+            let count = charCounts[character, default: 0]
+            charCounts[character] = count + 1
+        }
+        
+        // If the count of two different character are the same, choose the first one
+        return charCounts.reduce(first) { result, pair in
+            charCounts[result, default: 0] < pair.value ? pair.key : result
+        }
+    }
+}

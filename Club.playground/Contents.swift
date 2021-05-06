@@ -521,9 +521,15 @@ final class StringTests: XCTestCase {
         XCTAssertEqual(findAllBraceCombinations(for: 0), [])
         XCTAssertEqual(findAllBraceCombinations(for: 3), ["{}{}{}", "{}{{}}", "{{}}{}", "{{}{}}", "{{{}}}"])
     }
+    
+    func testFindMostOftenCharacter() {
+        XCTAssertNil("".findMostOftenCharacter())
+        XCTAssertEqual("shenghua".findMostOftenCharacter(), "h")
+        XCTAssertEqual("what if something goes wrong?".findMostOftenCharacter(), " ")
+    }
 }
 
-// StringTests.defaultTestSuite.run()
+//StringTests.defaultTestSuite.run()
 
 
 // Graph
