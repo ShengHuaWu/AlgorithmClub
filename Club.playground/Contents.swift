@@ -526,6 +526,10 @@ final class StringTests: XCTestCase {
         XCTAssertNil("".findMostOftenCharacter())
         XCTAssertEqual("shenghua".findMostOftenCharacter(), "h")
         XCTAssertEqual("what if something goes wrong?".findMostOftenCharacter(), " ")
+        
+        XCTAssertNil("".findMostOftenCharacterAnotherWay())
+        XCTAssertEqual("shenghua".findMostOftenCharacterAnotherWay(), "h")
+        XCTAssertEqual("what if something goes wrong?".findMostOftenCharacterAnotherWay(), " ")
     }
 }
 

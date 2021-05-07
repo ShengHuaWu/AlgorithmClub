@@ -281,6 +281,12 @@ extension String {
     public func reversedWords() -> String {
         split(separator: " ").map(String.init).reversed().joined(separator: " ")
     }
+    
+    // What if the string file is too huge to load into the memory?
+    //
+    // 1. Divide the huge string file into small piece which can be load into the memory.
+    // 2. Reverse each small piece one by one to reduce memory consumption.
+    // 3. Append the first reversed piece into the second, and the second into the third, and so on.
 }
 
 // Hard drive statistics
@@ -956,4 +962,34 @@ extension String {
             charCounts[result, default: 0] < pair.value ? pair.key : result
         }
     }
+    
+    public func findMostOftenCharacterAnotherWay() -> Character? {
+        guard !isEmpty else {
+            return nil
+        }
+        
+        let sortedString = sorted()
+        var start = sortedString.startIndex
+        var count = 0
+        var result = sortedString.first
+        for index in sortedString.indices {
+            guard sortedString[start] != sortedString[index] else {
+                continue
+            }
+            
+            let newCount = index - start
+            count = count == 0 ? newCount : count // Make sure the consider the count of the first chararcter after sorting
+            result = newCount > count ? sortedString[start] : result
+            start = index
+        }
+        
+        return result
+    }
+    
+    // What if the string file is too huge to load into the memory?
+    //
+    // 1. Divide the file into small pieces which can be loaded into the memory.
+    // 2. Sort each small piece one by one to reduce memory consumption.
+    // 3. Merge all the piece into one sorted file.
+    // 4. Use `findMostOftenCharacterAnotherWay` but load one character at a time.
 }
