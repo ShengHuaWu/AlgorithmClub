@@ -1165,3 +1165,37 @@ extension Array where Element == String {
         return results
     }
 }
+
+// Find Longest Consecutive Subsequence
+//
+// Given an array of numbers, find the longest consecutive subsequence.
+extension Array where Element == Int {
+    public func findLongestConsecutiveSubsequence() -> [Int] {
+        guard count > 1 else {
+            return self
+        }
+        
+        // Define the range of the return value
+        var start = startIndex
+        var end = start
+        
+        // Define the range of the window in each loop
+        var low = start
+        var high = low
+        
+        var previous = self[high]
+        while high < endIndex {
+            if previous == self[high] - 1, end - start < high - low {
+                start = low
+                end = high
+            } else {
+                low = high
+            }
+            
+            previous = self[high]
+            high += 1
+        }
+        
+        return Array(self[start ... end])
+    }
+}
