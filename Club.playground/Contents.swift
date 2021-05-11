@@ -220,6 +220,27 @@ final class BinaryTreeTests: XCTestCase {
         
         XCTAssertEqual(tree.findAllPaths(for: 16), [[5, 3, 8]])
     }
+    
+    func testFindLowestCommonAncestor() {
+        var temp = 0
+        let predicate: () -> Bool = {
+            temp += 1
+            return temp.isMultiple(of: 2)
+        }
+        
+        let tree = BinaryTree.leaf
+            .adding(5, predicate)
+            .adding(3, predicate)
+            .adding(2, predicate)
+            .adding(8, predicate)
+            .adding(7, predicate)
+            .adding(4, predicate)
+            .adding(9, predicate)
+        
+        XCTAssertNil(tree.findLowestCommonAncestor(99, 100))
+        XCTAssertEqual(tree.findLowestCommonAncestor(2, 3), 5)
+        XCTAssertEqual(tree.findLowestCommonAncestor(8, 9), 5)
+    }
 }
 
 //BinaryTreeTests.defaultTestSuite.run()

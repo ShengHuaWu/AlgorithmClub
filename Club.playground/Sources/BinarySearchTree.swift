@@ -246,3 +246,46 @@ extension BinaryTree where Value == Int {
         }
     }
 }
+
+// Find Lowest Common Ancestor
+extension BinaryTree where Value: Comparable {
+    // https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+    // 1. Travel from root to value1 and value2 respectively and obtains two arrays of values
+    // 2. Compare the two arrays and return the one before the mismatch
+    public func findLowestCommonAncestor(_ value1: Value, _ value2: Value) -> Value? {
+        let pathForValue1 = traverse(to: value1)
+        let pathForValue2 = traverse(to: value2)
+        
+        return zip(pathForValue1, pathForValue2).reduce(nil) { result, pair in
+            pair.0 == pair.1 ? pair.0 : result
+        }
+    }
+    
+    private func traverse(to key: Value) -> [Value] {
+        switch self {
+        case .leaf:
+            return []
+            
+        case let .node(_, value, _) where value == key:
+            return [value]
+            
+        case let .node(left, value, right):
+            let leftValues = left.traverse(to: key)
+            let rightValues = right.traverse(to: key)
+            
+            // Cannot find the key
+            if leftValues.isEmpty, rightValues.isEmpty {
+                return []
+            }
+            
+            if rightValues.isEmpty {
+                return [value] + leftValues
+            } else if leftValues.isEmpty {
+                return [value] + rightValues
+            } else {
+                assertionFailure("Both of left & right path are non-empty, but values should be unique")
+                return []
+            }
+        }
+    }
+}
