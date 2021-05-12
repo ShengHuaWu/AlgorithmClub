@@ -247,7 +247,7 @@ final class BinaryTreeTests: XCTestCase {
     }
 }
 
-BinaryTreeTests.defaultTestSuite.run()
+//BinaryTreeTests.defaultTestSuite.run()
 
 /*
 var tree = BinarySearchTree<Int>.empty
