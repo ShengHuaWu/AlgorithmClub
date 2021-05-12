@@ -240,10 +240,14 @@ final class BinaryTreeTests: XCTestCase {
         XCTAssertNil(tree.findLowestCommonAncestor(99, 100))
         XCTAssertEqual(tree.findLowestCommonAncestor(2, 3), 5)
         XCTAssertEqual(tree.findLowestCommonAncestor(8, 9), 5)
+        
+        XCTAssertNil(tree.findLowestCommonAncestorAnotherWay(99, 100))
+        XCTAssertEqual(tree.findLowestCommonAncestorAnotherWay(2, 3), 5)
+        XCTAssertEqual(tree.findLowestCommonAncestorAnotherWay(8, 9), 5)
     }
 }
 
-//BinaryTreeTests.defaultTestSuite.run()
+BinaryTreeTests.defaultTestSuite.run()
 
 /*
 var tree = BinarySearchTree<Int>.empty
