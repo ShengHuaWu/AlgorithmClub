@@ -67,6 +67,55 @@ extension GraphNode where T == String {
     }
 }
 
+// Check Graph Is Bipartite
+//
+// A Bipartite Graph is a graph whose vertices can be divided into two independent sets,
+// U and V such that every edge (u, v) either connects a vertex from U to V or a vertex from V to U.
+// In other words, for every edge (u, v), either u belongs to U and v to V, or u belongs to V and v to U.
+// We can also say that there is no edge that connects vertices of same set.
+extension GraphNode where T: Hashable {
+    // TODO: Not working
+    // https://www.geeksforgeeks.org/bipartite-graph/
+    public var isBipartite: Bool {
+        var queue: [GraphNode] = [self]
+        var visited: Set<GraphNode> = []
+        
+        var redGroup: Set<GraphNode> = []
+        var blueGroup: Set<GraphNode> = []
+        var isRed = true // TODO: This is wrong
+        
+        while let first = queue.first {
+            if isRed {
+                redGroup.insert(first)
+            } else {
+                blueGroup.insert(first)
+            }
+            visited.insert(first)
+            
+            for neighbor in first.neighbors {
+                if isRed, redGroup.contains(neighbor) {
+                    return false
+                }
+                
+                if isRed {
+                    blueGroup.insert(neighbor)
+                } else {
+                    redGroup.insert(first)
+                }
+                
+                if !visited.contains(neighbor) {
+                    queue.append(neighbor)
+                }
+            }
+            
+            queue.removeFirst()
+            isRed = !isRed
+        }
+        
+        return true
+    }
+}
+
 // Determine If Tasks Can All Be Scheduled
 //
 // There are ‘N’ tasks, labeled from ‘0’ to ‘N-1’.
