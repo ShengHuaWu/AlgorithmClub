@@ -74,42 +74,44 @@ extension GraphNode where T == String {
 // In other words, for every edge (u, v), either u belongs to U and v to V, or u belongs to V and v to U.
 // We can also say that there is no edge that connects vertices of same set.
 extension GraphNode where T: Hashable {
-    // TODO: Not working
-    // https://www.geeksforgeeks.org/bipartite-graph/
+    private enum Color {
+        case red
+        case blue
+        
+        var toggle: Color {
+            switch self {
+            case .red:
+                return .blue
+            case .blue:
+                return .red
+            }
+        }
+    }
+    
+    // 1. Assign red color to the first vertex
+    // 2. Assign blue color to the first vertex's neighbors (BFS)
+    // 3. Assign red color to the neighbors of the first vertex's neighbors
+    // 4. ...
+    // 5. While assigning colors, if there is a neighbor with the same color as the current vertex, then the graph is not bipatite
     public var isBipartite: Bool {
         var queue: [GraphNode] = [self]
         var visited: Set<GraphNode> = []
-        
-        var redGroup: Set<GraphNode> = []
-        var blueGroup: Set<GraphNode> = []
-        var isRed = true // TODO: This is wrong
+        var colored: [GraphNode: Color] = [:]
         
         while let first = queue.first {
-            if isRed {
-                redGroup.insert(first)
-            } else {
-                blueGroup.insert(first)
-            }
             visited.insert(first)
             
+            let color = colored[first, default: .red] // Assign red color to the source node (aka `self`)
             for neighbor in first.neighbors {
-                if isRed, redGroup.contains(neighbor) {
-                    return false
-                }
-                
-                if isRed {
-                    blueGroup.insert(neighbor)
-                } else {
-                    redGroup.insert(first)
-                }
-                
-                if !visited.contains(neighbor) {
+                if !visited.contains(neighbor), colored[neighbor] == nil {
+                    colored[neighbor] = color.toggle
                     queue.append(neighbor)
+                } else if let neighborColor = colored[neighbor], neighborColor == color {
+                    return false
                 }
             }
             
             queue.removeFirst()
-            isRed = !isRed
         }
         
         return true
