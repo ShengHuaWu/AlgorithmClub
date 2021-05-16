@@ -1111,41 +1111,33 @@ extension Array where Element == Int {
         }
         
         var copy = self
+        var groups: [Int: Set<Int>] = [:]
+        var max = first
+        
         if !copy.count.isMultiple(of: 2) {
-            copy.append(first) // Ensure there are no equal numbers in each comparison
+            groups[first] = []
+            copy.removeFirst()
+            copy.append(first) // Append the first back for the next round of comparison
         }
         
-        var groups: [Int: Set<Int>] = [:]
-        var largest = first
         while copy.count > 1 {
             let x = copy.removeFirst()
             let y = copy.removeFirst()
-            
-            if x > y {
-                let set = groups[x, default: []]
-                groups[x] = set.union([y])
-                
-                copy.append(x) // Append the larger back for the next round of comparison
-                largest = Swift.max(largest, x)
-            } else if y > x {
-                let set = groups[y, default: []]
-                groups[y] = set.union([x])
-                
-                copy.append(y) // Append the larger back for the next round of comparison
-                largest = Swift.max(largest, y)
-            } else {
-                assertionFailure("Should not happen")
-            }
+            let larger = Swift.max(x, y)
+            let smaller = Swift.min(x, y)
+            let set = groups[larger, default: []]
+            groups[larger] = set.union([smaller])
+            copy.append(larger) // Append the larger back for the next round of comparison
+            max = Swift.max(max, larger)
         }
         
-        return groups[largest]?.reduce(Int.min, Swift.max)
+        return groups[max]?.reduce(Int.min, Swift.max)
     }
 }
 
 // Remove duplication
 //
-// 1. Given an list of strings, remove duplications but keep the order
-// 2. If the list is stored on the disk and it's huge (< 10 TB), remove duplications with any new order
+// Given an list of strings, remove duplications but keep the order
 extension Array where Element: Hashable {
     public func removeDuplications() -> [Element] {
         var uniques: Set<Element> = []
@@ -1160,6 +1152,16 @@ extension Array where Element: Hashable {
         
         return results
     }
+    
+    // What if the list is stored on the disk and it's huge (< 10 TB),
+    // remove duplications with any new order
+    //
+    // 1. Divide the list into small pieces which can be loaded into the memory.
+    // 2. Store every pieces
+    // 3. Load the first lines of the two pieces.
+    //    If they are the same, then only store one into the result.
+    //    If thet are NOT the same, then store both into the result.
+    // 4. Repeat above the comparison between the result and the reminding pieces.
 }
 
 // Find Longest Consecutive Subsequence
