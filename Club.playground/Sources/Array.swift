@@ -666,9 +666,7 @@ extension Array where Element == Int {
                 currentMax += number
             }
             
-            if globalMax < currentMax {
-                globalMax = currentMax
-            }
+            globalMax = Swift.max(globalMax, currentMax)
         }
         
         return globalMax
@@ -1066,7 +1064,7 @@ extension Array where Element == Int {
 // Given a list of positive numbers,
 // find if we can partition it into two subsets such that the sum of elements in both subsets is equal.
 extension Array where Element == Int {
-    public func hasEqualSumsubSet() -> Bool {
+    public func hasEqualSumSubset() -> Bool {
         guard !isEmpty else {
             return false
         }
@@ -1076,10 +1074,10 @@ extension Array where Element == Int {
             return false
         }
         
-        return hasEqualSumsubSet(at: startIndex, reminder: sum / 2)
+        return hasEqualSumSubset(at: startIndex, reminder: sum / 2)
     }
     
-    private func hasEqualSumsubSet(at index: Int, reminder: Int) -> Bool {
+    private func hasEqualSumSubset(at index: Int, reminder: Int) -> Bool {
         guard index < count, reminder >= 0 else {
             return false
         }
@@ -1088,8 +1086,8 @@ extension Array where Element == Int {
             return true
         }
         
-        return hasEqualSumsubSet(at: index + 1, reminder: reminder - self[index]) // Include this element
-            || hasEqualSumsubSet(at: index + 1, reminder: reminder) // Exclude this element
+        return hasEqualSumSubset(at: index + 1, reminder: reminder - self[index]) // Include this element
+            || hasEqualSumSubset(at: index + 1, reminder: reminder) // Exclude this element
     }
 }
 
@@ -1196,4 +1194,10 @@ extension Array where Element == Int {
         
         return Array(self[start ... end])
     }
+    
+    // What if it is asking to find the second longest consecutive subsequence
+    //
+    // 1. Find the longest one with the logic above
+    // 2. Remove the longest one
+    // 3. Find the longest again
 }
