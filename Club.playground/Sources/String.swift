@@ -284,7 +284,7 @@ extension String {
     
     // What if the string file is too huge to load into the memory?
     //
-    // 1. Divide the huge string file into small piece which can be load into the memory.
+    // 1. Divide the huge string file into small piece which can be load into the memory, but the files should be divided by words.
     // 2. Reverse each small piece one by one to reduce memory consumption.
     // 3. Append the first reversed piece into the second, and the second into the third, and so on.
 }
@@ -620,7 +620,6 @@ extension String {
         }
         
         var indexOfPreviousCharInStr = str.startIndex
-        // ???: Perhaps we can check the first and last together and exclude them at once
         for char in self {
             if let indexOfCharInStr = str[indexOfPreviousCharInStr...].firstIndex(of: char) {
                 indexOfPreviousCharInStr = indexOfCharInStr
@@ -631,6 +630,18 @@ extension String {
         
         return true
     }
+    
+    // The time complexity of the above algorithm is O(M * N), where M is the length of `sub` and N is the length of `str`.
+    // How to reduce the time complexity
+    //
+    // 1. Create a `[Character: [Index]]` dictionary by looping each character of `str` from its beginning.
+    //    Since we start from the beginning, the arrays in the dictionary should be sorted (This is important).
+    // 2. Create a `previous` index variable and assign the min index of `sub`'s the first character in the above dictionary to it.
+    // 3. Loop `sub` from the second character and check whether there is an index in the above dictionary which is larger than the `previous` variable.
+    //    When finding such an index, we can adopt binary search because the index arrays in the dictionary are sorted.
+    //    If there is no larger index, then return `false`. Otherwise, return `true`.
+    // 4. The time complexity will be O(M log N), where M is the length of `sub` and N is the length of `str`.
+    //    However, the space complexity is O(N)
 }
 
 // Targets and Vicinities
