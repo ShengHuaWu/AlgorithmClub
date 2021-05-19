@@ -292,7 +292,7 @@ extension BinaryTree where Value: Comparable {
     // 1. If the value of the current node is equal to `value1` or `value2`, then the current node is the lowest common ancestor
     // 2. If the value of the current node is NOT equal to `value1` or `value2`, then find the lowest common ancestor for left and right subtree
     // 3. If both of the left and right lowest common ancestors are NOT nil, then the current node is the lowest common ancestor
-    // 4. If one of the left and right lowest common ancestors is NOT nil, then the other one is the lowest common ancestor
+    // 4. If one of the left and right lowest common ancestors is nil, then the other one is the lowest common ancestor
     // 5. Time complexity: O(n); Space complexlity: O(1)
     public func findLowestCommonAncestorAnotherWay(_ value1: Value, _ value2: Value) -> Value? {
         switch self {
@@ -300,6 +300,7 @@ extension BinaryTree where Value: Comparable {
             return nil
             
         case let .node(_, value, _) where value == value1 || value == value2:
+            // This assumes both of the values exist in thr tree
             return value
             
         case let .node(left, value, right):
