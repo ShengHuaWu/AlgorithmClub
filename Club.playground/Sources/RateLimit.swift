@@ -53,3 +53,75 @@ public final class API {
         }
     }
 }
+
+// MARK: - Functional Approach
+private var rateLimit: [String: (Date, Int)] = [:] // This represents a storage
+
+public struct Storage {
+    public let cleanUp: () -> Void
+    let get: (String) -> (Date, Int)?
+    let update: (String, Date, Int) -> Void
+}
+
+extension Storage {
+    static let live = Self(
+        cleanUp: {
+            rateLimit = [:]
+        },
+        get: { key in
+            rateLimit[key]
+        },
+        update: { key, time, count in
+            rateLimit[key] = (time, count)
+        }
+    )
+}
+
+public struct Environment {
+    public let now: () -> Date
+    public let storage: Storage
+}
+
+public var global = Environment(
+    now: Date.init,
+    storage: .live
+)
+
+struct RateLimitValidator {
+    let run: (inout Date, inout Int) -> Bool // (previous, count) -> Bool
+}
+
+extension RateLimitValidator {
+    static let fiveRequestsInTwoSecons = Self { previous, count in
+        let current = global.now()
+        guard current.timeIntervalSince(previous) <= 2 else {
+            count = 1
+            previous = current
+            return true
+        }
+        
+        previous = current
+                
+        if count < 5 {
+            count += 1
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+public func invokeEndpoint(_ customerId: String) -> String? {
+    guard let previous = global.storage.get(customerId) else {
+        global.storage.update(customerId, global.now(), 1)
+        
+        return customerId
+    }
+    
+    var time = previous.0
+    var count = previous.1
+    let success = RateLimitValidator.fiveRequestsInTwoSecons.run(&time, &count)
+    global.storage.update(customerId, time, count)
+    
+    return success ? customerId : nil
+}
