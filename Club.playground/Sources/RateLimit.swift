@@ -55,15 +55,20 @@ public final class API {
 }
 
 // MARK: - Functional Approach
-private var rateLimit: [String: (Date, Int)] = [:] // This represents a storage
-
-public struct Storage {
-    public let cleanUp: () -> Void
-    let get: (String) -> (Date, Int)?
-    let update: (String, Date, Int) -> Void
+struct Conditions {
+    var time: Date
+    var count: Int
 }
 
-extension Storage {
+private var rateLimit: [String: Conditions] = [:] // This represents a cache
+
+public struct Cache {
+    public let cleanUp: () -> Void
+    let get: (String) -> Conditions?
+    let update: (String, Conditions) -> Void
+}
+
+extension Cache {
     static let live = Self(
         cleanUp: {
             rateLimit = [:]
@@ -71,39 +76,38 @@ extension Storage {
         get: { key in
             rateLimit[key]
         },
-        update: { key, time, count in
-            rateLimit[key] = (time, count)
+        update: { key, conditions in
+            rateLimit[key] = conditions
         }
     )
 }
 
 public struct Environment {
     public let now: () -> Date
-    public let storage: Storage
+    public let cache: Cache
 }
 
 public var global = Environment(
     now: Date.init,
-    storage: .live
+    cache: .live
 )
 
 struct RateLimitValidator {
-    let run: (inout Date, inout Int) -> Bool // (previous, count) -> Bool
+    let run: (inout Conditions) -> Bool
 }
 
 extension RateLimitValidator {
-    static let fiveRequestsInTwoSecons = Self { previous, count in
+    static let fiveRequestsInTwoSeconds = Self { conditions in
         let current = global.now()
-        guard current.timeIntervalSince(previous) <= 2 else {
-            count = 1
-            previous = current
+        guard current.timeIntervalSince(conditions.time) <= 2 else {
+            conditions = Conditions(time: current, count: 1)
             return true
         }
         
-        previous = current
+        conditions.time = current
                 
-        if count < 5 {
-            count += 1
+        if conditions.count < 5 {
+            conditions.count += 1
             return true
         } else {
             return false
@@ -112,16 +116,14 @@ extension RateLimitValidator {
 }
 
 public func invokeEndpoint(_ customerId: String) -> String? {
-    guard let previous = global.storage.get(customerId) else {
-        global.storage.update(customerId, global.now(), 1)
+    guard var conditions = global.cache.get(customerId) else {
+        global.cache.update(customerId, Conditions(time: global.now(), count: 1))
         
         return customerId
     }
     
-    var time = previous.0
-    var count = previous.1
-    let success = RateLimitValidator.fiveRequestsInTwoSecons.run(&time, &count)
-    global.storage.update(customerId, time, count)
+    let success = RateLimitValidator.fiveRequestsInTwoSeconds.run(&conditions)
+    global.cache.update(customerId, conditions)
     
     return success ? customerId : nil
 }

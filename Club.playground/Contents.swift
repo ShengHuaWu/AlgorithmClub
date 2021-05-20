@@ -641,7 +641,7 @@ final class RateLimitTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        global.storage.cleanUp()
+        global.cache.cleanUp()
     }
     
     func testInvokeEndpointReturnResponseWithTwoDifferentCustomerIds() {
