@@ -74,7 +74,6 @@ extension Logger {
 extension Logger where Content == String {
     static let debug = Self(
         record: { content in
-            print("Record")
             print(content)
         })
 }
@@ -87,10 +86,11 @@ extension URLRequest {
         let body = httpBody.flatMap { try? JSONSerialization.jsonObject(with: $0, options: []) }.debugDescription
         
         return """
-        url: \(urlString)
-        method: \(method)
-        headers: \(headers)
-        body: \(body)
+        REST Request:
+        - url: \(urlString)
+        - method: \(method)
+        - headers: \(headers)
+        - body: \(body)
         """
     }
 }
@@ -100,28 +100,43 @@ extension HTTPURLResponse {
         let urlString = url?.absoluteString ?? ""
         
         return """
-        url: \(urlString)
-        statusCode: \(statusCode)
-        headers: \(allHeaderFields)
+        REST HTTP Response:
+        - url: \(urlString)
+        - statusCode: \(statusCode)
+        - headers: \(allHeaderFields)
         """
     }
 }
 
 extension Error {
-    var content: String {
+    var restErrorContent: String {
         """
-        error: \(localizedDescription)
+        REST Error:
+        \(localizedDescription)
         """
     }
 }
 
 extension Data {
-    var content: String {
-        let json = try? JSONSerialization.jsonObject(with: self, options: [])
-        let jsonString = json.debugDescription
+    var restResponseContent: String {
+        if let json = try? JSONSerialization.jsonObject(with: self, options: []) as? [String: Any] {
+            return """
+            REST Response Data:
+            - json: \(json.debugDescription)
+            """
+        }
+
+        if let text = String(data: self, encoding: .utf8) {
+            return """
+            REST Response Data:
+            - utf8 string: \(text)
+            """
+        }
         
         return """
-        json: \(jsonString)
+        REST Response Data:
+        Unable to parse the response data into JSON or UTF8 string.
+        The length of the data is `\(count)`.
         """
     }
 }
@@ -168,12 +183,14 @@ final class RestClient {
     
     private func sanitize(data: Data?, response: URLResponse?, error: Error?) throws -> Data {
         if let unwrappedError = error {
-            logger.pullback(\.content).record(unwrappedError)
+            logger.pullback(\.restErrorContent).record(unwrappedError)
             throw RestClientError.networkFailure(unwrappedError)
         }
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
-            throw RestClientError.invalidResponse(response)
+            let invalidResponseError = RestClientError.invalidResponse(response)
+            logger.pullback(\.restErrorContent).record(invalidResponseError)
+            throw invalidResponseError
         }
         
         logger.pullback(\.content).record(httpResponse)
@@ -184,7 +201,7 @@ final class RestClient {
             throw RestClientError.emptyData
         }
         
-        logger.pullback(\.content).record(unwrappedData)
+        logger.pullback(\.restResponseContent).record(unwrappedData)
         
         return unwrappedData
     }
