@@ -579,20 +579,6 @@ extension Array where Element == Int {
     }
 }
 
-// Find largest size after removal
-//
-// There is a n x m mesh storage and each cell is 1 x 1 size.
-// We are going to remove h number of the horizontal lines and v number of the vertical lines.
-// For instance, n = 3, m = 3, h = [1] and v = [2], then the result is 2.
-// Write a function to find the largest size after removal.
-public func findLargestSizeAfterRemoval(n: Int, m: Int, h: [Int], v: [Int]) -> Int {
-    /* first thought:
-     Find the largest lengh of the adjacent elements of h and v,
-     and the multiplication should be the result ???
-    */
-    fatalError()
-}
-
 extension Array where Element == Int {
     // The array has to be sorted first
     public func findLargestLengthOfAdjacent() -> Int {
@@ -896,23 +882,6 @@ extension Array where Element == Int {
     }
 }
 
-// Find Kth Largest Element
-//
-// Design a function to efficiently find the Kth largest element in an integer array.
-extension Array where Element == Int {
-    public func findKthLargest(_ k: Int) -> Int? {
-        guard !isEmpty else {
-            return nil
-        }
-        
-        if k > count {
-            return sorted().first
-        } else {
-            return sorted(by: >)[k - 1]
-        }
-    }
-}
-
 // Find Kth Closest Numbers
 //
 // Given a sorted number array and two integers ‘K’ and ‘X’, find ‘K’ closest numbers to ‘X’ in the array.
@@ -1098,7 +1067,7 @@ extension Array where Element == Int {
     /*
      This algorithm works because the numbers are unique.
 
-     1. Early exit and ensure the count of numbers is even
+     1. Early exit and ensure the count of numbers is larger than 1
      2. Compare two numbers at once and store the larger as the key and the smaller as the value, e.g. [larger: [smaller1, smaller2, ...]]
      3. The second largest number must be located at the value of the largest number (This is the important observation)
      4. Use a simple loop to find the second largest
@@ -1130,6 +1099,23 @@ extension Array where Element == Int {
         }
         
         return groups[max]?.reduce(Int.min, Swift.max)
+    }
+}
+
+// Find Kth Largest Element
+//
+// Design a function to efficiently find the Kth largest element in an integer array.
+extension Array where Element == Int {
+    public func findKthLargest(_ k: Int) -> Int? {
+        guard !isEmpty else {
+            return nil
+        }
+        
+        if k > count {
+            return sorted().first
+        } else {
+            return sorted(by: >)[k - 1]
+        }
     }
 }
 

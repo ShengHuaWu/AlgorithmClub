@@ -78,7 +78,7 @@ extension GraphNode where T: Hashable {
         case red
         case blue
         
-        var toggle: Color {
+        var toggled: Color {
             switch self {
             case .red:
                 return .blue
@@ -104,7 +104,7 @@ extension GraphNode where T: Hashable {
             let color = colored[first, default: .red] // Assign red color to the source node (aka `self`)
             for neighbor in first.neighbors {
                 if !visited.contains(neighbor), colored[neighbor] == nil {
-                    colored[neighbor] = color.toggle
+                    colored[neighbor] = color.toggled
                     queue.append(neighbor)
                 } else if let neighborColor = colored[neighbor], neighborColor == color {
                     return false
