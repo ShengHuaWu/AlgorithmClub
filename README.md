@@ -32,5 +32,8 @@
 * Boyer-Moore algorithm
 * Fizz Buzz
 
+### Amazon Coding Questions
+Link: https://www.educative.io/blog/crack-amazon-coding-interview-questions
+
 ### Haskell 99 Problems
 Link: https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
