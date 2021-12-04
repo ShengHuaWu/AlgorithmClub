@@ -12,12 +12,12 @@ class TableViewCell: Equatable, Hashable {
     }
     
     static func == (lhs: TableViewCell, rhs: TableViewCell) -> Bool {
-        Unmanaged.passRetained(lhs).toOpaque() == Unmanaged.passRetained(rhs).toOpaque()
+        Unmanaged.passUnretained(lhs).toOpaque() == Unmanaged.passUnretained(rhs).toOpaque()
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(reuseIdentifier)
-        hasher.combine(Unmanaged.passRetained(self).toOpaque())
+        hasher.combine(Unmanaged.passUnretained(self).toOpaque())
     }
 }
 
@@ -59,5 +59,63 @@ final class TableView {
         
         let cellsOffScreen = offScreen[tableViewCell.reuseIdentifier, default: []]
         offScreen[tableViewCell.reuseIdentifier] = cellsOffScreen.union([tableViewCell])
+    }
+}
+
+// Second Thought
+
+struct ReuseModel {
+    let reuseId: String
+    let registeredCellType: TableViewCell.Type
+    var cellsOnScreen: [TableViewCell] = []
+    var cellsOffScreen: [TableViewCell] = []
+}
+
+final class ReuseManager {
+    private var models: [String: ReuseModel] = [:]
+    
+    func register<T: TableViewCell>(reuseId: String, type: T.Type) {
+        guard let model = models[reuseId] else {
+            models[reuseId] = .init(reuseId: reuseId, registeredCellType: type)
+            return
+        }
+        
+        if model.registeredCellType.self != type.self {
+            fatalError("Attempt to register the same reuse id \(reuseId) for different cell types \(model.registeredCellType.self) and \(type.self)")
+        }
+    }
+    
+    func dequeue(with reuseId: String) -> TableViewCell {
+        guard var model = models[reuseId] else {
+            fatalError("Attempt to dequeue unregistered cell type.")
+        }
+        
+        if let first = model.cellsOffScreen.first {
+            model.cellsOffScreen.removeFirst()
+            model.cellsOnScreen.append(first)
+            models[reuseId] = model
+            
+            return first
+        } else {
+            let cell = model.registeredCellType.init(reuseIdentifier: reuseId)
+            model.cellsOnScreen.append(cell)
+            models[reuseId] = model
+            
+            return cell
+        }
+    }
+    
+    func didEndDisplay(tableViewCell: TableViewCell) {
+        guard var model = models[tableViewCell.reuseIdentifier] else {
+            fatalError("Attempt to store a unregistered table view cell into reuse cycle.")
+        }
+        
+        guard let index = model.cellsOnScreen.firstIndex(where: { $0 == tableViewCell }) else {
+            fatalError("Unable to find the on screen cell.")
+        }
+        
+        let cell = model.cellsOnScreen.remove(at: index)
+        model.cellsOffScreen.append(cell)
+        models[tableViewCell.reuseIdentifier] = model
     }
 }
