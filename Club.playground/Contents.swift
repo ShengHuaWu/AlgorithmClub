@@ -726,6 +726,86 @@ final class RateLimitTests: XCTestCase {
 
 //RateLimitTests.defaultTestSuite.run()
 
+final class TDD_RateLimitTests: XCTestCase {
+    func testInvokeEndpointFiveTimes() {
+        let customerId = "ABC"
+        
+        let api = TDD_API()
+        
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+    }
+    
+    func testInvokeEndpointSixTimes() {
+        let customerId = "ABC"
+        
+        let api = TDD_API()
+        
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNil(api.invokeEndpoint(customerId))
+    }
+    
+    func testInvokeEndpointSixTimesButExceedingTwoSeconds() {
+        let delayTwoSeconds = expectation(description: #function)
+        
+        let customerId = "ABC"
+        
+        let api = TDD_API()
+        
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        
+        DispatchQueue(label: #function).asyncAfter(deadline: .now() + 2) {
+            XCTAssertNotNil(api.invokeEndpoint(customerId))
+            delayTwoSeconds.fulfill()
+        }
+        
+        wait(for: [delayTwoSeconds], timeout: 5.0)
+    }
+    
+    func testInvokeEndpointSixTimesButExceedingTwoSecondsAndAnotherFiveTimes() {
+        let delayTwoSeconds = expectation(description: #function)
+        
+        let customerId = "ABC"
+        
+        let api = TDD_API()
+        
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        XCTAssertNotNil(api.invokeEndpoint(customerId))
+        
+        DispatchQueue(label: #function).asyncAfter(deadline: .now() + 2) {
+            XCTAssertNotNil(api.invokeEndpoint(customerId))
+            
+            XCTAssertNotNil(api.invokeEndpoint(customerId))
+            XCTAssertNotNil(api.invokeEndpoint(customerId))
+            XCTAssertNotNil(api.invokeEndpoint(customerId))
+            XCTAssertNotNil(api.invokeEndpoint(customerId))
+            XCTAssertNil(api.invokeEndpoint(customerId))
+            
+            delayTwoSeconds.fulfill()
+        }
+        
+        wait(for: [delayTwoSeconds], timeout: 5.0)
+    }
+    
+    // TODO: write tests for multiple customers
+}
+
+// TDD_RateLimitTests.defaultTestSuite.run()
+
 // Set
 final class SetTests: XCTestCase {
     func testFindSubsetsWithEqualSum() {

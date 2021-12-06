@@ -127,3 +127,30 @@ public func invokeEndpoint(_ customerId: String) -> String? {
     
     return success ? customerId : nil
 }
+
+// TDD Rate Limit (WIP)
+
+public final class TDD_API {
+    private var count = 0
+    private var lastCallTime = Date()
+    
+    public init() {}
+    
+    public func invokeEndpoint(_ customerId: String) -> String? {
+        let now = Date()
+        
+        if now.timeIntervalSince(lastCallTime) > 2 {
+            lastCallTime = now
+            count = 1
+            return customerId
+        } else {
+            count += 1
+            
+            guard count < 6 else {
+                return nil
+            }
+            
+            return customerId
+        }
+    }
+}
