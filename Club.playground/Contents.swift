@@ -801,10 +801,29 @@ final class TDD_RateLimitTests: XCTestCase {
         wait(for: [delayTwoSeconds], timeout: 5.0)
     }
     
+    func testInvokeEndpointFiveTimesWithTwoCustomers() {
+        let customer1 = "ABC"
+        let customer2 = "XYZ"
+        
+        let api = TDD_API()
+        
+        XCTAssertNotNil(api.invokeEndpoint(customer1))
+        XCTAssertNotNil(api.invokeEndpoint(customer1))
+        XCTAssertNotNil(api.invokeEndpoint(customer1))
+        XCTAssertNotNil(api.invokeEndpoint(customer1))
+        XCTAssertNotNil(api.invokeEndpoint(customer1))
+        
+        XCTAssertNotNil(api.invokeEndpoint(customer2))
+        XCTAssertNotNil(api.invokeEndpoint(customer2))
+        XCTAssertNotNil(api.invokeEndpoint(customer2))
+        XCTAssertNotNil(api.invokeEndpoint(customer2))
+        XCTAssertNotNil(api.invokeEndpoint(customer2))
+    }
+    
     // TODO: write tests for multiple customers
 }
 
-// TDD_RateLimitTests.defaultTestSuite.run()
+//TDD_RateLimitTests.defaultTestSuite.run()
 
 // Set
 final class SetTests: XCTestCase {

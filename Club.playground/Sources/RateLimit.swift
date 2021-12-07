@@ -131,22 +131,33 @@ public func invokeEndpoint(_ customerId: String) -> String? {
 // TDD Rate Limit (WIP)
 
 public final class TDD_API {
-    private var count = 0
-    private var lastCallTime = Date()
+    private typealias CustomerId = String
+    
+    private struct Condition {
+        var count = 0
+        var lastCallTime = Date()
+    }
+    
+    private var conditionOfCustomers: [CustomerId: Condition] = [:]
     
     public init() {}
     
     public func invokeEndpoint(_ customerId: String) -> String? {
         let now = Date()
+        var condition = conditionOfCustomers[customerId, default: Condition()]
         
-        if now.timeIntervalSince(lastCallTime) > 2 {
-            lastCallTime = now
-            count = 1
+        if now.timeIntervalSince(condition.lastCallTime) > 2 {
+            condition.lastCallTime = now
+            condition.count = 1
+            
+            conditionOfCustomers[customerId] = condition
+            
             return customerId
         } else {
-            count += 1
+            condition.count += 1
+            conditionOfCustomers[customerId] = condition
             
-            guard count < 6 else {
+            guard condition.count < 6 else {
                 return nil
             }
             
