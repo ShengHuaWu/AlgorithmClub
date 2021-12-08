@@ -119,3 +119,41 @@ final class ReuseManager {
         models[tableViewCell.reuseIdentifier] = model
     }
 }
+
+// TDD
+
+open class TDD_TableViewCell {
+    let reuseIdentifier: String
+    
+    public required init(reuseIdentifier: String) {
+        self.reuseIdentifier = reuseIdentifier
+    }
+}
+
+public class TDD_TableView {
+    enum Reason: Error {
+        case dequeueUnregisteredCellType
+    }
+    
+    typealias ReuseId = String
+    
+    private var registered: [ReuseId: TDD_TableViewCell.Type] = [:]
+    
+    public init() {}
+    
+    public func register<T: TDD_TableViewCell>(_ type: T.Type, with reuseIdentifier: String) {
+        registered[reuseIdentifier] = type
+    }
+    
+    public func dequeue(with reuseIdentifier: String) throws -> TDD_TableViewCell {
+        guard let type = registered[reuseIdentifier] else {
+            throw Reason.dequeueUnregisteredCellType
+        }
+        
+        return type.init(reuseIdentifier: reuseIdentifier)
+    }
+    
+    public func didEndDisplay(tableViewCell: TDD_TableViewCell) {
+        fatalError()
+    }
+}

@@ -128,7 +128,7 @@ public func invokeEndpoint(_ customerId: String) -> String? {
     return success ? customerId : nil
 }
 
-// TDD Rate Limit (WIP)
+// TDD Rate Limit
 
 public final class TDD_API {
     private typealias CustomerId = String
