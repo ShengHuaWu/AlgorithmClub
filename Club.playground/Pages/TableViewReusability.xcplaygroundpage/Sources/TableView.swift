@@ -131,13 +131,17 @@ open class TDD_TableViewCell {
 }
 
 public class TDD_TableView {
+    // TODO: Rename this error type
     enum Reason: Error {
         case dequeueUnregisteredCellType
+        case unableToFindCellOnScreen
     }
     
     typealias ReuseId = String
     
     private var registered: [ReuseId: TDD_TableViewCell.Type] = [:]
+    private var offScreen: [TDD_TableViewCell] = []
+    private var onScreen: [TDD_TableViewCell] = []
     
     public init() {}
     
@@ -150,10 +154,25 @@ public class TDD_TableView {
             throw Reason.dequeueUnregisteredCellType
         }
         
-        return type.init(reuseIdentifier: reuseIdentifier)
+        if let index = offScreen.firstIndex(where: { $0.reuseIdentifier == reuseIdentifier }) {
+            let cell = offScreen.remove(at: index)
+            onScreen.append(cell)
+            
+            return cell
+        } else {
+            let cell = type.init(reuseIdentifier: reuseIdentifier)
+            onScreen.append(cell)
+            
+            return cell
+        }
     }
     
-    public func didEndDisplay(tableViewCell: TDD_TableViewCell) {
-        fatalError()
+    public func didEndDisplay(tableViewCell: TDD_TableViewCell) throws {
+        guard let index = onScreen.firstIndex(where: { $0.reuseIdentifier == tableViewCell.reuseIdentifier }) else {
+            throw Reason.unableToFindCellOnScreen
+        }
+        
+        onScreen.remove(at: index)
+        offScreen.append(tableViewCell)
     }
 }
