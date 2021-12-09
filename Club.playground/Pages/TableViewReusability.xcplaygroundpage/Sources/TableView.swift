@@ -131,8 +131,7 @@ open class TDD_TableViewCell {
 }
 
 public class TDD_TableView {
-    // TODO: Rename this error type
-    enum Reason: Error {
+    enum TableViewError: Error {
         case dequeueUnregisteredCellType
         case unableToFindCellOnScreen
     }
@@ -151,7 +150,7 @@ public class TDD_TableView {
     
     public func dequeue(with reuseIdentifier: String) throws -> TDD_TableViewCell {
         guard let type = registered[reuseIdentifier] else {
-            throw Reason.dequeueUnregisteredCellType
+            throw TableViewError.dequeueUnregisteredCellType
         }
         
         if let index = offScreen.firstIndex(where: { $0.reuseIdentifier == reuseIdentifier }) {
@@ -169,7 +168,7 @@ public class TDD_TableView {
     
     public func didEndDisplay(tableViewCell: TDD_TableViewCell) throws {
         guard let index = onScreen.firstIndex(where: { $0.reuseIdentifier == tableViewCell.reuseIdentifier }) else {
-            throw Reason.unableToFindCellOnScreen
+            throw TableViewError.unableToFindCellOnScreen
         }
         
         onScreen.remove(at: index)
