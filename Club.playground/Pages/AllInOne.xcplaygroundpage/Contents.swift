@@ -435,18 +435,6 @@ final class DoubleLinkedListTests: XCTestCase {
 
 // String
 final class StringTests: XCTestCase {
-    func testParseAcceptLanguage() {
-        XCTAssertEqual(parseAcceptLanguage("en-US, fr-CA, fr-FR", ["fr-FR", "en-US"]), ["en-US", "fr-FR"])
-        XCTAssertEqual(parseAcceptLanguage("fr-CA, fr-FR", ["en-US", "fr-FR"]), ["fr-FR"])
-        XCTAssertEqual(parseAcceptLanguage("en-US", ["en-US", "fr-CA"]), ["en-US"])
-        XCTAssertEqual(parseAcceptLanguage("", ["en-US", "fr-CA"]), [])
-        XCTAssertEqual(parseAcceptLanguage("fr-FR", []), [])
-        XCTAssertEqual(parseAcceptLanguage("fr-FR", ["en-US", "fr-CA"]), [])
-        XCTAssertEqual(parseAcceptLanguage("en", ["en-US", "fr-CA", "fr-FR"]), ["en-US"])
-        XCTAssertEqual(parseAcceptLanguage("fr", ["en-US", "fr-CA", "fr-FR"]), ["fr-CA", "fr-FR"])
-        XCTAssertEqual(parseAcceptLanguage("fr-FR, fr", ["en-US", "fr-CA", "fr-FR"]), ["fr-FR", "fr-CA"])
-    }
-    
     func testGetTargetsVicinities() {
         XCTAssertEqual("341".getTargetsVicinities(for: "341"), "3T0V")
         XCTAssertEqual("341".getTargetsVicinities(for: "123"), "0T2V")

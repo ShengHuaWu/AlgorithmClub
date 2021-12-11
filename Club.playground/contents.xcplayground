@@ -4,5 +4,6 @@
         <page name='RateLimit'/>
         <page name='AllInOne'/>
         <page name='TableViewReusability'/>
+        <page name='ParseAcceptLanguages'/>
     </pages>
 </playground>
