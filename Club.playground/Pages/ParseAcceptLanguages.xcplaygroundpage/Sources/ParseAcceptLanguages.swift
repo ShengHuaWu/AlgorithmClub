@@ -10,15 +10,17 @@ public func parseAcceptLanguage(_ acceptLanguageHeaders: String, _ supportedLang
     return acceptLanguageHeaders
         .split(separator: ",")
         .map { $0.replacingOccurrences(of: " ", with: "") }
-        .reduce([]) { result, acceptLanguage in
-            return result + supportedLanguages.filter { language in
-                language.hasPrefix(acceptLanguage) || acceptLanguage == "*" // `*` is wildcard
-            }
-        }
+        .flatMap { supportedLanguages.filter(for: $0) }
         .removeDuplicates()
 }
 
 extension Array where Element == String {
+    func filter(for acceptLanguage: String) -> Self {
+        return filter { language in
+            language.hasPrefix(acceptLanguage) || acceptLanguage == "*" // `*` means wildcard
+        }
+    }
+    
     func removeDuplicates() -> Self {
         var set = Set<String>()
         
