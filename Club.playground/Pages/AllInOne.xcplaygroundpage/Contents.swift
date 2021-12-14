@@ -173,11 +173,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([9, 1, 3].findSecondLargest(), 3)
     }
     
-    func testRemoveDuplications() {
-        XCTAssertEqual([String]().removeDuplications().count, 0)
-        XCTAssertEqual(["pear", "apple", "orange", "tea", "apple", "apple", "apple", "apple", "banana", "pear"].removeDuplications(), ["pear", "apple", "orange", "tea", "banana"])
-    }
-    
     func testFindLongestConsecutiveSubsequence() {
         XCTAssertTrue([Int]().findLongestConsecutiveSubsequence().isEmpty)
         XCTAssertEqual([1].findLongestConsecutiveSubsequence(), [1])

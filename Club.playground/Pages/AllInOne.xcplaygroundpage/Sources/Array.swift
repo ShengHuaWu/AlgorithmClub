@@ -1119,35 +1119,6 @@ extension Array where Element == Int {
     }
 }
 
-// Remove duplication
-//
-// Given an list of strings, remove duplications but keep the order
-extension Array where Element: Hashable {
-    public func removeDuplications() -> [Element] {
-        var uniques: Set<Element> = []
-        var results: [Element] = []
-        
-        for element in self {
-            if !uniques.contains(element) {
-                results.append(element)
-                uniques.insert(element)
-            }
-        }
-        
-        return results
-    }
-    
-    // What if the list is stored on the disk and it's huge (< 10 TB),
-    // remove duplications with any new order
-    //
-    // 1. Divide the list into small pieces which can be loaded into the memory.
-    // 2. Store every pieces
-    // 3. Load the first lines of the two pieces.
-    //    If they are the same, then only store one into the result.
-    //    If thet are NOT the same, then store both into the result.
-    // 4. Repeat above the comparison between the result and the reminding pieces.
-}
-
 // Find Longest Consecutive Subsequence
 //
 // Given an array of numbers, find the longest consecutive subsequence.
