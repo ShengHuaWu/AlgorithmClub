@@ -14,16 +14,19 @@ final class RemoveDuplicatesTests: XCTestCase {
         var expect = [1, 2, 3]
         
         XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
         
         taregt = [3, 2, 1, 1, 2, 3]
         expect = [3, 2, 1]
         
         XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), [1, 2, 3]) // the list is sorted
         
         taregt = [1, 1, 2, 2, 3, 3]
         expect = [1, 2, 3]
         
         XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
     }
     
     func testRemoveDuplicatesWithStrings() {
@@ -31,19 +34,22 @@ final class RemoveDuplicatesTests: XCTestCase {
         var expect = ["1", "2", "3"]
         
         XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
         
         taregt = ["3", "2", "1", "1", "2", "3"]
         expect = ["3", "2", "1"]
         
         XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), ["1", "2", "3"]) // the list is sorted
         
         taregt = ["1", "1", "2", "2", "3", "3"]
         expect = ["1", "2", "3"]
         
         XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
     }
 }
 
-//RemoveDuplicatesTests.defaultTestSuite.run()
+RemoveDuplicatesTests.defaultTestSuite.run()
 
 //: [Next](@next)

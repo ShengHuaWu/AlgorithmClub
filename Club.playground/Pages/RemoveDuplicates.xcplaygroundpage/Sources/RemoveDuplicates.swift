@@ -3,7 +3,7 @@ import Foundation
 // Remove duplication
 //
 // Given an list of hashables, remove duplications but keep the order
-extension Array where Element: Hashable {
+extension Array where Element: Hashable, Element: Comparable {
     public func removeDuplicates() -> [Element] {
         var uniques: Set<Element> = []
         
@@ -35,4 +35,69 @@ extension Array where Element: Hashable {
     //
     //    If there are reminding elements of A or B, store them into the result
     // 5. Repeat above the comparison between the result and the reminding pieces.
+    public func removeDuplicatesFromMassiveData() -> [Element] {
+        // Split big array into small chunks
+        let size = 2 // Could change depends on the memory size
+        var chunks = self.chunked(into: size)
+        
+        guard chunks.count > 1 else {
+            return chunks.first?.removeDuplicates() ?? []
+        }
+        
+        // Merge first and second chunks into result
+        let first = chunks.removeFirst().removeDuplicates()
+        let second = chunks.removeFirst().removeDuplicates()
+        var result = first.merged(with: second)
+        
+        // Merge result with the reminders in `chunks`
+        for chunk in chunks {
+            let noDuplicates = chunk.removeDuplicates()
+            result = result.merged(with: noDuplicates)
+        }
+        
+        return result
+    }
+}
+
+extension Array where Element: Comparable {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
+    }
+    
+    func merged(with another: [Element]) -> [Element] {
+        let first = self.sorted()
+        let second = another.sorted()
+        
+        var result = [Element]()
+        var indexOfFirst = 0
+        var indexOfSecond = 0
+        while indexOfFirst < first.count && indexOfSecond < second.count {
+            let elementOfFirst = first[indexOfFirst]
+            let elementOfSecond = second[indexOfSecond]
+            
+            if elementOfFirst < elementOfSecond {
+                result.append(elementOfFirst)
+                indexOfFirst += 1
+            } else if elementOfSecond < elementOfFirst {
+                result.append(elementOfSecond)
+                indexOfSecond += 1
+            } else {
+                result.append(elementOfSecond)
+                indexOfFirst += 1
+                indexOfSecond += 1
+            }
+        }
+        
+        if indexOfFirst < first.count {
+            result.append(contentsOf: first[indexOfFirst...])
+        }
+        
+        if indexOfSecond < second.count {
+            result.append(contentsOf: second[indexOfSecond...])
+        }
+        
+        return result
+    }
 }
