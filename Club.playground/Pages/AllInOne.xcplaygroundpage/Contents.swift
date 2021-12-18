@@ -165,14 +165,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertTrue([1, 6, 6, 11].hasEqualSumSubset())
     }
     
-    func testFindSecondLargest() {
-        XCTAssertNil([Int]().findSecondLargest())
-        XCTAssertNil([9].findSecondLargest())
-        XCTAssertEqual([2, 0, 8, 1, 3, 4].findSecondLargest(), 4)
-        XCTAssertEqual([2, 0, 8, 1, 3, 4, 9].findSecondLargest(), 8)
-        XCTAssertEqual([9, 1, 3].findSecondLargest(), 3)
-    }
-    
     func testFindLongestConsecutiveSubsequence() {
         XCTAssertTrue([Int]().findLongestConsecutiveSubsequence().isEmpty)
         XCTAssertEqual([1].findLongestConsecutiveSubsequence(), [1])

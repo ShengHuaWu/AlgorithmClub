@@ -1060,48 +1060,6 @@ extension Array where Element == Int {
     }
 }
 
-// Find Second Largest
-//
-// Given a list of unique numbers, find the second largest number with less possibile comparison
-extension Array where Element == Int {
-    /*
-     This algorithm works because the numbers are unique.
-
-     1. Early exit and ensure the count of numbers is larger than 1
-     2. Compare two numbers at once and store the larger as the key and the smaller as the value, e.g. [larger: [smaller1, smaller2, ...]]
-     3. The second largest number must be located at the value of the largest number (This is the important observation)
-     4. Use a simple loop to find the second largest
-     */
-    public func findSecondLargest() -> Int? {
-        guard count > 1, let first = first else {
-            return nil
-        }
-        
-        var copy = self
-        var groups: [Int: Set<Int>] = [:]
-        var max = first
-        
-        if !copy.count.isMultiple(of: 2) {
-            groups[first] = []
-            copy.removeFirst()
-            copy.append(first) // Append the first back for the next round of comparison
-        }
-        
-        while copy.count > 1 {
-            let x = copy.removeFirst()
-            let y = copy.removeFirst()
-            let larger = Swift.max(x, y)
-            let smaller = Swift.min(x, y)
-            let set = groups[larger, default: []]
-            groups[larger] = set.union([smaller])
-            copy.append(larger) // Append the larger back for the next round of comparison
-            max = Swift.max(max, larger)
-        }
-        
-        return groups[max]?.reduce(Int.min, Swift.max)
-    }
-}
-
 // Find Kth Largest Element
 //
 // Design a function to efficiently find the Kth largest element in an integer array.
