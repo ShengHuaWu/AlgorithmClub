@@ -7,5 +7,6 @@
         <page name='ParseAcceptLanguages'/>
         <page name='RemoveDuplicates'/>
         <page name='FindSecondLargest'/>
+        <page name='FindKthClosest'/>
     </pages>
 </playground>
