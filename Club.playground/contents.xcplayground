@@ -8,5 +8,6 @@
         <page name='RemoveDuplicates'/>
         <page name='FindSecondLargest'/>
         <page name='FindKthClosest'/>
+        <page name='FindKthLargest'/>
     </pages>
 </playground>

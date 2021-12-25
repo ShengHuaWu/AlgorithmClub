@@ -135,12 +135,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([3, 7, 1, 4, 6].intersecting(with: [2, 4, 5, 6, 1, 0, 9]), [1, 4, 6])
     }
     
-    func testFindKthLargest() {
-        XCTAssertNil([Int]().findKthLargest(3))
-        XCTAssertEqual([0, -1, 2, 9, 7, 4].findKthLargest(3), 4)
-        XCTAssertEqual([0, -1, 2, 9, 7, 4].findKthLargest(9), -1)
-    }
-    
     func testHasEqualSumsubSet() {
         XCTAssertFalse([Int]().hasEqualSumSubset())
         XCTAssertFalse([1, 2, 3, 5].hasEqualSumSubset())
