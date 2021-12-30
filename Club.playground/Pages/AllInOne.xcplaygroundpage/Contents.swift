@@ -130,16 +130,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual(numbers.quickSorting(), [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29])
         XCTAssertEqual(numbers.mergeSorting(), [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29])
     }
-    
-    func testIntersection() {
-        XCTAssertEqual([3, 7, 1, 4, 6].intersecting(with: [2, 4, 5, 6, 1, 0, 9]), [1, 4, 6])
-    }
-    
-    func testHasEqualSumsubSet() {
-        XCTAssertFalse([Int]().hasEqualSumSubset())
-        XCTAssertFalse([1, 2, 3, 5].hasEqualSumSubset())
-        XCTAssertTrue([1, 6, 6, 11].hasEqualSumSubset())
-    }
 }
 
 //ArrayTests.defaultTestSuite.run()
