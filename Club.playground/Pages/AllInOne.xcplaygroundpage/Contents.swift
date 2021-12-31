@@ -101,13 +101,6 @@ final class ArrayTests: XCTestCase {
     
     func testOccurrence() {
         XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].occurrence(of: 2), 4)
-        
-        XCTAssertNil([Int]().findHighAndLow(for: 1))
-        XCTAssertNil([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].findHighAndLow(for: 99))
-        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].findHighAndLow(for: 11)?.0, 10)
-        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].findHighAndLow(for: 11)?.1, 10)
-        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].findHighAndLow(for: 2)?.0, 2)
-        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].findHighAndLow(for: 2)?.1, 5)
     }
     
     func testBinarySearch() {

@@ -11,5 +11,6 @@
         <page name='FindKthLargest'/>
         <page name='FindLongestConsecutiveSubsequence'/>
         <page name='EqualSumSubset'/>
+        <page name='FindLowAndHigh'/>
     </pages>
 </playground>
