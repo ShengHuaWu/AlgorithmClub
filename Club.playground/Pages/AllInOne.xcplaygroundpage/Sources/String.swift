@@ -98,50 +98,6 @@ extension String {
         return nil
     }
     
-    private func isPrettyString(in range: ClosedRange<Index>) -> Bool {
-        var index = self.index(after: range.lowerBound)
-        while index < range.upperBound {
-            if self[index] != self[self.index(before: index)] {
-                return false
-            }
-
-            index = self.index(after: index)
-        }
-
-        return true
-    }
-    
-    private func recursiveIsPrettyString(in range: ClosedRange<Index>) -> Bool {
-        let end = index(after: range.lowerBound)
-        if end == range.upperBound {
-            return true
-        }
-        
-        if self[range.lowerBound] != self[end] {
-            return false
-        } else {
-            return recursiveIsPrettyString(in: end ... range.upperBound)
-        }
-    }
-    
-    public func recursiveCountNumberOfPrettyStrings(with repeating: Int) -> Int {
-        guard !isEmpty, repeating > 0 else { return 0 }
-        
-        return recursiveCountNumberOfPrettyStrings(with: repeating, start: startIndex, result: 0)
-    }
-    
-    private func recursiveCountNumberOfPrettyStrings(with repeating: Int, start: Index, result: Int) -> Int {
-        guard let end = index(start, offsetBy: repeating, limitedBy: endIndex) else {
-            return result
-        }
-        
-        if recursiveIsPrettyString(in: start ... end) {
-            return recursiveCountNumberOfPrettyStrings(with: repeating, start: end, result: result + 1)
-        } else {
-            return recursiveCountNumberOfPrettyStrings(with: repeating, start: index(after: start), result: result)
-        }
-    }
-    
     public func recursiveFindOccurence(of key: String) -> Int {
         guard !isEmpty, !key.isEmpty else { return 0 }
         

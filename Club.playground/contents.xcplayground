@@ -12,5 +12,6 @@
         <page name='FindLongestConsecutiveSubsequence'/>
         <page name='EqualSumSubset'/>
         <page name='FindLowAndHigh'/>
+        <page name='CountPrettyString'/>
     </pages>
 </playground>

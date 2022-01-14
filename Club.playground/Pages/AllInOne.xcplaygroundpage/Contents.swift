@@ -444,11 +444,6 @@ final class StringTests: XCTestCase {
         XCTAssertEqual(text.recursiveFindOccurence(of: "mom"), 2)
     }
     
-    func testCountNumberOfPrettyStrings() {
-        let text = "zoookkkklfuckaabbbccdceff"
-        XCTAssertEqual(text.recursiveCountNumberOfPrettyStrings(with: 3), 3)
-    }
-    
     func testFindLongestSubstringWithNoMoreThan() {
         XCTAssertEqual("".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "")
         XCTAssertEqual("aabbaacc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "aabbaa")
