@@ -58,68 +58,6 @@ extension SinglyLinkedList {
     }
 }
 
-// Delete Node With Given Key
-//
-// You are given the head of a linked list and a key.
-// You have to delete the node that contains this given key. (Consider recursion first)
-extension SinglyLinkedList {
-    public func remove(for key: T) {
-        head = remove(node: head, for: key)
-    }
-    
-    private func remove(node: Node?, for key: T) -> Node? {
-        guard let current = node else { return nil }
-        
-        if current.value == key {
-            return current.next
-        }
-        
-        // Changing the order of this line causes different result
-        current.next = remove(node: current.next, for: key)
-        
-        return current
-    }
-    
-    public func removeNodes(for key: T) {
-        head = removeNodes(at: head, for: key)
-    }
-    
-    private func removeNodes(at node: Node?, for key: T) -> Node? {
-        guard let current = node else { return nil }
-        
-        current.next = removeNodes(at: current.next, for: key)
-                
-        if current.value == key {
-            return current.next
-        }
-                
-        return current
-    }
-    
-    public func remove(at k: Int, for key: T) {
-        head = remove(node: head, at: k, for: key)
-    }
-    
-    private func remove(node: Node?, at k: Int, for key: T) -> Node? {
-        guard let current = node else {
-            return nil
-        }
-        
-        var temp = k
-        if current.value == key {
-            if k == 1 {
-                return current.next
-            } else {
-                temp -= 1
-            }
-        }
-        
-        current.next = remove(node: current.next, at: temp, for: key)
-        
-        return current
-    }
-}
-
 extension SinglyLinkedList: CustomStringConvertible {
     public var description: String {
         var s = ""

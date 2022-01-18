@@ -13,5 +13,6 @@
         <page name='EqualSumSubset'/>
         <page name='FindLowAndHigh'/>
         <page name='CountPrettyString'/>
+        <page name='LinkedList'/>
     </pages>
 </playground>
