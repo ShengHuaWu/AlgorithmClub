@@ -11,36 +11,6 @@ extension String {
     }
 }
 
-// Count the occurrence of a string in a source string.
-// 1. Loop the index of the source string.
-// 2. In each loop, compare the substring and the string we want by the index.
-extension String {
-    public func occurrence(of word: String) -> Int {
-        var result = 0
-        
-        for index in indices {
-            if isSubstringEqual(to: word, from: index) {
-                result += 1
-            }
-        }
-        
-        return result
-    }
-    
-    private func isSubstringEqual(to word: String, from start: Index) -> Bool {
-        var selfIndex = start
-        for wordIndex in word.indices {
-            if self[selfIndex] != word[wordIndex] { return false }
-            
-            guard let nextIndex = index(selfIndex, offsetBy: 1, limitedBy: endIndex) else { return false }
-            
-            selfIndex = nextIndex
-        }
-        
-        return true
-    }
-}
-
 // Boyer-Moore Algorithm
 extension String {
     // The closer a character is to the end of the pattern, the smaller the skip amount.
@@ -96,25 +66,6 @@ extension String {
         }
         
         return nil
-    }
-    
-    public func recursiveFindOccurence(of key: String) -> Int {
-        guard !isEmpty, !key.isEmpty else { return 0 }
-        
-        return recursiveFindOccurence(of: key, start: startIndex, result: 0)
-    }
-    
-    private func recursiveFindOccurence(of key: String, start: Index, result: Int) -> Int {
-        guard let end = index(start, offsetBy: key.count, limitedBy: endIndex) else {
-            return result
-        }
-        
-        let temp = String(self[start ..< end])
-        if temp == key {
-            return recursiveFindOccurence(of: key, start: end, result: result + 1)
-        } else {
-            return recursiveFindOccurence(of: key, start: index(after: start), result: result)
-        }
     }
     
     public func recursiveTruncate(with length: Int) -> String {

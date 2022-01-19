@@ -14,5 +14,6 @@
         <page name='FindLowAndHigh'/>
         <page name='CountPrettyString'/>
         <page name='LinkedList'/>
+        <page name='CountAppearance'/>
     </pages>
 </playground>
