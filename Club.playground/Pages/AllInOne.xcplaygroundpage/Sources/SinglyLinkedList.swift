@@ -38,24 +38,6 @@ extension SinglyLinkedList {
             head = newNode
         }
     }
-    
-    public func deepCopy() -> SinglyLinkedList {
-        let newList = SinglyLinkedList()
-        newList.head = recursivelyDeepCopy(node: head)
-        
-        return newList
-    }
-    
-    private func recursivelyDeepCopy(node: Node?) -> Node? {
-        guard let current = node else {
-            return nil
-        }
-        
-        let newNode = SinglyLinkedListNode(value: current.value)
-        newNode.next = recursivelyDeepCopy(node: current.next)
-        
-        return newNode
-    }
 }
 
 extension SinglyLinkedList: CustomStringConvertible {

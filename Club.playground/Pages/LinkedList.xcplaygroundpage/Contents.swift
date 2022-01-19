@@ -127,6 +127,24 @@ final class LinkedListTests: XCTestCase {
         
         XCTAssertEqual(target.description, expected.description)
     }
+    
+    func testSingleLinkedListDeepCopy() {
+        let list = SingleLinkedList(value: 9)
+        var copy = list.deepCopy()
+        
+        XCTAssertEqual(copy.description, list.description)
+        XCTAssertNotEqual(Unmanaged.passUnretained(copy).toOpaque(), Unmanaged.passRetained(list).toOpaque())
+        
+        list.append(value: 1)
+        list.append(value: 2)
+        list.append(value: 2)
+        list.append(value: 1)
+        
+        copy = list.deepCopy()
+        
+        XCTAssertEqual(copy.description, list.description)
+        XCTAssertNotEqual(Unmanaged.passUnretained(copy).toOpaque(), Unmanaged.passRetained(list).toOpaque())
+    }
 }
 
 LinkedListTests.defaultTestSuite.run()
