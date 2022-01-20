@@ -15,5 +15,6 @@
         <page name='CountPrettyString'/>
         <page name='LinkedList'/>
         <page name='CountAppearance'/>
+        <page name='FindPalindrome'/>
     </pages>
 </playground>

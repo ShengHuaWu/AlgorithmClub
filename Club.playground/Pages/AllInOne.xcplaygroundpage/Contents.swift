@@ -349,10 +349,6 @@ final class StringTests: XCTestCase {
         XCTAssertEqual(report.hardDriveStatisticsWithParser(), expect)
     }
     
-    func testFindAllPalindromeSubstrings() {
-        XCTAssertEqual("aabbbaa".findAllPalindromeSubstrings(), ["aabbbaa", "aa", "abbba", "bbb", "bb"])
-    }
-    
     func testReversedWords() {
         let text = """
         Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson

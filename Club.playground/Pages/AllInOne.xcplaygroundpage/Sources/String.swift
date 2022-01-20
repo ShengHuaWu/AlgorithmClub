@@ -130,56 +130,6 @@ public func fizzBuzz(numberOfTurns: Int) {
     }
 }
 
-// Find All Palindrome Substrings
-//
-// Given a string find all non-single letter substrings that are palindromes.
-// For example, if input string is `aabbbaa`, then the palindromes are
-// `aa`, `bb`, `bbb`, `abbba`, `aabbbaa`
-extension String {
-    // The idea in the centralization approach is to consider each character
-    // as the pivot and expand in both directions to find palindromes.
-    // We'll only expand if the characters on the left and right side match,
-    // qualifying the string to be a palindrome. Otherwise, we continue to the next character.
-    // The time complexity of this approach is O(n^2)
-    public func findAllPalindromeSubstrings() -> Set<String> {
-        var results = Set<String>()
-        
-        indices.forEach { index in
-            if let end = self.index(index, offsetBy: 1, limitedBy: self.index(before: endIndex)) {
-                results.formUnion(findAllPalindromes(from: self, start: index, end: end))
-                
-                // The problem requires non-single letter substrings
-                // If it also wants single letter substrings,
-                // just use `findAllPalindromes(from: self, start: index, end: index)`
-                if let start = self.index(index, offsetBy: -1, limitedBy: startIndex) {
-                    results.formUnion(findAllPalindromes(from: self, start: start, end: end))
-                }
-            }
-        }
-        
-        return results
-    }
-    
-    private func findAllPalindromes(from input: String, start: String.Index, end: String.Index) -> Set<String> {
-        guard input[start] == input[end] else {
-            return []
-        }
-        
-        var results: Set<String> = [String(input[start...end])]
-        var copyStart = start
-        var copyEnd = end
-        while let newStart = input.index(copyStart, offsetBy: -1, limitedBy: input.startIndex),
-              let newEnd = input.index(copyEnd, offsetBy: 1, limitedBy: input.index(before: input.endIndex)),
-              input[newStart] == input[newEnd] {
-            results.insert(String(input[newStart...newEnd]))
-            copyStart = newStart
-            copyEnd = newEnd
-        }
-        
-        return results
-    }
-}
-
 // Reverse Words in a Sentence
 //
 // Reverse the order of words in a given sentence (an array of characters).
