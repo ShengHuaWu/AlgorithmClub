@@ -16,5 +16,6 @@
         <page name='LinkedList'/>
         <page name='CountAppearance'/>
         <page name='FindPalindrome'/>
+        <page name='FindSum'/>
     </pages>
 </playground>

@@ -68,16 +68,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([-5, 8, 3, 2, 1, 7].findSubset(), [8])
     }
     
-    func testFindTwoElementsSum() {
-        let numbers = [-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8]
-        XCTAssertEqual([-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8].indices(for: 8)?.0, 4)
-        XCTAssertEqual([-10, 0, 3, 4, 6, 2, 5, 6, 7, 9, 0, 8].indices(for: 8)?.1, 5)
-        
-        let sorted = numbers.sorted()
-        XCTAssertEqual(sorted.indicesAfterSorting(for: 17)?.0, 10)
-        XCTAssertEqual(sorted.indicesAfterSorting(for: 17)?.1, 11)
-    }
-    
     func testFindThreeElementsSum() {
         XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.0, 7)
         XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.1, 5)
