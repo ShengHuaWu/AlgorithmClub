@@ -17,5 +17,6 @@
         <page name='CountAppearance'/>
         <page name='FindPalindrome'/>
         <page name='FindSum'/>
+        <page name='Timer'/>
     </pages>
 </playground>
