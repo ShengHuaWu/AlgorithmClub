@@ -63,11 +63,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent(), 4)
     }
     
-    func testFindSubset() {
-        XCTAssertEqual([5, 8, 3, 2, 1].findSubset(), [5, 8])
-        XCTAssertEqual([-5, 8, 3, 2, 1, 7].findSubset(), [8])
-    }
-    
     func testFindThreeElementsSum() {
         XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.0, 7)
         XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.1, 5)

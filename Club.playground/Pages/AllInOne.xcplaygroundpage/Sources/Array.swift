@@ -484,58 +484,6 @@ extension Array where Element == Int {
     }
 }
 
-// Find subset from an array of integers
-//
-// Split the original array into two subsets A and B:
-// The intersection of A and B is empty.
-// The union of A and B is the original array.
-// The number of element in A should be as less as possible.
-// The sum of A is greater than the sum of B.
-// A should be increasing order.
-// Write a function to find the subset A.
-extension Array where Element == Int {
-    public func findSubset() -> [Int] {
-        guard let (indexOfMax, max) = findMaxAndIndex() else {
-            return []
-        }
-        
-        var reminders = self
-        reminders.remove(at: indexOfMax)
-        var sumOfReminders = reminders.reduce(0, +)
-        var resultOfA = [max]
-        var sumOfA = max
-        while sumOfA < sumOfReminders {
-            if let (index, maxOfReminders) = reminders.findMaxAndIndex() {
-                resultOfA = [maxOfReminders] + resultOfA
-                sumOfA += maxOfReminders
-                sumOfReminders -= maxOfReminders
-                reminders.remove(at: index)
-            } else {
-                break
-            }
-        }
-        
-        return resultOfA
-    }
-    
-    private func findMaxAndIndex() -> (index: Int, max: Int)? {
-        guard let first = first else {
-            return nil
-        }
-        
-        var indexOfMax = 0
-        var max = first
-        zip(indices, self).forEach { index, number in
-            if number > max {
-                indexOfMax = index
-                max = number
-            }
-        }
-        
-        return (indexOfMax, max)
-    }
-}
-
 extension Array where Element == Int {
     // The array has to be sorted first
     public func findLargestLengthOfAdjacent() -> Int {
