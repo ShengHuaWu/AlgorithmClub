@@ -19,5 +19,6 @@
         <page name='FindSum'/>
         <page name='Timer'/>
         <page name='FindSubset'/>
+        <page name='MergeOverlappingIntervals'/>
     </pages>
 </playground>

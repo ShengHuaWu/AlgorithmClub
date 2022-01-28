@@ -49,16 +49,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3), 16)
     }
     
-    func testMergeOverlapping() {
-        XCTAssertEqual([(Int, Int)]().mergeOverlapping().count, 0)
-        XCTAssertEqual([(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping().first?.0, 1)
-        XCTAssertEqual([(1, 5), (3, 7), (4, 6), (6, 8)].mergeOverlapping().first?.1, 8)
-        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().first?.0, 1)
-        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().first?.1, 5)
-        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().last?.0, 7)
-        XCTAssertEqual([(1, 5), (7, 9)].mergeOverlapping().last?.1, 9)
-    }
-    
     func testFindLargestLengthOfAdjacent() {
         XCTAssertEqual([1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent(), 4)
     }

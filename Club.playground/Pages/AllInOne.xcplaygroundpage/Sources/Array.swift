@@ -508,36 +508,6 @@ extension Array where Element == Int {
     }
 }
 
-// Merge Overlapping Intervals
-//
-// You are given an array (list) of interval pairs as input where each interval has a start and end timestamp.
-// The input array is sorted by starting timestamps.
-// You are required to merge overlapping intervals and return a new output array.
-// Consider the input array below.
-// Intervals (1, 5), (3, 7), (4, 6), (6, 8) are overlapping so they should be merged to one big interval (1, 8).
-// Similarly, intervals (10, 12) and (12, 15) are also overlapping and should be merged to (10, 15).
-extension Array where Element == (Int, Int) {
-    public func mergeOverlapping() -> Self {
-        guard let firstInterval = first else {
-            return []
-        }
-        
-        var result = [firstInterval]
-        for interval in self[1...] {
-            var lastInResult = result.removeLast()
-            if lastInResult.1 >= interval.0 {
-                lastInResult.1 = Swift.max(interval.1, lastInResult.1)
-                result.append(lastInResult)
-            } else {
-                result.append(lastInResult)
-                result.append(interval)
-            }
-        }
-        
-        return result
-    }
-}
-
 // Largest Sum Subarray
 //
 // 1. Given an array of numbers, find the largest sum of any contiguous subarray.
