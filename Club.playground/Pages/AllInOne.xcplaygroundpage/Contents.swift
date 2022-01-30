@@ -297,12 +297,6 @@ final class StringTests: XCTestCase {
         XCTAssertFalse("kgb".isSubsequence(of: "gbkfcapple"))
     }
     
-    func testValidateBalancedBrackets() {
-        XCTAssertTrue("".validateBalancedBrackets())
-        XCTAssertTrue("{{{{{[[()()]]}}}}}[]{}".validateBalancedBrackets())
-        XCTAssertFalse("{{]](())".validateBalancedBrackets())
-    }
-    
     func testHardDriveStatistics() {
         let report = """
         my.song.mp3 11b

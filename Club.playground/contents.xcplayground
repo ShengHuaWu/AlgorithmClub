@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
-        <page name='RateLimit'/>
         <page name='AllInOne'/>
+        <page name='RateLimit'/>
         <page name='TableViewReusability'/>
         <page name='ParseAcceptLanguages'/>
         <page name='RemoveDuplicates'/>
@@ -20,5 +20,6 @@
         <page name='Timer'/>
         <page name='FindSubset'/>
         <page name='MergeOverlappingIntervals'/>
+        <page name='BalancedBrackets'/>
     </pages>
 </playground>
