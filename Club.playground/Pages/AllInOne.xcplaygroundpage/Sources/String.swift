@@ -529,41 +529,6 @@ extension String {
     }
 }
 
-// Longest Substring Without Repeating Characters
-extension String {
-    public func findLongestSubstringWithoutRepeatingCharacters() -> String {
-        guard !isEmpty else {
-            return ""
-        }
-        
-        var nonrepeated: Set<Character> = []
-        
-        var start = startIndex
-        var end = start
-        var high = start
-        var low = start
-        
-        while let newHigh = index(high, offsetBy: 1, limitedBy: endIndex) {
-            let char = self[high]
-            
-            if nonrepeated.contains(char) {
-                nonrepeated.removeAll()
-                low = high
-            }
-            nonrepeated.insert(char)
-            
-            if distance(from: start, to: end) < distance(from: low, to: high) {
-                start = low
-                end = high
-            }
-            
-            high = newHigh // Update high after the comparison
-        }
-        
-        return String(self[start ... end])
-    }
-}
-
 // Determine If Number Is Valid
 //
 // Given an input string, determine if it makes a valid number or not.

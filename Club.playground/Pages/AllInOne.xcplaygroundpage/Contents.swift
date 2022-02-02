@@ -347,14 +347,6 @@ final class StringTests: XCTestCase {
         XCTAssertEqual("aabbccc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "bbccc")
     }
     
-    func testFindLongestSubstringWithoutRepeatingCharacters() {
-        XCTAssertEqual("".findLongestSubstringWithoutRepeatingCharacters(), "")
-        XCTAssertEqual("abced".findLongestSubstringWithoutRepeatingCharacters(), "abced")
-        XCTAssertEqual("aaabced".findLongestSubstringWithoutRepeatingCharacters(), "abced")
-        XCTAssertEqual("abbced".findLongestSubstringWithoutRepeatingCharacters(), "bced")
-        XCTAssertEqual("abcedd".findLongestSubstringWithoutRepeatingCharacters(), "abced")
-    }
-    
     func testToInt() {
         XCTAssertNil("".toInt())
         XCTAssertNil(".".toInt())

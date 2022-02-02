@@ -21,5 +21,6 @@
         <page name='FindSubset'/>
         <page name='MergeOverlappingIntervals'/>
         <page name='BalancedBrackets'/>
+        <page name='FindLongestSubstring'/>
     </pages>
 </playground>
