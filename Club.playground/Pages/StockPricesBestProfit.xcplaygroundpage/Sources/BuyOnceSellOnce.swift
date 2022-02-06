@@ -13,7 +13,7 @@ import Foundation
 
 extension Array where Element == Int {
     public func getBestProfitWhenBuyOnceSellOnce() -> Int {
-        guard !self.isEmpty else {
+        guard self.count > 1 else {
             return -1
         }
         
@@ -29,7 +29,7 @@ extension Array where Element == Int {
             sellPrice = self[index + 1]
             let profit = sellPrice - buyPrice
             
-            // Cannot make position profit from the current `buyPrice` and `sellPrice`
+            // Cannot make positive profit from the current `buyPrice` and `sellPrice`
             // So we need to get a new `buyPrice`
             if profit < 0 {
                 shouldChangeBuyPrice = true
