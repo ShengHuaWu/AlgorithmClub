@@ -22,5 +22,7 @@
         <page name='MergeOverlappingIntervals'/>
         <page name='BalancedBrackets'/>
         <page name='FindLongestSubstring'/>
+        <page name='StockPricesBestProfit'/>
+        <page name='Tree'/>
     </pages>
 </playground>
