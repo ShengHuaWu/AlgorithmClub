@@ -290,13 +290,6 @@ final class StringTests: XCTestCase {
         XCTAssertEqual("341".getTargetsVicinities(for: "134"), "0T3V")
     }
     
-    func testIsSubsequence() {
-        XCTAssertTrue("bell".isSubsequence(of: "barbell"))
-        XCTAssertTrue("hen".isSubsequence(of: "chicken"))
-        XCTAssertFalse("kgb".isSubsequence(of: "kfcapple"))
-        XCTAssertFalse("kgb".isSubsequence(of: "gbkfcapple"))
-    }
-    
     func testHardDriveStatistics() {
         let report = """
         my.song.mp3 11b

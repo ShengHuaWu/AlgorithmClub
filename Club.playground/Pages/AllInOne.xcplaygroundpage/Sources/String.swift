@@ -390,40 +390,6 @@ fileprivate extension Parser {
     }
 }
 
-// Is A Subsequence
-//
-// Given two strings, one named `sub` and the other `str`, determine if `sub` is a subsequence of `str`.
-extension String {
-    public func isSubsequence(of str: String) -> Bool {
-        guard !isEmpty, !str.isEmpty else {
-            return false
-        }
-        
-        var indexOfPreviousCharInStr = str.startIndex
-        for char in self {
-            if let indexOfCharInStr = str[indexOfPreviousCharInStr...].firstIndex(of: char) {
-                indexOfPreviousCharInStr = indexOfCharInStr
-            } else {
-                return false
-            }
-        }
-        
-        return true
-    }
-    
-    // The time complexity of the above algorithm is O(M * N), where M is the length of `sub` and N is the length of `str`.
-    // How to reduce the time complexity
-    //
-    // 1. Create a `[Character: [Index]]` dictionary by looping each character of `str` from its beginning.
-    //    Since we start from the beginning, the arrays in the dictionary should be sorted (This is important).
-    // 2. Create a `previous` index variable and assign the min index of `sub`'s the first character in the above dictionary to it.
-    // 3. Loop `sub` from the second character and check whether there is an index in the above dictionary which is larger than the `previous` variable.
-    //    When finding such an index, we can adopt binary search because the index arrays in the dictionary are sorted.
-    //    If there is no larger index, then return `false`. Otherwise, return `true`.
-    // 4. The time complexity will be O(M log N), where M is the length of `sub` and N is the length of `str`.
-    //    However, the space complexity is O(N)
-}
-
 // Targets and Vicinities
 //
 // Targets are digits in the guessed number that have the same value of the digit in actual at the same position.
