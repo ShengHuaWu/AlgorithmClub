@@ -69,11 +69,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual(integers, [20, -3, 9, 7, 2, 1, 0, 0, 0, 0])
     }
     
-    func testMinAndMax() {
-        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].minAndMax()?.0, -1)
-        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].minAndMax()?.1, 11)
-    }
-    
     func testOccurrence() {
         XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].occurrence(of: 2), 4)
     }

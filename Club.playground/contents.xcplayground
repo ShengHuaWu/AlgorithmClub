@@ -9,7 +9,6 @@
         <page name='FindSecondLargest'/>
         <page name='FindKthClosest'/>
         <page name='FindKthLargest'/>
-        <page name='FindLongestConsecutiveSubsequence'/>
         <page name='EqualSumSubset'/>
         <page name='FindLowAndHigh'/>
         <page name='CountPrettyString'/>
@@ -24,5 +23,7 @@
         <page name='FindLongestSubstring'/>
         <page name='StockPricesBestProfit'/>
         <page name='Tree'/>
+        <page name='FindSubsequence'/>
+        <page name='FindMaxAndMin'/>
     </pages>
 </playground>
