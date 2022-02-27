@@ -13,35 +13,25 @@ import Foundation
 
 extension Array where Element == Int {
     public func getBestProfitWhenBuyOnceSellOnce() -> Int {
-        guard self.count > 1 else {
+        guard let first = self.first, self.count > 1 else {
             return -1
         }
         
-        var buyPrice = Int.min
-        var sellPrice = Int.min
+        var buy = first
+        var sell: Int
+        var max = 0
         
-        var shouldChangeBuyPrice = true // Use this to track the `buyPrice`
-        
-        var bestProfit = 0
-        
-        for index in 0 ..< (self.count - 1) {
-            buyPrice = shouldChangeBuyPrice ? self[index] : buyPrice
-            sellPrice = self[index + 1]
-            let profit = sellPrice - buyPrice
-            
-            // Cannot make positive profit from the current `buyPrice` and `sellPrice`
-            // So we need to get a new `buyPrice`
+        for index in 1 ..< self.count {
+            sell = self[index]
+            let profit = sell - buy
             if profit < 0 {
-                shouldChangeBuyPrice = true
+                buy = sell
                 continue
             }
             
-            if bestProfit < profit {
-                bestProfit = profit
-                shouldChangeBuyPrice = false
-            }
+            max = Swift.max(max, profit)
         }
         
-        return bestProfit
+        return max
     }
 }
