@@ -25,5 +25,6 @@
         <page name='Tree'/>
         <page name='FindSubsequence'/>
         <page name='FindMaxAndMin'/>
+        <page name='ProductOfArrayExceptSelf'/>
     </pages>
 </playground>
