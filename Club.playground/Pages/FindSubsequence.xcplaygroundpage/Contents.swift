@@ -32,6 +32,14 @@ final class FindSubsequenceTests: XCTestCase {
         XCTAssertFalse("".isSubsequenceAnotherApproach(of: "gbkfcapple"))
         XCTAssertFalse("abc".isSubsequenceAnotherApproach(of: ""))
     }
+    
+    func testGetMaxSubarraySum() {
+        XCTAssertEqual([Int]().getMaxSubarraySum(), 0)
+        XCTAssertEqual([1].getMaxSubarraySum(), 1)
+        XCTAssertEqual([-2, 1, -3, 4, -1, 2, 1, -5, 4].getMaxSubarraySum(), 6)
+        XCTAssertEqual([5, 4, -1, 7, 8].getMaxSubarraySum(), 23)
+        XCTAssertEqual([-5, -4, -1, -7, -8].getMaxSubarraySum(), -1)
+    }
 }
 
 FindSubsequenceTests.defaultTestSuite.run()
