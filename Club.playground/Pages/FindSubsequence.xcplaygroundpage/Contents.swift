@@ -40,6 +40,14 @@ final class FindSubsequenceTests: XCTestCase {
         XCTAssertEqual([5, 4, -1, 7, 8].getMaxSubarraySum(), 23)
         XCTAssertEqual([-5, -4, -1, -7, -8].getMaxSubarraySum(), -1)
     }
+    
+    func testGetMaxSubarrayProduct() {
+        XCTAssertEqual([Int]().getMaxSubarrayProduct(), 0)
+        XCTAssertEqual([1].getMaxSubarrayProduct(), 1)
+        XCTAssertEqual([2, 3, -2, 4].getMaxSubarrayProduct(), 6)
+        XCTAssertEqual([-2, 0, -1].getMaxSubarrayProduct(), 0)
+        XCTAssertEqual([-5, -4, -1, -7, -8].getMaxSubarrayProduct(), 224)
+    }
 }
 
 FindSubsequenceTests.defaultTestSuite.run()
