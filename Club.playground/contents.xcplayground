@@ -26,5 +26,6 @@
         <page name='FindSubsequence'/>
         <page name='FindMaxAndMin'/>
         <page name='ProductOfArrayExceptSelf'/>
+        <page name='FindLongestCommonPrefix'/>
     </pages>
 </playground>
