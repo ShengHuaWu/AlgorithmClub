@@ -27,5 +27,6 @@
         <page name='FindMaxAndMin'/>
         <page name='ProductOfArrayExceptSelf'/>
         <page name='FindLongestCommonPrefix'/>
+        <page name='RotatedSortedArray'/>
     </pages>
 </playground>

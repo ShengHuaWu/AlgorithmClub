@@ -21,13 +21,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent(), 0)
     }
     
-    func testFindInRotated() {
-        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 6), 1)
-        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 3), 5)
-        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 8), -1)
-        XCTAssertEqual([5, 6, 7, 1, 2, 3, 4].findInRotated(key: 2), 4)
-    }
-    
     func testFindAllSumCombinations() {
         XCTAssertEqual(
             [1, 2, 3].findAllSumCombinations(for: 7),
