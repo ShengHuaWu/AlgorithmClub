@@ -35,6 +35,20 @@ final class RotatedSortedArrayTests: XCTestCase {
         source = [5, 6, 7, 1, 2, 3, 4]
         XCTAssertEqual(source.min(), 1)
     }
+    
+    func testMax() {
+        var source = [Int]()
+        XCTAssertNil(source.max())
+        
+        source = [1]
+        XCTAssertEqual(source.max(), 1)
+        
+        source = [4, 5, 6, 7, 0, 1, 2]
+        XCTAssertEqual(source.max(), 7)
+        
+        source = [5, 6, 7, 1, 2, 3, 4]
+        XCTAssertEqual(source.max(), 7)
+    }
 }
 
 RotatedSortedArrayTests.defaultTestSuite.run()
