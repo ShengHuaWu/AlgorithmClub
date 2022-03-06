@@ -28,5 +28,6 @@
         <page name='ProductOfArrayExceptSelf'/>
         <page name='FindLongestCommonPrefix'/>
         <page name='RotatedSortedArray'/>
+        <page name='NotificationCenter'/>
     </pages>
 </playground>
