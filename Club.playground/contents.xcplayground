@@ -29,5 +29,6 @@
         <page name='FindLongestCommonPrefix'/>
         <page name='RotatedSortedArray'/>
         <page name='NotificationCenter'/>
+        <page name='ContainerWithMostWater'/>
     </pages>
 </playground>
