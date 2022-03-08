@@ -12,13 +12,30 @@ final class MockObserver: MyObserver {
     }
 }
 
+final class ImmediateQueue: DispatchQueueInterface {
+    private(set) var syncCallCount = 0
+    private(set) var asyncCallCount = 0
+    
+    func sync_(_ block: () -> Void) {
+        syncCallCount += 1
+        block()
+    }
+    
+    func async_(_ block: @escaping () -> Void) {
+        asyncCallCount += 1
+        block()
+    }
+}
+
 final class MyNotificationCenterTests: XCTestCase {
+    private var queue: ImmediateQueue!
     private var subject: MyNotificationCenter!
     
     override func setUp() {
         super.setUp()
         
-        subject = MyNotificationCenter()
+        queue = ImmediateQueue()
+        subject = MyNotificationCenter(queue: queue)
     }
     
     func testPostThenObserverReceiveNotification() {
@@ -30,6 +47,8 @@ final class MyNotificationCenterTests: XCTestCase {
         
         XCTAssertEqual(observer.receiveCallCount, 1)
         XCTAssertEqual(observer.receivedNotification, notification)
+        XCTAssertEqual(queue.syncCallCount, 1)
+        XCTAssertEqual(queue.asyncCallCount, 1)
     }
     
     func testRemoveThenObserverNotReceiveNotification() {
@@ -42,6 +61,8 @@ final class MyNotificationCenterTests: XCTestCase {
         
         XCTAssertEqual(observer.receiveCallCount, 0)
         XCTAssertNil(observer.receivedNotification)
+        XCTAssertEqual(queue.syncCallCount, 2)
+        XCTAssertEqual(queue.asyncCallCount, 1)
     }
 }
 
