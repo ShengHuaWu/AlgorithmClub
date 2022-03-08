@@ -31,6 +31,8 @@ final class MyNotificationCenterTests: XCTestCase {
     private var queue: ImmediateQueue!
     private var subject: MyNotificationCenter!
     
+    private let notification = "Notification"
+    
     override func setUp() {
         super.setUp()
         
@@ -39,7 +41,6 @@ final class MyNotificationCenterTests: XCTestCase {
     }
     
     func testPostThenObserverReceiveNotification() {
-        let notification = "Notification"
         let observer = MockObserver()
         subject.addObserver(observer, for: notification)
         
@@ -52,7 +53,6 @@ final class MyNotificationCenterTests: XCTestCase {
     }
     
     func testRemoveThenObserverNotReceiveNotification() {
-        let notification = "Notification"
         let observer = MockObserver()
         subject.addObserver(observer, for: notification)
         subject.remove(observer, for: notification)
@@ -61,6 +61,36 @@ final class MyNotificationCenterTests: XCTestCase {
         
         XCTAssertEqual(observer.receiveCallCount, 0)
         XCTAssertNil(observer.receivedNotification)
+        XCTAssertEqual(queue.syncCallCount, 2)
+        XCTAssertEqual(queue.asyncCallCount, 1)
+    }
+    
+    func testAddTheSameObserverTwice() {
+        let observer = MockObserver()
+        subject.addObserver(observer, for: notification)
+        subject.addObserver(observer, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer.receiveCallCount, 1)
+        XCTAssertEqual(observer.receivedNotification, notification)
+        XCTAssertEqual(queue.syncCallCount, 2)
+        XCTAssertEqual(queue.asyncCallCount, 1)
+    }
+    
+    func testAddTwoObservers() {
+        let observer1 = MockObserver()
+        subject.addObserver(observer1, for: notification)
+        
+        let observer2 = MockObserver()
+        subject.addObserver(observer2, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer1.receiveCallCount, 1)
+        XCTAssertEqual(observer1.receivedNotification, notification)
+        XCTAssertEqual(observer2.receiveCallCount, 1)
+        XCTAssertEqual(observer2.receivedNotification, notification)
         XCTAssertEqual(queue.syncCallCount, 2)
         XCTAssertEqual(queue.asyncCallCount, 1)
     }
