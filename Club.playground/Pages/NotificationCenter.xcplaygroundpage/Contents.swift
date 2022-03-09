@@ -12,6 +12,31 @@ final class MockObserver: MyObserver {
     }
 }
 
+final class MockObserverForRetainCycle: MyObserver {
+    private(set) var receiveCallCount = 0
+    private(set) var receivedNotification: String!
+    
+    private let notificationCenter: MyNotificationCenter
+    private let deinitExpectation: XCTestExpectation
+    
+    init(
+        notificationCenter: MyNotificationCenter,
+        deinitExpectation: XCTestExpectation
+    ) {
+        self.notificationCenter = notificationCenter
+        self.deinitExpectation = deinitExpectation
+    }
+    
+    func receive(_ notification: String) {
+        receiveCallCount += 1
+        receivedNotification = notification
+    }
+    
+    deinit {
+        deinitExpectation.fulfill()
+    }
+}
+
 final class ImmediateQueue: DispatchQueueInterface {
     private(set) var syncCallCount = 0
     private(set) var asyncCallCount = 0
@@ -93,6 +118,27 @@ final class MyNotificationCenterTests: XCTestCase {
         XCTAssertEqual(observer2.receivedNotification, notification)
         XCTAssertEqual(queue.syncCallCount, 2)
         XCTAssertEqual(queue.asyncCallCount, 1)
+    }
+    
+    func testRetainCycle() {
+        let `deinit` = expectation(description: #function)
+        
+        var observer: MockObserverForRetainCycle? = MockObserverForRetainCycle(
+            notificationCenter: subject,
+            deinitExpectation: `deinit`
+        )
+        subject.addObserver(observer!, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer?.receiveCallCount, 1)
+        XCTAssertEqual(observer?.receivedNotification, notification)
+        XCTAssertEqual(queue.syncCallCount, 1)
+        XCTAssertEqual(queue.asyncCallCount, 1)
+        
+        observer = nil
+        
+        wait(for: [`deinit`], timeout: 0.5)
     }
 }
 
