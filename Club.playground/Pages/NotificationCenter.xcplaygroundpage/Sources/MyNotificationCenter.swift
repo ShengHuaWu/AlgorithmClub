@@ -1,8 +1,8 @@
 import Foundation
 
-// TODO: Avoid retain cycle, different ways to store observers
+// TODO: Different ways to store observers
 public final class MyNotificationCenter {
-    private var observers: [String: [MyObserver]] = [:]
+    private var observers: [String: [WeakWrapper]] = [:]
     private let queue: DispatchQueueInterface
     
     public init(queue: DispatchQueueInterface = DispatchQueue(label: "MyNotificationCenter")) {
@@ -14,8 +14,9 @@ public final class MyNotificationCenter {
             let observersForNotification = self.observers[notification, default: []]
             
             // In order to use `===`, `MyObserver` must conform to `AnyObject`
-            if !observersForNotification.contains(where: { $0 === observer }) {
-                self.observers[notification] = observersForNotification + [observer]
+            if !observersForNotification.contains(where: { $0.value === observer }) {
+                let newWrapper = WeakWrapper(value: observer)
+                self.observers[notification] = observersForNotification + [newWrapper]
             }
         }
     }
@@ -23,7 +24,7 @@ public final class MyNotificationCenter {
     public func remove(_ observer: MyObserver, for notification: String) {
         self.queue.sync_ {
             var observersForNotification = self.observers[notification, default: []]
-            if let indexToRemove = observersForNotification.firstIndex(where: { $0 === observer }) {
+            if let indexToRemove = observersForNotification.firstIndex(where: { $0.value === observer }) {
                 observersForNotification.remove(at: indexToRemove)
                 self.observers[notification] = observersForNotification
             }
@@ -34,7 +35,7 @@ public final class MyNotificationCenter {
         // Cannot use `sync` here because it could cause deadlock,
         // for example, calling `addObserver` inside `receive`
         self.queue.async_ {
-            self.observers[notification]?.forEach { $0.receive(notification) }
+            self.observers[notification]?.forEach { $0.value?.receive(notification) }
         }
     }
 }
