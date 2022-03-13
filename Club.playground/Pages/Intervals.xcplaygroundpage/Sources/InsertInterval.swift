@@ -14,26 +14,51 @@ extension Array where Element == (Int, Int) {
             return [newInterval]
         }
         
-        var result: Self = []
-        var new = newInterval
-        
-        for index in self.indices {
-            let interval = self[index]
+        // Insert `newInterval` into the array and keep the order by start
+        var temp: Self = []
+        var inserted = false // Track `newInterval` is already inserted or not
+        for interval in self {
+            if inserted {
+                temp.append(interval)
+                continue
+            }
             
-            if interval.0 > new.1 {
-                result.append(new)
-                result.append(interval)
-            } else if interval.1 < new.0 {
-                result.append(interval)
-                if index == self.count - 1 {
-                    result.append(new)
-                }
-            } else if interval.1 > new.0 {
-                new.0 = Swift.min(interval.0, new.0)
-                new.1 = Swift.max(interval.1, new.1)
-                if index == self.count - 1 {
-                    result.append(new)
-                }
+            // case of |-interval-| |--new--|
+            if newInterval.0 > interval.1 {
+                temp.append(interval)
+                continue
+            }
+            
+            // case of |--new--| |-interval-|
+            if newInterval.1 < interval.0 {
+                temp.append(contentsOf: [newInterval, interval])
+                inserted = true
+                continue
+            }
+            
+            // case of overlapping
+            let new = (
+                Swift.min(newInterval.0, interval.0),
+                Swift.max(newInterval.1, interval.1)
+            )
+            temp.append(new)
+            inserted = true
+        }
+        
+        // The `newInterval` could be the last one
+        if !inserted {
+            temp.append(newInterval)
+        }
+        
+        // Merge the intervals
+        var result = [temp.first!]
+        for interval in temp[1...] {
+            var lastOfResult = result.removeLast()
+            if lastOfResult.1 >= interval.0 {
+                lastOfResult.1 = Swift.max(lastOfResult.1, interval.1)
+                result.append(lastOfResult)
+            } else {
+                result.append(contentsOf: [lastOfResult, interval])
             }
         }
         
