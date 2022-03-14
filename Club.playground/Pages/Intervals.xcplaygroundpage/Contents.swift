@@ -49,6 +49,17 @@ final class IntervalsTests: XCTestCase {
         XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8)).last?.0, 12)
         XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8)).last?.1, 16)
     }
+    
+    func testEraseOverlapping() {
+        XCTAssertEqual([(Int, Int)]().eraseOverlapping(), 0)
+        
+        XCTAssertEqual([(1, 2), (2, 3), (3, 4), (1, 3)].eraseOverlapping(), 1)
+        XCTAssertEqual([(1, 2), (1, 2), (1, 2)].eraseOverlapping(), 2)
+        XCTAssertEqual([(1, 2), (2, 3)].eraseOverlapping(), 0)
+        XCTAssertEqual([(1, 4), (3, 6), (2, 3)].eraseOverlapping(), 1)
+        XCTAssertEqual([(1, 4), (3, 6), (2, 5)].eraseOverlapping(), 2)
+        XCTAssertEqual([(1, 4), (5, 6), (2, 6)].eraseOverlapping(), 1)
+    }
 }
 
 IntervalsTests.defaultTestSuite.run()
