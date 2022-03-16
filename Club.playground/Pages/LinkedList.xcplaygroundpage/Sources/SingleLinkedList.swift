@@ -36,12 +36,16 @@ public final class SingleLinkedList<T> where T: Equatable {
         self.head = nil
     }
     
-    public func append(value: T) {
+    @discardableResult
+    public func append(value: T) -> Node {
+        let newNode = Node(value: value)
         if let last = self.last {
-            last.next = Node(value: value)
+            last.next = newNode
         } else {
             head = Node(value: value)
         }
+        
+        return newNode
     }
 }
 
@@ -148,5 +152,49 @@ extension SingleLinkedList {
         newNode.next = deepCopy(node: node.next)
         
         return newNode
+    }
+}
+
+// MARK: - Reverse
+
+extension SingleLinkedList {
+    public func reversed() -> Self {
+        guard var current = head else {
+            return self
+        }
+        
+        var previous: Node? = nil
+        while let next = current.next {
+            current.next = previous
+            previous = current
+            current = next
+        }
+        
+        // Need this the because we check `current.next != nil`
+        // instead of `current != nil`
+        current.next = previous
+        
+        head = current
+        
+        return self
+    }
+}
+
+// MARK: - Detect Cycle
+
+extension SingleLinkedList {
+    public func hasCycle() -> Bool {
+        var slow = head
+        var fast = head
+        
+        while slow != nil, fast != nil, fast?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+            if slow === fast {
+                return true
+            }
+        }
+        
+        return false
     }
 }
