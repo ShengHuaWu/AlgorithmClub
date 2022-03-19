@@ -1,6 +1,5 @@
 //: [Previous](@previous)
 
-import Foundation
 import XCTest
 
 final class MyCell: TDD_TableViewCell {}
@@ -31,10 +30,7 @@ final class TDD_TableViewTests: XCTestCase {
         try tableView.didEndDisplay(tableViewCell: cell1)
         
         let cell2 = try tableView.dequeue(with: reuseId)
-        
-        let addressOfCell1 = Unmanaged.passUnretained(cell1).toOpaque()
-        let addressOfCell2 = Unmanaged.passUnretained(cell2).toOpaque()
-        XCTAssertEqual(addressOfCell1, addressOfCell2)
+        XCTAssertTrue(cell1 === cell2)
     }
     
     func testDequeueCellsWithTwoReuseIdsAfterEndDisplay() throws {
@@ -54,13 +50,8 @@ final class TDD_TableViewTests: XCTestCase {
         let cell2ForReuseId1 = try tableView.dequeue(with: reuseId1)
         let cell2ForReuseId2 = try tableView.dequeue(with: reuseId2)
         
-        let addressOfCell1ForReuseId1 = Unmanaged.passUnretained(cell1ForReuseId1).toOpaque()
-        let addressOfCell2ForReuseId1 = Unmanaged.passUnretained(cell2ForReuseId1).toOpaque()
-        XCTAssertEqual(addressOfCell1ForReuseId1, addressOfCell2ForReuseId1)
-        
-        let addressOfCell1ForReuseId2 = Unmanaged.passUnretained(cell1ForReuseId2).toOpaque()
-        let addressOfCell2ForReuseId2 = Unmanaged.passUnretained(cell2ForReuseId2).toOpaque()
-        XCTAssertEqual(addressOfCell1ForReuseId2, addressOfCell2ForReuseId2)
+        XCTAssertTrue(cell1ForReuseId1 === cell2ForReuseId1)
+        XCTAssertTrue(cell1ForReuseId2 === cell2ForReuseId2)
     }
     
     func testDequeueCellsWithTheSameReuseIdAfterEndDisplay() throws {
@@ -78,16 +69,11 @@ final class TDD_TableViewTests: XCTestCase {
         let cell3 = try tableView.dequeue(with: reuseId)
         let cell4 = try tableView.dequeue(with: reuseId)
         
-        let addressOfCell1 = Unmanaged.passUnretained(cell1).toOpaque()
-        let addressOfCell3 = Unmanaged.passUnretained(cell3).toOpaque()
-        XCTAssertEqual(addressOfCell1, addressOfCell3)
-        
-        let addressOfCell2 = Unmanaged.passUnretained(cell2).toOpaque()
-        let addressOfCell4 = Unmanaged.passUnretained(cell4).toOpaque()
-        XCTAssertEqual(addressOfCell2, addressOfCell4)
+        XCTAssertTrue(cell1 === cell3)
+        XCTAssertTrue(cell2 === cell4)
     }
 }
 
-//TDD_TableViewTests.defaultTestSuite.run()
+TDD_TableViewTests.defaultTestSuite.run()
 
 //: [Next](@next)
