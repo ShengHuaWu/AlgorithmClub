@@ -54,80 +54,6 @@ public final class API {
     }
 }
 
-// MARK: - Functional Approach
-struct Conditions {
-    var time: Date
-    var count: Int
-}
-
-private var rateLimit: [String: Conditions] = [:] // This represents a cache
-
-public struct Cache {
-    public let cleanUp: () -> Void
-    let get: (String) -> Conditions?
-    let update: (String, Conditions) -> Void
-}
-
-extension Cache {
-    static let live = Self(
-        cleanUp: {
-            rateLimit = [:]
-        },
-        get: { key in
-            rateLimit[key]
-        },
-        update: { key, conditions in
-            rateLimit[key] = conditions
-        }
-    )
-}
-
-public struct Environment {
-    public let now: () -> Date
-    public let cache: Cache
-}
-
-public var global = Environment(
-    now: Date.init,
-    cache: .live
-)
-
-struct RateLimitValidator {
-    let run: (inout Conditions) -> Bool
-}
-
-extension RateLimitValidator {
-    static let fiveRequestsInTwoSeconds = Self { conditions in
-        let current = global.now()
-        guard current.timeIntervalSince(conditions.time) <= 2 else {
-            conditions = Conditions(time: current, count: 1)
-            return true
-        }
-        
-        conditions.time = current
-                
-        if conditions.count < 5 {
-            conditions.count += 1
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-public func invokeEndpoint(_ customerId: String) -> String? {
-    guard var conditions = global.cache.get(customerId) else {
-        global.cache.update(customerId, Conditions(time: global.now(), count: 1))
-        
-        return customerId
-    }
-    
-    let success = RateLimitValidator.fiveRequestsInTwoSeconds.run(&conditions)
-    global.cache.update(customerId, conditions)
-    
-    return success ? customerId : nil
-}
-
 // TDD Rate Limit
 
 public final class TDD_API {
@@ -139,29 +65,32 @@ public final class TDD_API {
     }
     
     private var conditionOfCustomers: [CustomerId: Condition] = [:]
+    private let queue = DispatchQueue(label: "API")
     
     public init() {}
     
     public func invokeEndpoint(_ customerId: String) -> String? {
-        let now = Date()
-        var condition = conditionOfCustomers[customerId, default: Condition()]
-        
-        if now.timeIntervalSince(condition.lastCallTime) > 2 {
-            condition.lastCallTime = now
-            condition.count = 1
+        self.queue.sync {
+            let now = Date()
+            var condition = conditionOfCustomers[customerId, default: Condition()]
             
-            conditionOfCustomers[customerId] = condition
-            
-            return customerId
-        } else {
-            condition.count += 1
-            conditionOfCustomers[customerId] = condition
-            
-            guard condition.count < 6 else {
-                return nil
+            if now.timeIntervalSince(condition.lastCallTime) > 2 {
+                condition.lastCallTime = now
+                condition.count = 1
+                
+                conditionOfCustomers[customerId] = condition
+                
+                return customerId
+            } else {
+                condition.count += 1
+                conditionOfCustomers[customerId] = condition
+                
+                guard condition.count < 6 else {
+                    return nil
+                }
+                
+                return customerId
             }
-            
-            return customerId
         }
     }
 }

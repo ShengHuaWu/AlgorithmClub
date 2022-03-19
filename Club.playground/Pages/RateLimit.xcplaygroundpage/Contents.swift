@@ -6,8 +6,6 @@ import XCTest
 final class RateLimitTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        
-        global.cache.cleanUp()
     }
     
     func testInvokeEndpointReturnResponseWithTwoDifferentCustomerIds() {
@@ -22,14 +20,6 @@ final class RateLimitTests: XCTestCase {
         
         XCTAssertEqual(api.invokeEndpoint(customerId1), "Response for One")
         XCTAssertEqual(api.invokeEndpoint(customerId2), "Response for Two")
-        
-        invokeEndpoint(customerId1)
-        invokeEndpoint(customerId2)
-        invokeEndpoint(customerId1)
-        invokeEndpoint(customerId1)
-        
-        XCTAssertEqual(invokeEndpoint(customerId1), "One")
-        XCTAssertEqual(invokeEndpoint(customerId2), "Two")
     }
     
     func testInvokeEndpointReturnsNilAfterCallingItSixTimesStraight() {
@@ -43,18 +33,10 @@ final class RateLimitTests: XCTestCase {
         
         XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
         XCTAssertNil(api.invokeEndpoint(customerId))
-        
-        invokeEndpoint(customerId)
-        invokeEndpoint(customerId)
-        invokeEndpoint(customerId)
-        invokeEndpoint(customerId)
-        
-        XCTAssertEqual(invokeEndpoint(customerId), "One")
-        XCTAssertNil(invokeEndpoint(customerId))
     }
     
     func testInvokeEndpointReturnsResponseAfterCallingItSixTimesStraightButExceedingTwoSeconds() {
-        var e = expectation(description: #function)
+        let e = expectation(description: #function)
         let customerId = "One"
         let api = API()
         
@@ -67,22 +49,6 @@ final class RateLimitTests: XCTestCase {
         
         DispatchQueue(label: #function).asyncAfter(deadline: .now() + 2) {
             XCTAssertEqual(api.invokeEndpoint(customerId), "Response for One")
-            e.fulfill()
-        }
-        
-        waitForExpectations(timeout: 5)
-        
-        e = expectation(description: #function)
-        
-        invokeEndpoint(customerId)
-        invokeEndpoint(customerId)
-        invokeEndpoint(customerId)
-        invokeEndpoint(customerId)
-        
-        XCTAssertEqual(invokeEndpoint(customerId), "One")
-        
-        DispatchQueue(label: #function).asyncAfter(deadline: .now() + 2) {
-            XCTAssertEqual(invokeEndpoint(customerId), "One")
             e.fulfill()
         }
         
@@ -270,6 +236,6 @@ final class TDD_RateLimitTests: XCTestCase {
     }
 }
 
-//TDD_RateLimitTests.defaultTestSuite.run()
+TDD_RateLimitTests.defaultTestSuite.run()
 
 //: [Next](@next)
