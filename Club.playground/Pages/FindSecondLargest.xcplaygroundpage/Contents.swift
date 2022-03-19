@@ -1,6 +1,5 @@
 //: [Previous](@previous)
 
-import Foundation
 import XCTest
 
 final class FindSecondLargestTests: XCTestCase {
@@ -29,6 +28,6 @@ final class FindSecondLargestTests: XCTestCase {
     }
 }
 
-//FindSecondLargestTests.defaultTestSuite.run()
+FindSecondLargestTests.defaultTestSuite.run()
 
 //: [Next](@next)

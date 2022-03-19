@@ -44,11 +44,11 @@ extension Array where Element: Comparable, Element: Hashable {
             largest = Swift.max(largest, larger)
         }
         
-        return group[largest].map(Array.init)?.findLargest()
+        return group[largest]?.findLargest()
     }
 }
 
-extension Array where Element: Comparable {
+extension Collection where Element: Comparable {
     func findLargest() -> Element? {
         guard !self.isEmpty else {
             return nil
