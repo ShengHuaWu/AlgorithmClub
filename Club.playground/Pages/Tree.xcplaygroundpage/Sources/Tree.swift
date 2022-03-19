@@ -13,16 +13,12 @@ public struct Tree<T> {
 extension Tree where T: Equatable {
     // DFS approach (recursive)
     public func dfsFindFirst(_ value: T) -> Self? {
-        return dfsFindFirst(node: self, value: value)
-    }
-    
-    private func dfsFindFirst(node: Self, value: T) -> Self? {
-        if node.value == value {
-            return node
+        if self.value == value {
+            return self
         }
         
-        for descendant in node.subtrees {
-            if let result = dfsFindFirst(node: descendant, value: value) {
+        for subtree in self.subtrees {
+            if let result = subtree.dfsFindFirst(value) {
                 return result
             }
         }
