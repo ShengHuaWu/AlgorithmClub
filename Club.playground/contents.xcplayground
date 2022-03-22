@@ -18,7 +18,6 @@
         <page name='FindSum'/>
         <page name='Timer'/>
         <page name='FindSubset'/>
-        <page name='MergeOverlappingIntervals'/>
         <page name='BalancedBrackets'/>
         <page name='FindLongestSubstring'/>
         <page name='StockPricesBestProfit'/>
@@ -30,5 +29,7 @@
         <page name='RotatedSortedArray'/>
         <page name='NotificationCenter'/>
         <page name='ContainerWithMostWater'/>
+        <page name='Intervals'/>
+        <page name='HashCollision'/>
     </pages>
 </playground>
