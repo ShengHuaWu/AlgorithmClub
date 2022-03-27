@@ -3,7 +3,7 @@
 import XCTest
 
 final class TreeTests: XCTestCase {
-    func testFindFirst() {
+    func testTreeFindFirst() {
         var tree = Tree(5)
         
         XCTAssertNil(tree.dfsFindFirst(7))
@@ -20,7 +20,7 @@ final class TreeTests: XCTestCase {
         XCTAssertNil(tree.dfsFindFirst(19))
     }
     
-    func testDescription() {
+    func testTreeDescription() {
         var tree = Tree(5)
         
         XCTAssertEqual(tree.description, "5\n")
@@ -32,6 +32,20 @@ final class TreeTests: XCTestCase {
         tree.subtrees = [left, right]
         
         XCTAssertEqual(tree.description, "5\n12\n3710\n")
+    }
+    
+    func testBinaryTreeIsEqual() {
+        let tree1 = BinaryTree.leaf
+            .inserted(5)
+            .inserted(9, at: .right)
+            .inserted(6)
+            .inserted(10, at: .right)
+        
+        XCTAssertNotEqual(tree1, .leaf)
+        
+        let tree2 = tree1
+        
+        XCTAssertEqual(tree1, tree2)
     }
 }
 

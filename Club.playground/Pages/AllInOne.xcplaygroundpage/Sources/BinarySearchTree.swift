@@ -176,26 +176,6 @@ extension BinaryTree: CustomStringConvertible where Value: CustomStringConvertib
     }
 }
 
-// Determine If Two Binary Trees Are Identical
-//
-// Given the roots of two binary trees, determine if these trees are identical or not.
-// Identical trees have the same layout and data at each node.
-extension BinaryTree where Value: Equatable {
-    public func isIdenticial(with another: BinaryTree<Value>) -> Bool {
-        if case .leaf = self, case .leaf = another {
-            return true
-        }
-        
-        guard case let .node(leftSelf, valueSelf, rightSelf) = self, case let .node(leftAnother, valueAnother, rightAnother) = another else {
-            return false
-        }
-        
-        return valueSelf == valueAnother
-            && leftSelf.isIdenticial(with: leftAnother)
-            && rightSelf.isIdenticial(with: rightAnother)
-    }
-}
-
 // Mirror Binary Tree Nodes
 //
 // Given the root node of a binary tree, swap the ‘left’ and ‘right’ children for each node.

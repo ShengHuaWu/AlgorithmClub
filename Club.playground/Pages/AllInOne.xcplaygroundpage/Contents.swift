@@ -93,19 +93,6 @@ final class ArrayTests: XCTestCase {
 
 // Binary Tree
 final class BinaryTreeTests: XCTestCase {
-    func testIsIdenticial() {
-        let tree = BinaryTree.leaf
-            .adding(5)
-            .adding(3)
-            .adding(2)
-            .adding(8)
-            .adding(4)
-
-        let anotherTree = tree
-        XCTAssertTrue(tree.isIdenticial(with: anotherTree))
-        XCTAssertFalse(tree.isIdenticial(with: tree.mirroring()))
-    }
-    
     func testFindAllPaths() {
         var temp = 0
         let predicate: () -> Bool = {
