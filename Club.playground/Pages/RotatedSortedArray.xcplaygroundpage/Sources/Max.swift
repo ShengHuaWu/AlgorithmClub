@@ -38,5 +38,3 @@ extension Array where Element: Comparable {
         return Swift.max(result, self[start])
     }
 }
-import Foundation
-
