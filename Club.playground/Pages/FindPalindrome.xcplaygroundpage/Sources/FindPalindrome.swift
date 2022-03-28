@@ -24,7 +24,7 @@ extension String {
             
             // The problem requires non-single letter substrings
             // If it also wants single letter substrings,
-            // just use `findAllPalindromes(in: lowerBound ... index, result: [])`
+            // just use `findAllPalindromes(in: index ... index, result: [])`
             guard let lowerBound = self.index(index, offsetBy: -1, limitedBy: self.startIndex) else {
                 continue
             }
