@@ -133,7 +133,7 @@ final class LinkedListTests: XCTestCase {
         var copy = list.deepCopy()
         
         XCTAssertEqual(copy.description, list.description)
-        XCTAssertNotEqual(Unmanaged.passUnretained(copy).toOpaque(), Unmanaged.passRetained(list).toOpaque())
+        XCTAssertFalse(copy === list)
         
         list.append(value: 1)
         list.append(value: 2)
@@ -143,7 +143,7 @@ final class LinkedListTests: XCTestCase {
         copy = list.deepCopy()
         
         XCTAssertEqual(copy.description, list.description)
-        XCTAssertNotEqual(Unmanaged.passUnretained(copy).toOpaque(), Unmanaged.passRetained(list).toOpaque())
+        XCTAssertFalse(copy === list)
     }
     
     func testSingleLinkedListReversed() {
