@@ -23,6 +23,8 @@ public enum TypoError: Error {
     case oneCharDiff
     case moreCharsDiff
     case notEqual
+    case oneMoreChar
+    case oneLessChar
 }
 
 extension String {
@@ -86,5 +88,55 @@ extension String {
         } else {
             return .failure(.notEqual)
         }
+    }
+    
+    public func detectOneMoreOrLessChar() -> Result<String, TypoError> {
+        if self == domain {
+            return .success(self)
+        }
+        
+        if self.count == domain.count {
+            return .failure(.notEqual)
+        } else if self.count > domain.count {
+            return self.detectOneMoreChar()
+        } else {
+            return self.detectOneLessChar()
+        }
+    }
+    
+    private func detectOneMoreChar() -> Result<String, TypoError> {
+        var index = self.startIndex
+        var indexOfDomain = domain.startIndex
+        var difference = 0
+        
+        while index < self.endIndex {
+            defer { index = self.index(after: index) }
+            
+            if domain[indexOfDomain] == self[index] {
+                indexOfDomain = domain.index(after: indexOfDomain)
+            } else {
+                difference += 1
+            }
+        }
+        
+        return difference == 1 ? .failure(.oneMoreChar) : .failure(.notEqual)
+    }
+    
+    private func detectOneLessChar() -> Result<String, TypoError> {
+        var index = self.startIndex
+        var indexOfDomain = domain.startIndex
+        var difference = 0
+        
+        while indexOfDomain < domain.endIndex {
+            defer { indexOfDomain = domain.index(after: indexOfDomain) }
+            
+            if domain[indexOfDomain] == self[index] {
+                index = self.index(after: index)
+            } else {
+                difference += 1
+            }
+        }
+        
+        return difference == 1 ? .failure(.oneLessChar) : .failure(.notEqual)
     }
 }

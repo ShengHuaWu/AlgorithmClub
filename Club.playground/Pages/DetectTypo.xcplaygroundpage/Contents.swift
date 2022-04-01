@@ -45,6 +45,23 @@ final class DetectTypoTests: XCTestCase {
         input = "aaa"
         XCTAssertEqual(input.detectOneCharDiffAtKeyboard(), .failure(.lengthMismatch))
     }
+    
+    func testDetectOneMoreOrLessChar() {
+        var input = "domain"
+        XCTAssertEqual(input.detectOneMoreOrLessChar(), .success(input))
+        
+        input = "donain"
+        XCTAssertEqual(input.detectOneMoreOrLessChar(), .failure(.notEqual))
+        
+        input = "dmain"
+        XCTAssertEqual(input.detectOneMoreOrLessChar(), .failure(.oneLessChar))
+        
+        input = "dopmain"
+        XCTAssertEqual(input.detectOneMoreOrLessChar(), .failure(.oneMoreChar))
+        
+        input = "aaa"
+        XCTAssertEqual(input.detectOneMoreOrLessChar(), .failure(.notEqual))
+    }
 }
 
 DetectTypoTests.defaultTestSuite.run()
