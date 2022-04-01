@@ -31,5 +31,6 @@
         <page name='ContainerWithMostWater'/>
         <page name='Intervals'/>
         <page name='HashCollision'/>
+        <page name='DetectTypo'/>
     </pages>
 </playground>
