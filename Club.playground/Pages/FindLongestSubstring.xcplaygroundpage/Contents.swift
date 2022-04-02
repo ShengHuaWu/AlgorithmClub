@@ -12,6 +12,12 @@ final class FindLongestSubstringTests: XCTestCase {
         XCTAssertEqual("abcedd".findLongestSubstringWithoutRepeating(), "abced")
         XCTAssertEqual("aabbcedd".findLongestSubstringWithoutRepeating(), "bced")
     }
+    
+    func testCharacterReplacement() {
+        XCTAssertEqual("".characterReplacement(for: 9), 0)
+        XCTAssertEqual("ABAB".characterReplacement(for: 2), 4)
+        XCTAssertEqual("AABABBA".characterReplacement(for: 1), 4)
+    }
 }
 
 FindLongestSubstringTests.defaultTestSuite.run()
