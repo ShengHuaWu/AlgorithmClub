@@ -9,6 +9,13 @@ final class FindPalindromeTests: XCTestCase {
         XCTAssertEqual("aaaa".findPalindromes(), ["aa", "aaa", "aaaa"])
         XCTAssertEqual("aabbbaa".findPalindromes(), ["aabbbaa", "aa", "abbba", "bbb", "bb"])
     }
+    
+    func testFindLongestPalindromeSubstring() {
+        XCTAssertEqual("".findLongestPalindromeSubstring(), "")
+        XCTAssertEqual("babad".findLongestPalindromeSubstring(), "bab")
+        XCTAssertEqual("aabbbaa".findLongestPalindromeSubstring(), "aabbbaa")
+        XCTAssertEqual("forgeeksskeegfor".findLongestPalindromeSubstring(), "geeksskeeg")
+    }
 }
 
 FindPalindromeTests.defaultTestSuite.run()

@@ -34,6 +34,26 @@ extension String {
         
         return result
     }
+    
+    public func findLongestPalindromeSubstring() -> String {
+        var result = ""
+        
+        for index in self.indices {
+            guard let upperBound = self.index(index, offsetBy: 1, limitedBy: self.index(before: self.endIndex)) else {
+                continue
+            }
+            
+            result = findLongestPalindrome(in: index ... upperBound, result: result)
+
+            guard let lowerBound = self.index(index, offsetBy: -1, limitedBy: self.startIndex) else {
+                continue
+            }
+            
+            result = findLongestPalindrome(in: lowerBound ... upperBound, result: result)
+        }
+        
+        return result
+    }
 }
 
 extension String {
@@ -51,6 +71,22 @@ extension String {
         if let newLowerBound = self.index(startWindow.lowerBound, offsetBy: -1, limitedBy: self.startIndex),
            let newUpperBound = self.index(startWindow.upperBound, offsetBy: 1, limitedBy: self.index(before: self.endIndex)) {
             return findPalindromes(in: newLowerBound ... newUpperBound, result: newResult)
+        } else {
+            return newResult
+        }
+    }
+    
+    private func findLongestPalindrome(in startWindow: ClosedRange<Index>, result: String) -> String {
+        guard self[startWindow.lowerBound] == self[startWindow.upperBound] else {
+            return result
+        }
+        
+        let palindrome = String(self[startWindow.lowerBound ... startWindow.upperBound])
+        let newResult = palindrome.count > result.count ? palindrome : result
+        
+        if let newLowerBound = self.index(startWindow.lowerBound, offsetBy: -1, limitedBy: self.startIndex),
+           let newUpperBound = self.index(startWindow.upperBound, offsetBy: 1, limitedBy: self.index(before: self.endIndex)) {
+            return findLongestPalindrome(in: newLowerBound ... newUpperBound, result: newResult)
         } else {
             return newResult
         }
