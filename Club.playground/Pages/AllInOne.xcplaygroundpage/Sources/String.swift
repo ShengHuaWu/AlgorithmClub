@@ -1,16 +1,5 @@
 import Foundation
 
-extension String {
-    public func isAnagram(with word: String) -> Bool {
-        guard count == word.count else { return false }
-        
-        let sortedSelf = String(lowercased().sorted())
-        let sortedWord = String(word.lowercased().sorted())
-        
-        return sortedSelf == sortedWord
-    }
-}
-
 // Boyer-Moore Algorithm
 extension String {
     // The closer a character is to the end of the pattern, the smaller the skip amount.

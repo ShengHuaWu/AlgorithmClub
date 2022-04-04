@@ -32,5 +32,6 @@
         <page name='Intervals'/>
         <page name='HashCollision'/>
         <page name='DetectTypo'/>
+        <page name='Anagram'/>
     </pages>
 </playground>
