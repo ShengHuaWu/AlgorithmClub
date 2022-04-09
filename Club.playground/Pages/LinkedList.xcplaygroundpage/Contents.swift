@@ -171,6 +171,22 @@ final class LinkedListTests: XCTestCase {
         
         XCTAssertTrue(target.hasCycle())
     }
+    
+    func testSingleLinkedListReordered() {
+        let target = SingleLinkedList(value: 1)
+        
+        XCTAssertEqual(target.reordered().description, "1")
+        
+        target.append(value: 2)
+        target.append(value: 3)
+        target.append(value: 4)
+        
+        XCTAssertEqual(target.reordered().description, "1 -> 4 -> 2 -> 3")
+        
+        target.append(value: 5)
+        
+        XCTAssertEqual(target.reordered().description, "1 -> 5 -> 2 -> 4 -> 3")
+    }
 }
 
 LinkedListTests.defaultTestSuite.run()
