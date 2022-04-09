@@ -38,13 +38,7 @@ final class MockObserverForRetainCycle: MyObserver {
 }
 
 final class ImmediateQueue: DispatchQueueInterface {
-    private(set) var syncCallCount = 0
     private(set) var asyncCallCount = 0
-    
-    func sync_(_ block: () -> Void) {
-        syncCallCount += 1
-        block()
-    }
     
     func async_(_ block: @escaping () -> Void) {
         asyncCallCount += 1
@@ -73,8 +67,7 @@ final class MyNotificationCenterTests: XCTestCase {
         
         XCTAssertEqual(observer.receiveCallCount, 1)
         XCTAssertEqual(observer.receivedNotification, notification)
-        XCTAssertEqual(queue.syncCallCount, 1)
-        XCTAssertEqual(queue.asyncCallCount, 1)
+        XCTAssertEqual(queue.asyncCallCount, 2)
     }
     
     func testRemoveThenObserverNotReceiveNotification() {
@@ -86,8 +79,7 @@ final class MyNotificationCenterTests: XCTestCase {
         
         XCTAssertEqual(observer.receiveCallCount, 0)
         XCTAssertNil(observer.receivedNotification)
-        XCTAssertEqual(queue.syncCallCount, 2)
-        XCTAssertEqual(queue.asyncCallCount, 1)
+        XCTAssertEqual(queue.asyncCallCount, 3)
     }
     
     func testAddTheSameObserverTwice() {
@@ -99,8 +91,7 @@ final class MyNotificationCenterTests: XCTestCase {
         
         XCTAssertEqual(observer.receiveCallCount, 1)
         XCTAssertEqual(observer.receivedNotification, notification)
-        XCTAssertEqual(queue.syncCallCount, 2)
-        XCTAssertEqual(queue.asyncCallCount, 1)
+        XCTAssertEqual(queue.asyncCallCount, 3)
     }
     
     func testAddTwoObservers() {
@@ -116,8 +107,7 @@ final class MyNotificationCenterTests: XCTestCase {
         XCTAssertEqual(observer1.receivedNotification, notification)
         XCTAssertEqual(observer2.receiveCallCount, 1)
         XCTAssertEqual(observer2.receivedNotification, notification)
-        XCTAssertEqual(queue.syncCallCount, 2)
-        XCTAssertEqual(queue.asyncCallCount, 1)
+        XCTAssertEqual(queue.asyncCallCount, 3)
     }
     
     func testRetainCycle() {
@@ -133,8 +123,7 @@ final class MyNotificationCenterTests: XCTestCase {
         
         XCTAssertEqual(observer?.receiveCallCount, 1)
         XCTAssertEqual(observer?.receivedNotification, notification)
-        XCTAssertEqual(queue.syncCallCount, 1)
-        XCTAssertEqual(queue.asyncCallCount, 1)
+        XCTAssertEqual(queue.asyncCallCount, 2)
         
         observer = nil
         

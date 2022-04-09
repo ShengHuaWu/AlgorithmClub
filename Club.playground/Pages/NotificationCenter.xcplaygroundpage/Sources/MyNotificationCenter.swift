@@ -10,7 +10,7 @@ public final class MyNotificationCenter {
     }
     
     public func addObserver(_ observer: MyObserver, for notification: String) {
-        self.queue.sync_ {
+        self.queue.async_ {
             let observersForNotification = self.observers[notification, default: []]
             
             // In order to use `===`, `MyObserver` must conform to `AnyObject`
@@ -22,7 +22,7 @@ public final class MyNotificationCenter {
     }
     
     public func remove(_ observer: MyObserver, for notification: String) {
-        self.queue.sync_ {
+        self.queue.async_ {
             var observersForNotification = self.observers[notification, default: []]
             if let indexToRemove = observersForNotification.firstIndex(where: { $0.value === observer }) {
                 observersForNotification.remove(at: indexToRemove)
