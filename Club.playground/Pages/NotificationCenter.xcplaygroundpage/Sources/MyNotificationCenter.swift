@@ -4,9 +4,14 @@ import Foundation
 public final class MyNotificationCenter {
     private var observers: [String: [WeakWrapper]] = [:]
     private let queue: DispatchQueueInterface
+    private let receiveQueue: DispatchQueueInterface
     
-    public init(queue: DispatchQueueInterface = DispatchQueue(label: "MyNotificationCenter")) {
+    public init(
+        queue: DispatchQueueInterface = DispatchQueue(label: "MyNotificationCenter"),
+        receiveQueue: DispatchQueueInterface = DispatchQueue.main
+    ) {
         self.queue = queue
+        self.receiveQueue = receiveQueue
     }
     
     public func addObserver(_ observer: MyObserver, for notification: String) {
@@ -35,7 +40,11 @@ public final class MyNotificationCenter {
         // Cannot use `sync` here because it could cause deadlock,
         // for example, calling `addObserver` inside `receive`
         self.queue.async_ {
-            self.observers[notification]?.forEach { $0.value?.receive(notification) }
+            self.observers[notification]?.forEach { observer in
+                self.receiveQueue.async_ {
+                    observer.value?.receive(notification)
+                }
+            }
         }
     }
 }
