@@ -33,5 +33,6 @@
         <page name='HashCollision'/>
         <page name='DetectTypo'/>
         <page name='Anagram'/>
+        <page name='MethodDispatch'/>
     </pages>
 </playground>
