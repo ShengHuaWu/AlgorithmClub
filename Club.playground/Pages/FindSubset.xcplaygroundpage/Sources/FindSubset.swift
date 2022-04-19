@@ -28,6 +28,7 @@ extension Array where Element == Int {
             sum -= last
         }
         
+        // The intersection of A and B must be empty
         while sorted.last == resultOfA.first {
             let last = sorted.removeLast()
             resultOfA = [last] + resultOfA

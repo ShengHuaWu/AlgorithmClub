@@ -25,6 +25,7 @@ extension String {
             return true
         }
         
+        // The arrays in this dictionary will be sorted because we walk through the indices
         var bracketWithIndices = [Bracket: [Index]]()
         for index in self.indices {
             guard let bracket = Bracket(rawValue: String(self[index])) else {

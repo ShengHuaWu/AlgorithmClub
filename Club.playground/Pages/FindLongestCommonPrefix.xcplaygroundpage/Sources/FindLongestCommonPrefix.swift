@@ -39,7 +39,7 @@ extension Array where Element == String {
         }
         
         var result = ""
-        var temp = ""
+        
         for (_, list) in alphabets {
             let sorted = list.sorted()
             // After sorting, we just need to check the first and the last strings
@@ -49,6 +49,7 @@ extension Array where Element == String {
             
             let first = sorted.first!
             let last = sorted.last!
+            var temp = ""
             
             for index in first.indices {
                 guard first[index] == last[index] else {
@@ -61,9 +62,7 @@ extension Array where Element == String {
             
             if temp.count > result.count {
                 result = temp
-            }
-            
-            temp = ""
+            }            
         }
         
         return result

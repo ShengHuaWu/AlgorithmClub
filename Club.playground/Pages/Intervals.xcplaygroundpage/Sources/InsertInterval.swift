@@ -3,10 +3,8 @@ import Foundation
 // You are given an array of non-overlapping intervals intervals
 // and intervals is sorted in ascending order by start.
 // You are also given an interval `newInterval = (start, end)`
-// that represents the start and end of another interval.
 // Insert `newInterval` into intervals such that intervals is still sorted in ascending order
-// by start and intervals still does not have any overlapping intervals
-// (merge overlapping intervals if necessary).
+// by start and intervals still does not have any overlapping intervals.
 
 extension Array where Element == (Int, Int) {
     public func insert(_ newInterval: (Int, Int)) -> Self {
@@ -23,13 +21,13 @@ extension Array where Element == (Int, Int) {
                 continue
             }
             
-            // case of |-interval-| |--new--|
+            // case of |-interval-| |--newInterval--|
             if newInterval.0 > interval.1 {
                 temp.append(interval)
                 continue
             }
             
-            // case of |--new--| |-interval-|
+            // case of |--newInterval--| |-interval-|
             if newInterval.1 < interval.0 {
                 temp.append(contentsOf: [newInterval, interval])
                 inserted = true
