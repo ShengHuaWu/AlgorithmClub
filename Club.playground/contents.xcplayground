@@ -35,5 +35,6 @@
         <page name='Anagram'/>
         <page name='MethodDispatch'/>
         <page name='AsyncProgramming'/>
+        <page name='RecursiveDescription'/>
     </pages>
 </playground>
