@@ -9,12 +9,11 @@ extension Array where Element == Int {
             return 0
         }
         
-        var element: Int
         var sum = first
         var max = sum
         
         for index in 1 ..< self.count {
-            element = self[index]
+            let element = self[index]
             sum += element
             max = Swift.max(max, sum)
             

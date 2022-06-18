@@ -37,5 +37,6 @@
         <page name='AsyncProgramming'/>
         <page name='RecursiveDescription'/>
         <page name='SortedSquares'/>
+        <page name='WordBreak'/>
     </pages>
 </playground>
