@@ -25,6 +25,19 @@ extension Array where Element == Int {
         
         return max
     }
+    
+    // Given an array of positive numbers and a positive number ‘k’,
+    // find the maximum sum of any contiguous subarray of size ‘k’
+    public func getMaxSubarraySum(with size: Int) -> Int {
+        guard self.count >= size else {
+            return self.reduce(0, +)
+        }
+        
+        return Swift.max(
+            self[..<size].reduce(0, +),
+            Array(dropFirst()).getMaxSubarraySum(with: size)
+        )
+    }
 }
 
 // Given an integer array, find a contiguous non-empty subarray within the array

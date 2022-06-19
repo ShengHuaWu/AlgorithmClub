@@ -21,27 +21,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent(), 0)
     }
     
-    func testFindAllSumCombinations() {
-        XCTAssertEqual(
-            [1, 2, 3].findAllSumCombinations(for: 7),
-            [
-                [1, 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 2],
-                [1, 1, 1, 1, 3],
-                [1, 1, 1, 2, 2],
-                [1, 1, 2, 3],
-                [1, 2, 2, 2],
-                [1, 3, 3],
-                [2, 2, 3]
-            ]
-        )
-    }
-    
-    func testFindLargestSumOfSubarray() {
-        XCTAssertEqual([-4, 2, -5, 1, 2, 3, 6, -5, 1].findLargestSumOfSubarray(), 12)
-        XCTAssertEqual([3, 7, 5, 4, 1, 5, 2, 1].findLargestSumOfSubarray(with: 3), 16)
-    }
-    
     func testFindLargestLengthOfAdjacent() {
         XCTAssertEqual([1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent(), 4)
     }
