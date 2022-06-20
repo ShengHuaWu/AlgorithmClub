@@ -40,5 +40,6 @@
         <page name='WordBreak'/>
         <page name='SumCombination'/>
         <page name='HouseRobber'/>
+        <page name='DynamicProgramming'/>
     </pages>
 </playground>

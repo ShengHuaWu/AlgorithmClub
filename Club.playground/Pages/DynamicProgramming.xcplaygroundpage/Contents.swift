@@ -2,7 +2,7 @@
 
 import XCTest
 
-final class HouseRobberTests: XCTestCase {
+final class DynamicProgrammingTests: XCTestCase {
     func testRob() {
         var input = [1, 2, 3, 1]
         XCTAssertEqual(input.rob(), 4)
@@ -15,6 +15,6 @@ final class HouseRobberTests: XCTestCase {
     }
 }
 
-HouseRobberTests.defaultTestSuite.run()
+DynamicProgrammingTests.defaultTestSuite.run()
 
 //: [Next](@next)
