@@ -50,18 +50,6 @@ final class FindSubsequenceTests: XCTestCase {
         XCTAssertEqual([-2, 0, -1].getMaxSubarrayProduct(), 0)
         XCTAssertEqual([-5, -4, -1, -7, -8].getMaxSubarrayProduct(), 224)
     }
-    
-    func testFindLongestCommonSubsequence() {
-        XCTAssertEqual([Int]().findLongestCommonSubsequence(with: [2, 3, 5, 7, 9, 10, 18, 101]), 0)
-        XCTAssertEqual([10, 9, 2, 5, 3, 7, 101, 18].findLongestCommonSubsequence(with: []), 0)
-        XCTAssertEqual([10, 9, 2, 5, 3, 7, 101, 18].findLongestCommonSubsequence(with: [2, 3, 5, 7, 9, 10, 18, 101]), 4)
-    }
-    
-    func testFindLongestIncreasingSubsequence() {
-        XCTAssertEqual([Int]().findLongestIncreasingSubsequence(), 0)
-        XCTAssertEqual([10, 9, 2, 5, 3, 7, 101, 18].findLongestIncreasingSubsequence(), 4)
-        XCTAssertEqual([10, 22, 9, 33, 21, 50, 41, 60].findLongestIncreasingSubsequence(), 5)
-    }
 }
 
 FindSubsequenceTests.defaultTestSuite.run()
