@@ -39,5 +39,6 @@
         <page name='SortedSquares'/>
         <page name='WordBreak'/>
         <page name='SumCombination'/>
+        <page name='HouseRobber'/>
     </pages>
 </playground>
