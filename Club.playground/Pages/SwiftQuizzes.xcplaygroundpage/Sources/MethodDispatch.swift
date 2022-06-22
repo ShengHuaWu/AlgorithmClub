@@ -1,4 +1,4 @@
-//: [Previous](@previous)
+import Foundation
 
 // MARK: - Static dispatch
 // Methods which cannot be overriden
@@ -18,12 +18,14 @@ struct American: People {
         print("Hello!!!")
     }
 }
-    
-let p1: People = American()
-let p2 = American()
 
-p1.greeting() // Hello World
-p2.greeting() // Hello!!!
+func staticDispatch() {
+    let p1: People = American()
+    let p2 = American()
+
+    p1.greeting() // Hello World
+    p2.greeting() // Hello!!!
+}
 */
 
 // MARK: - Virtual-Table dispatch
@@ -47,16 +49,16 @@ struct American: People {
     }
 }
     
-let p1: People = American()
-let p2 = American()
+func virtualTableDispatch() {
+    let p1: People = American()
+    let p2 = American()
 
-p1.greeting() // Hello!!!
-p2.greeting() // Hello!!!
+    p1.greeting() // Hello!!!
+    p2.greeting() // Hello!!!
+}
 
 // MARK: - Dynamic dispatch
 // `@dynamic` in Swift
 // 1. Dynamic dispatch is the default way in ObjC (e.g. method swizzling)
 // 2. Maintain the table at runtime
 // 3. Only use `@objc` could cause different result in ObjC and Swift
-
-//: [Next](@next)
