@@ -3,7 +3,6 @@
     <pages>
         <page name='AllInOne'/>
         <page name='RateLimit'/>
-        <page name='TableViewReusability'/>
         <page name='ParseAcceptLanguages'/>
         <page name='RemoveDuplicates'/>
         <page name='FindSecondLargest'/>
@@ -37,9 +36,8 @@
         <page name='AsyncProgramming'/>
         <page name='RecursiveDescription'/>
         <page name='SortedSquares'/>
-        <page name='WordBreak'/>
-        <page name='SumCombination'/>
-        <page name='HouseRobber'/>
         <page name='DynamicProgramming'/>
+        <page name='iOSQuizzes'/>
+        <page name='SwiftQuizzes'/>
     </pages>
 </playground>
