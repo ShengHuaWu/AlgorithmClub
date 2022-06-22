@@ -18,4 +18,8 @@ ParseAcceptLanguagesTests.defaultTestSuite.run()
 
 MyNotificationCenterTests.defaultTestSuite.run()
 
+// Timer
+
+TimerTests.defaultTestSuite.run()
+
 //: [Next](@next)

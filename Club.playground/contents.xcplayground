@@ -32,8 +32,6 @@
         <page name='HashCollision'/>
         <page name='DetectTypo'/>
         <page name='Anagram'/>
-        <page name='MethodDispatch'/>
-        <page name='AsyncProgramming'/>
         <page name='RecursiveDescription'/>
         <page name='SortedSquares'/>
         <page name='DynamicProgramming'/>
