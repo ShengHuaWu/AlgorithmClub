@@ -2,6 +2,8 @@
 
 import XCTest
 
+// MARK: - Rate Limit
+
 final class TDD_RateLimitTests: XCTestCase {
     func testInvokeEndpointFiveTimes() {
         let customerId = "ABC"
@@ -182,6 +184,8 @@ final class TDD_RateLimitTests: XCTestCase {
 
 TDD_RateLimitTests.defaultTestSuite.run()
 
+// MARK: - Parse Accept Languages
+//
 // The accept language headers is comma-separated list and it could contain spaces, for example, `"en-US, fr-CA"`.
 // In addition, it could also contain non-region form, such as, `"en, fr-CA"`,
 // and there could also be a wildcard tag `"*"` inside the accept language headers.
@@ -316,5 +320,176 @@ final class ParseAcceptLanguagesTests: XCTestCase {
 }
 
 ParseAcceptLanguagesTests.defaultTestSuite.run()
+
+// MARK: - Notification Center
+
+final class MockObserver: MyObserver {
+    private(set) var receiveCallCount = 0
+    private(set) var receivedNotification: String!
+    
+    func receive(_ notification: String) {
+        receiveCallCount += 1
+        receivedNotification = notification
+    }
+}
+
+final class MockObserverForRetainCycle: MyObserver {
+    private(set) var receiveCallCount = 0
+    private(set) var receivedNotification: String!
+    
+    private let notificationCenter: MyNotificationCenter
+    private let deinitExpectation: XCTestExpectation
+    
+    init(
+        notificationCenter: MyNotificationCenter,
+        deinitExpectation: XCTestExpectation
+    ) {
+        self.notificationCenter = notificationCenter
+        self.deinitExpectation = deinitExpectation
+    }
+    
+    func receive(_ notification: String) {
+        receiveCallCount += 1
+        receivedNotification = notification
+    }
+    
+    deinit {
+        deinitExpectation.fulfill()
+    }
+}
+
+final class ImmediateQueue: DispatchQueueInterface {
+    private(set) var asyncCallCount = 0
+    
+    func async_(_ block: @escaping () -> Void) {
+        asyncCallCount += 1
+        block()
+    }
+}
+
+final class MyNotificationCenterTests: XCTestCase {
+    private var queue: ImmediateQueue!
+    private var receiveQueue: ImmediateQueue!
+    private var subject: MyNotificationCenter!
+    
+    private let notification = "Notification"
+    
+    override func setUp() {
+        super.setUp()
+        
+        queue = ImmediateQueue()
+        receiveQueue = ImmediateQueue()
+        subject = MyNotificationCenter(queue: queue, receiveQueue: receiveQueue)
+    }
+    
+    func testPostThenObserverReceiveNotification() {
+        let observer = MockObserver()
+        subject.addObserver(observer, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer.receiveCallCount, 1)
+        XCTAssertEqual(observer.receivedNotification, notification)
+        XCTAssertEqual(queue.asyncCallCount, 2)
+        XCTAssertEqual(receiveQueue.asyncCallCount, 1)
+    }
+    
+    func testRemoveThenObserverNotReceiveNotification() {
+        let observer = MockObserver()
+        subject.addObserver(observer, for: notification)
+        subject.remove(observer, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer.receiveCallCount, 0)
+        XCTAssertNil(observer.receivedNotification)
+        XCTAssertEqual(queue.asyncCallCount, 3)
+        XCTAssertEqual(receiveQueue.asyncCallCount, 0)
+    }
+    
+    func testAddTheSameObserverTwice() {
+        let observer = MockObserver()
+        subject.addObserver(observer, for: notification)
+        subject.addObserver(observer, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer.receiveCallCount, 1)
+        XCTAssertEqual(observer.receivedNotification, notification)
+        XCTAssertEqual(queue.asyncCallCount, 3)
+        XCTAssertEqual(receiveQueue.asyncCallCount, 1)
+    }
+    
+    func testAddTwoObservers() {
+        let observer1 = MockObserver()
+        subject.addObserver(observer1, for: notification)
+        
+        let observer2 = MockObserver()
+        subject.addObserver(observer2, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer1.receiveCallCount, 1)
+        XCTAssertEqual(observer1.receivedNotification, notification)
+        XCTAssertEqual(observer2.receiveCallCount, 1)
+        XCTAssertEqual(observer2.receivedNotification, notification)
+        XCTAssertEqual(queue.asyncCallCount, 3)
+        XCTAssertEqual(receiveQueue.asyncCallCount, 2)
+    }
+    
+    func testRetainCycle() {
+        let `deinit` = expectation(description: #function)
+        
+        var observer: MockObserverForRetainCycle? = MockObserverForRetainCycle(
+            notificationCenter: subject,
+            deinitExpectation: `deinit`
+        )
+        subject.addObserver(observer!, for: notification)
+        
+        subject.post(notification)
+        
+        XCTAssertEqual(observer?.receiveCallCount, 1)
+        XCTAssertEqual(observer?.receivedNotification, notification)
+        XCTAssertEqual(queue.asyncCallCount, 2)
+        XCTAssertEqual(receiveQueue.asyncCallCount, 1)
+        
+        observer = nil
+        
+        wait(for: [`deinit`], timeout: 0.5)
+    }
+}
+
+MyNotificationCenterTests.defaultTestSuite.run()
+
+// MARK: - Hash Collision
+
+struct MyHash: Hashable {
+    let value1: Int
+    let value2: Int
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(value1 + value2)
+    }
+}
+
+final class HashCollisionTests: XCTestCase {
+    func testHashCollision() {
+        let h1 = MyHash(value1: 2, value2: 3)
+        let h2 = MyHash(value1: 3, value2: 2)
+        
+        XCTAssertEqual(h1.hashValue, h2.hashValue)
+        XCTAssertFalse(h1 == h2)
+        
+        let dictionary = [
+            h1: 1,
+            h2: 2
+        ]
+        
+        // `Dictionary` uses `Equtable` to determine the key
+        XCTAssertFalse(dictionary[h1] == dictionary[h2])
+    }
+}
+
+HashCollisionTests.defaultTestSuite.run()
 
 //: [Next](@next)
