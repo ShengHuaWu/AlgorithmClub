@@ -2,8 +2,6 @@
 <playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='AllInOne'/>
-        <page name='RateLimit'/>
-        <page name='ParseAcceptLanguages'/>
         <page name='RemoveDuplicates'/>
         <page name='FindSecondLargest'/>
         <page name='FindKthClosest'/>
@@ -15,7 +13,6 @@
         <page name='CountAppearance'/>
         <page name='FindPalindrome'/>
         <page name='FindSum'/>
-        <page name='Timer'/>
         <page name='FindSubset'/>
         <page name='BalancedBrackets'/>
         <page name='FindLongestSubstring'/>
@@ -26,10 +23,8 @@
         <page name='ProductOfArrayExceptSelf'/>
         <page name='FindLongestCommonPrefix'/>
         <page name='RotatedSortedArray'/>
-        <page name='NotificationCenter'/>
         <page name='ContainerWithMostWater'/>
         <page name='Intervals'/>
-        <page name='HashCollision'/>
         <page name='DetectTypo'/>
         <page name='Anagram'/>
         <page name='RecursiveDescription'/>
@@ -37,5 +32,6 @@
         <page name='DynamicProgramming'/>
         <page name='iOSQuizzes'/>
         <page name='SwiftQuizzes'/>
+        <page name='Array'/>
     </pages>
 </playground>

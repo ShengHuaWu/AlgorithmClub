@@ -1,5 +1,7 @@
 import Foundation
 
+// Write a function which takes a sorted array as input and outputs sorted squares.
+// For example, given [-2, -1, 1, 3, 4, 8] will return [1, 1, 4, 9, 16, 64]
 extension Array where Element == Int {
     public func getSortedSquares() -> Self {
         guard !self.isEmpty else {
@@ -32,5 +34,25 @@ extension Array where Element == Int {
         result = [startSquare] + result
         
         return result
+    }
+}
+
+// MARK: - Tests
+
+import XCTest
+
+public final class SortedSquaresTests: XCTestCase {
+    func testGetSortedSquares() {
+        var input: [Int] = []
+        
+        XCTAssertTrue(input.getSortedSquares().isEmpty)
+        
+        input = [1, 2, 3, 4, 5]
+        
+        XCTAssertEqual(input.getSortedSquares(), [1, 4, 9, 16, 25])
+        
+        input = [-4, -2, 1, 2, 3, 4, 5]
+        
+        XCTAssertEqual(input.getSortedSquares(), [1, 4, 4, 9, 16, 16, 25])
     }
 }
