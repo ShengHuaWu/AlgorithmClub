@@ -23,7 +23,6 @@
         <page name='ProductOfArrayExceptSelf'/>
         <page name='FindLongestCommonPrefix'/>
         <page name='RotatedSortedArray'/>
-        <page name='ContainerWithMostWater'/>
         <page name='Intervals'/>
         <page name='DetectTypo'/>
         <page name='Anagram'/>
