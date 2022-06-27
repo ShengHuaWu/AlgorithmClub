@@ -327,55 +327,6 @@ final class StringTests: XCTestCase {
 
 //StringTests.defaultTestSuite.run()
 
-
-// Graph
-final class GraphTests: XCTestCase {
-    func testClone() {
-        let tempNodeA = GraphNode<String>("A")
-        let tempNodeB = GraphNode<String>("B")
-        let tempNodeC = GraphNode<String>("C")
-        let tempNodeD = GraphNode<String>("D")
-        
-        tempNodeA.neighbors.append(tempNodeB)
-        tempNodeA.neighbors.append(tempNodeD)
-        tempNodeB.neighbors.append(tempNodeA)
-        tempNodeB.neighbors.append(tempNodeC)
-        tempNodeC.neighbors.append(tempNodeB)
-        tempNodeC.neighbors.append(tempNodeD)
-        tempNodeD.neighbors.append(tempNodeA)
-        tempNodeD.neighbors.append(tempNodeC)
-        
-        tempNodeA.cloned().description // ???: How to verify?
-    }
-    
-    func disable_testCanAllBeScheduled() {
-        XCTAssertFalse(canAllBeScheduled(with: []))
-        XCTAssertTrue(canAllBeScheduled(with: [(1, 0)]))
-        XCTAssertTrue(canAllBeScheduled(with: [(1, 0), (2, 1), (3, 2)]))
-        XCTAssertFalse(canAllBeScheduled(with: [(1, 0), (0, 1), (3, 2)]))
-    }
-    
-    func testIsBipartite() {
-        let nodeA = GraphNode<String>("A")
-        let nodeB = GraphNode<String>("B")
-        let nodeC = GraphNode<String>("C")
-        let nodeD = GraphNode<String>("D")
-        
-        nodeA.neighbors.append(nodeB)
-        nodeA.neighbors.append(nodeC)
-        nodeB.neighbors.append(nodeD)
-        nodeD.neighbors.append(nodeC)
-        
-        XCTAssertTrue(nodeA.isBipartite)
-        
-        nodeB.neighbors.append(nodeC)
-        
-        XCTAssertFalse(nodeA.isBipartite)
-    }
-}
-
-//GraphTests.defaultTestSuite.run()
-
 // LRU Cache
 final class LRUCacheTests: XCTestCase {
     func testGetSet() {

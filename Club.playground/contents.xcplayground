@@ -13,24 +13,18 @@
         <page name='CountAppearance'/>
         <page name='FindPalindrome'/>
         <page name='FindSum'/>
-        <page name='FindSubset'/>
         <page name='BalancedBrackets'/>
         <page name='FindLongestSubstring'/>
-        <page name='StockPricesBestProfit'/>
         <page name='Tree'/>
         <page name='FindSubsequence'/>
-        <page name='FindMaxAndMin'/>
-        <page name='ProductOfArrayExceptSelf'/>
         <page name='FindLongestCommonPrefix'/>
-        <page name='RotatedSortedArray'/>
         <page name='Intervals'/>
         <page name='DetectTypo'/>
         <page name='Anagram'/>
-        <page name='RecursiveDescription'/>
-        <page name='SortedSquares'/>
         <page name='DynamicProgramming'/>
         <page name='iOSQuizzes'/>
         <page name='SwiftQuizzes'/>
         <page name='Array'/>
+        <page name='Graph'/>
     </pages>
 </playground>
