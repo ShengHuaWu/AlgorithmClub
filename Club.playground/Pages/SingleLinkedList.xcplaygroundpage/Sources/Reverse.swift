@@ -24,3 +24,21 @@ extension SingleLinkedList {
         return self
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class ReverseTests: XCTestCase {
+    func testSingleLinkedListReversed() {
+        let target = SingleLinkedList(value: 9)
+        
+        XCTAssertEqual(target.reversed().description, "9")
+                
+        target.append(value: 1)
+        target.append(value: 2)
+        target.append(value: 3)
+        
+        XCTAssertEqual(target.reversed().description, "3 -> 2 -> 1 -> 9")
+    }
+}

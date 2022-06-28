@@ -18,3 +18,23 @@ extension SingleLinkedList {
         return false
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class DetectCycleTests: XCTestCase {
+    func testHasCycle() {
+        let target = SingleLinkedList(value: 9)
+        let node = target.append(value: 1)
+        target.append(value: 2)
+        let tail = target.append(value: 3)
+        
+        XCTAssertEqual(target.description, "9 -> 1 -> 2 -> 3")
+        XCTAssertFalse(target.hasCycle())
+        
+        tail.next = node
+        
+        XCTAssertTrue(target.hasCycle())
+    }
+}

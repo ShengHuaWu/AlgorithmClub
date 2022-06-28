@@ -81,3 +81,25 @@ extension SingleLinkedList where T: CustomStringConvertible {
         return .init(first: first, second: second)
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class ReorderTests: XCTestCase {
+    func testReordered() {
+        let target = SingleLinkedList(value: 1)
+        
+        XCTAssertEqual(target.reordered().description, "1")
+        
+        target.append(value: 2)
+        target.append(value: 3)
+        target.append(value: 4)
+        
+        XCTAssertEqual(target.reordered().description, "1 -> 4 -> 2 -> 3")
+        
+        target.append(value: 5)
+        
+        XCTAssertEqual(target.reordered().description, "1 -> 5 -> 2 -> 4 -> 3")
+    }
+}

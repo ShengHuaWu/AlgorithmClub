@@ -32,3 +32,23 @@ extension SingleLinkedList where T == Int {
         return result
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class MergeSortedTests: XCTestCase {
+    func testMergeTwoSorted() {
+        let list1 = SingleLinkedList<Int>(value: 4)
+        list1.append(value: 8)
+        list1.append(value: 15)
+        list1.append(value: 19)
+        
+        let list2 = SingleLinkedList<Int>(value: 7)
+        list2.append(value: 9)
+        list2.append(value: 10)
+        list2.append(value: 16)
+
+        XCTAssertEqual(list1.merged(list2).description, "4 -> 7 -> 8 -> 9 -> 10 -> 15 -> 16 -> 19")
+    }
+}
