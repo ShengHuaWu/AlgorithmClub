@@ -69,66 +69,6 @@ final class ArrayTests: XCTestCase {
 
 //ArrayTests.defaultTestSuite.run()
 
-// Singly Linked List
-final class SinglyLinkedListTests: XCTestCase {
-    func testMerge() {
-        let list1 = SinglyLinkedList<Int>()
-        list1.append(newValue: 4)
-        list1.append(newValue: 8)
-        list1.append(newValue: 15)
-        list1.append(newValue: 19)
-        
-        let list2 = SinglyLinkedList<Int>()
-        list2.append(newValue: 7)
-        list2.append(newValue: 9)
-        list2.append(newValue: 10)
-        list2.append(newValue: 16)
-
-        XCTAssertEqual(list1.merged(list2).description, "4 -> 7 -> 8 -> 9 -> 10 -> 15 -> 16 -> 19")
-    }
-    
-    func testAddition() {
-        let list1 = SinglyLinkedList<Int>()
-        list1.append(newValue: 1)
-        list1.append(newValue: 2)
-        list1.append(newValue: 3)
-        let list2 = SinglyLinkedList<Int>()
-        list2.append(newValue: 9)
-        list2.append(newValue: 9)
-
-        XCTAssertEqual(list1.add(list2).description, "0 -> 2 -> 4")
-
-        let list3 = SinglyLinkedList<Int>()
-        list3.append(newValue: 1)
-        list3.append(newValue: 0)
-        list3.append(newValue: 9)
-        list3.append(newValue: 9)
-        let list4 = SinglyLinkedList<Int>()
-        list4.append(newValue: 7)
-        list4.append(newValue: 3)
-        list4.append(newValue: 2)
-
-        XCTAssertEqual(list3.add(list4).description, "8 -> 3 -> 1 -> 0 -> 1")
-    }
-}
-
-//SinglyLinkedListTests.defaultTestSuite.run()
-
-/*
-let list = SinglyLinkedList<Int>()
-list.append(newValue: 1)
-list.append(newValue: 2)
-list.append(newValue: 3)
-
-list.remove(with: 3)
- 
-let list1 = SinglyLinkedList<Int>()
-list1.append(newValue: 1)
-list1.append(newValue: 2)
-list1.append(newValue: 3)
-list1.append(newValue: 4)
-list1.getRandomNode()*/
-
 // Double Linked List
 final class DoubleLinkedListTests: XCTestCase {
     func testCopyRandomList() {
