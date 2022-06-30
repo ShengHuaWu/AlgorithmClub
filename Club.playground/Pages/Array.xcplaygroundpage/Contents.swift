@@ -41,4 +41,7 @@ FindKthLargest.defaultTestSuite.run()
 // Equal Sum Subset
 EqualSumSubsetTests.defaultTestSuite.run()
 
+// Find Sum
+FindSumTests.defaultTestSuite.run()
+
 //: [Next](@next)
