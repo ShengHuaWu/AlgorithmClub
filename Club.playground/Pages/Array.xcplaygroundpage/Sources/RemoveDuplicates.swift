@@ -101,3 +101,54 @@ extension Array where Element: Comparable {
         return result
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class RemoveDuplicatesTests: XCTestCase {
+    func testRemoveDuplicatesWithEmptyArrays() {
+        XCTAssertEqual([Int]().removeDuplicates(), [])
+        XCTAssertEqual([String]().removeDuplicates(), [])
+    }
+    
+    func testRemoveDuplicatesWithIntegers() {
+        var taregt = [1, 2, 3, 3, 2, 1]
+        var expect = [1, 2, 3]
+        
+        XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
+        
+        taregt = [3, 2, 1, 1, 2, 3]
+        expect = [3, 2, 1]
+        
+        XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), [1, 2, 3]) // the list is sorted
+        
+        taregt = [1, 1, 2, 2, 3, 3]
+        expect = [1, 2, 3]
+        
+        XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
+    }
+    
+    func testRemoveDuplicatesWithStrings() {
+        var taregt = ["1", "2", "3", "3", "2", "1"]
+        var expect = ["1", "2", "3"]
+        
+        XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
+        
+        taregt = ["3", "2", "1", "1", "2", "3"]
+        expect = ["3", "2", "1"]
+        
+        XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), ["1", "2", "3"]) // the list is sorted
+        
+        taregt = ["1", "1", "2", "2", "3", "3"]
+        expect = ["1", "2", "3"]
+        
+        XCTAssertEqual(taregt.removeDuplicates(), expect)
+        XCTAssertEqual(taregt.removeDuplicatesFromMassiveData(), expect)
+    }
+}

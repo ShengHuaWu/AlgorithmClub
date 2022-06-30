@@ -17,10 +17,28 @@ ProductOfArrayExceptSelfTests.defaultTestSuite.run()
 // Find Max & Min
 FindMaxAndMinTests.defaultTestSuite.run()
 
+// Find Low & High
+FindLowAndHighTests.defaultTestSuite.run()
+
 // Find Subset
 FindSubsetTests.defaultTestSuite.run()
 
 // Stock Best Profit
 StockPricesBestProfitTests.defaultTestSuite.run()
+
+// Remove Duplicated
+RemoveDuplicatesTests.defaultTestSuite.run()
+
+// Find Second Largest
+FindSecondLargestTests.defaultTestSuite.run()
+
+// Find Kth Closest
+FindKthClosestTests.defaultTestSuite.run()
+
+// Find Kth Largest
+FindKthLargest.defaultTestSuite.run()
+
+// Equal Sum Subset
+EqualSumSubsetTests.defaultTestSuite.run()
 
 //: [Next](@next)
