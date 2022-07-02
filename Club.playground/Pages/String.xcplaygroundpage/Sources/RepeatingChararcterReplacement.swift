@@ -61,3 +61,15 @@ extension Dictionary where Key == Character, Value == Int {
         return sum - maxOccurrenceCount
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class CharacterReplacementTests: XCTestCase {
+    func testCharacterReplacement() {
+        XCTAssertEqual("".characterReplacement(for: 9), 0)
+        XCTAssertEqual("ABAB".characterReplacement(for: 2), 4)
+        XCTAssertEqual("AABABBA".characterReplacement(for: 1), 4)
+    }
+}

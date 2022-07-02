@@ -41,4 +41,32 @@ extension String {
         
         return occurrences
     }
+    
+    public func isAnagram(with word: String) -> Bool {
+        guard count == word.count else { return false }
+        
+        let sortedSelf = String(lowercased().sorted())
+        let sortedWord = String(word.lowercased().sorted())
+        
+        return sortedSelf == sortedWord
+    }
+}
+
+// MARK: - Tests
+
+import XCTest
+
+public final class AnagramTests: XCTestCase {
+    func testGroupAnagrams() {
+        XCTAssertEqual([String]().groupAnagrams(), [])
+        
+        var target = [""]
+        XCTAssertEqual(target.groupAnagrams(), [[""]])
+        
+        target = ["a"]
+        XCTAssertEqual(target.groupAnagrams(), [["a"]])
+        
+        target = ["eat", "tea", "tan", "ate", "nat", "bat"]
+        XCTAssertEqual(target.groupAnagrams(), [["tan", "nat"], ["eat", "tea", "ate"], ["bat"]])
+    }
 }

@@ -76,3 +76,17 @@ extension Dictionary where Key == Bracket, Value == [String.Index] {
         }
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class BalancedBracketsTests: XCTestCase {
+    func testHasBalancedBrackets() {
+        XCTAssertTrue("".hasBalancedBrackets())
+        XCTAssertTrue("{{{{{[[()()]]}}}}}[]{}".hasBalancedBrackets())
+        XCTAssertTrue("{{{{{[[()()]()]}()}}}}{}[]{}".hasBalancedBrackets())
+        XCTAssertFalse("{{]](())".hasBalancedBrackets())
+        XCTAssertFalse("{{]](()){{}}}{{()".hasBalancedBrackets())
+    }
+}
