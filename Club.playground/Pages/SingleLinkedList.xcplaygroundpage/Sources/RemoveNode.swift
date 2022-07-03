@@ -19,6 +19,22 @@ extension SingleLinkedList where T == Int {
         }
     }
     
+    public func removeNthFromEnd(_ n: Int) {
+        guard !self.isEmpty else {
+            return
+        }
+        
+        var temp = self.count - n + 1
+        if temp <= 0 {
+            temp = 1
+        }
+        
+        remove { _ in
+            temp -= 1
+            return temp == 0
+        }
+    }
+    
     private func remove(_ exclude: (T) -> Bool) {
         head = remove(node: head, exclude)
     }
@@ -174,6 +190,39 @@ public final class RemoveNodeTests: XCTestCase {
         expected.append(value: 2)
         
         target.removeAnotherApproach(value: 1, at: 3)
+        
+        XCTAssertEqual(target.description, expected.description)
+    }
+    
+    func testRemoveNthFromEnd() {
+        var target = SingleLinkedList(value: 1)
+        var expected = SingleLinkedList<Int>()
+        
+        target.removeNthFromEnd(1)
+        
+        XCTAssertEqual(target.description, expected.description)
+        
+        target = SingleLinkedList(value: 1)
+        target.append(value: 2)
+        
+        expected = SingleLinkedList(value: 1)
+        
+        target.removeNthFromEnd(1)
+        
+        XCTAssertEqual(target.description, expected.description)
+        
+        target = SingleLinkedList(value: 1)
+        target.append(value: 2)
+        target.append(value: 3)
+        target.append(value: 4)
+        target.append(value: 5)
+        
+        expected = SingleLinkedList(value: 1)
+        expected.append(value: 2)
+        expected.append(value: 3)
+        expected.append(value: 5)
+        
+        target.removeNthFromEnd(2)
         
         XCTAssertEqual(target.description, expected.description)
     }

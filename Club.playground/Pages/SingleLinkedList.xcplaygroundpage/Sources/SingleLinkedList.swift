@@ -26,6 +26,21 @@ public final class SingleLinkedList<T> where T: Equatable {
         }
     }
     
+    var count: Int {
+        var temp = self.head
+        var count = 0
+        while let next = temp {
+            count += 1
+            temp = next.next
+        }
+        
+        return count
+    }
+    
+    var isEmpty: Bool {
+        return self.count == 0
+    }
+    
     public init(value: T) {
         self.head = Node(value: value)
     }
