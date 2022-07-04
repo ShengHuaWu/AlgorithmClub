@@ -44,4 +44,10 @@ EqualSumSubsetTests.defaultTestSuite.run()
 // Find Sum
 FindSumTests.defaultTestSuite.run()
 
+// Find Longest Consecutive Subsequence
+FindLongestConsecutiveSubsequenceTests.defaultTestSuite.run()
+
+// Max Subarray
+MaxSubarrayTests.defaultTestSuite.run()
+
 //: [Next](@next)

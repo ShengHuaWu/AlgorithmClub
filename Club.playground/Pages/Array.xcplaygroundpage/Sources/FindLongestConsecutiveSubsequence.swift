@@ -41,3 +41,17 @@ extension Array where Element == Int {
     // 2. Remove the longest one
     // 3. Find the longest again
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class FindLongestConsecutiveSubsequenceTests: XCTestCase {
+    func testFindLongestConsecutiveSubsequence() {
+        XCTAssertTrue([Int]().findLongestConsecutiveSubsequence().isEmpty)
+        XCTAssertEqual([1].findLongestConsecutiveSubsequence(), [1])
+        XCTAssertEqual([-1, 7, 3, 5, 1, 2, 3, 4, -2, 9, 19, 0].findLongestConsecutiveSubsequence(), [1, 2, 3, 4])
+        XCTAssertEqual([1, 2, 3, 4, -2, 9, 19, 0, -1, 7, 3, 5].findLongestConsecutiveSubsequence(), [1, 2, 3, 4])
+        XCTAssertEqual([-2, 9, 19, 0, -1, 7, 3, 5, 1, 2, 3, 4].findLongestConsecutiveSubsequence(), [1, 2, 3, 4])
+    }
+}

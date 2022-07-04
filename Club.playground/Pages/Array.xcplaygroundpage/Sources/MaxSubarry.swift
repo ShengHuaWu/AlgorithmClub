@@ -79,3 +79,27 @@ extension Array where Element == Int {
         return max
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class MaxSubarrayTests: XCTestCase {
+    func testGetMaxSubarraySum() {
+        XCTAssertEqual([Int]().getMaxSubarraySum(), 0)
+        XCTAssertEqual([1].getMaxSubarraySum(), 1)
+        XCTAssertEqual([-2, 1, -3, 4, -1, 2, 1, -5, 4].getMaxSubarraySum(), 6)
+        XCTAssertEqual([5, 4, -1, 7, 8].getMaxSubarraySum(), 23)
+        XCTAssertEqual([-5, -4, -1, -7, -8].getMaxSubarraySum(), -1)
+        
+        XCTAssertEqual([3, 7, 5, 4, 1, 5, 2, 1].getMaxSubarraySum(with: 3), 16)
+    }
+    
+    func testGetMaxSubarrayProduct() {
+        XCTAssertEqual([Int]().getMaxSubarrayProduct(), 0)
+        XCTAssertEqual([1].getMaxSubarrayProduct(), 1)
+        XCTAssertEqual([2, 3, -2, 4].getMaxSubarrayProduct(), 6)
+        XCTAssertEqual([-2, 0, -1].getMaxSubarrayProduct(), 0)
+        XCTAssertEqual([-5, -4, -1, -7, -8].getMaxSubarrayProduct(), 224)
+    }
+}
