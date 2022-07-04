@@ -83,3 +83,31 @@ extension Array where Element == String.Index {
         return start < self.count ? self[start] : self.last!
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class IsSubsequenceTests: XCTestCase {
+    func testIsSubsequence() {
+        XCTAssertTrue("bell".isSubsequence(of: "barbell"))
+        XCTAssertTrue("bell".isSubsequence(of: "bearbell"))
+        XCTAssertTrue("hen".isSubsequence(of: "chicken"))
+        XCTAssertTrue("hen".isSubsequence(of: "chincken"))
+        XCTAssertTrue("kgb".isSubsequence(of: "kkapggplebb"))
+        XCTAssertFalse("kgb".isSubsequence(of: "kfcapple"))
+        XCTAssertFalse("kgb".isSubsequence(of: "gbkfcapple"))
+        XCTAssertFalse("".isSubsequence(of: "gbkfcapple"))
+        XCTAssertFalse("abc".isSubsequence(of: ""))
+        
+        XCTAssertTrue("bell".isSubsequenceAnotherApproach(of: "barbell"))
+        XCTAssertTrue("bell".isSubsequenceAnotherApproach(of: "bearbell"))
+        XCTAssertTrue("hen".isSubsequenceAnotherApproach(of: "chicken"))
+        XCTAssertTrue("hen".isSubsequenceAnotherApproach(of: "chincken"))
+        XCTAssertTrue("kgb".isSubsequenceAnotherApproach(of: "kkapggplebb"))
+        XCTAssertFalse("kgb".isSubsequenceAnotherApproach(of: "kfcapple"))
+        XCTAssertFalse("kgb".isSubsequenceAnotherApproach(of: "gbkfcapple"))
+        XCTAssertFalse("".isSubsequenceAnotherApproach(of: "gbkfcapple"))
+        XCTAssertFalse("abc".isSubsequenceAnotherApproach(of: ""))
+    }
+}

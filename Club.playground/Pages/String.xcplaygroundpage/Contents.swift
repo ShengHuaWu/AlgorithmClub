@@ -23,4 +23,10 @@ CharacterReplacementTests.defaultTestSuite.run()
 // Find Longest No Repeating Substring
 FindLongestNoRepeatingSubstringTests.defaultTestSuite.run()
 
+// Find Longest Common Prefix
+FindLongestCommonPrefixTests.defaultTestSuite.run()
+
+// Is Subsequence
+IsSubsequenceTests.defaultTestSuite.run()
+
 //: [Next](@next)
