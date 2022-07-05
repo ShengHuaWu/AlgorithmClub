@@ -50,4 +50,7 @@ FindLongestConsecutiveSubsequenceTests.defaultTestSuite.run()
 // Max Subarray
 MaxSubarrayTests.defaultTestSuite.run()
 
+// Top K Frequent Elements
+TopKFrequentElementsTests.defaultTestSuite.run()
+
 //: [Next](@next)
