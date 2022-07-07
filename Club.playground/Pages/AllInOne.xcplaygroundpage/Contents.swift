@@ -1,6 +1,5 @@
 //: [Previous](@previous)
 
-import Foundation
 import XCTest
 
 // Array
@@ -68,46 +67,6 @@ final class ArrayTests: XCTestCase {
 }
 
 //ArrayTests.defaultTestSuite.run()
-
-// Double Linked List
-final class DoubleLinkedListTests: XCTestCase {
-    func testCopyRandomList() {
-        let original = DoubleLinkedListNode<Int>(1)
-        let next2 = DoubleLinkedListNode<Int>(2)
-        let next3 = DoubleLinkedListNode<Int>(3)
-        original.next = next2
-        next2.next = next3
-        original.random = next3
-        next2.random = original
-        next3.random = next2
-        
-        let copy = original.copyRandomList()
-
-        XCTAssertEqual(original.description, copy?.description)
-        XCTAssertEqual(original.next?.description, copy?.next?.description)
-        XCTAssertEqual(original.random?.description, copy?.random?.description)
-    }
-    
-    func testCopyRandomListAnotherWay() {
-        let original = DoubleLinkedListNode<Int>(1)
-        let next2 = DoubleLinkedListNode<Int>(2)
-        let next3 = DoubleLinkedListNode<Int>(3)
-        original.next = next2
-        next2.next = next3
-        original.random = next3
-        next2.random = original
-        next3.random = next2
-        
-        let copy = original.copyRandomListAnotherWay()
-
-        XCTAssertEqual(original.description, copy?.description)
-        XCTAssertEqual(original.next?.description, copy?.next?.description)
-        XCTAssertEqual(original.random?.description, copy?.random?.description)
-    }
-}
-
-//DoubleLinkedListTests.defaultTestSuite.run()
-
 
 // String
 final class StringTests: XCTestCase {
@@ -199,30 +158,5 @@ final class StringTests: XCTestCase {
 }
 
 //StringTests.defaultTestSuite.run()
-
-// Set
-final class SetTests: XCTestCase {
-    func testFindSubsetsWithEqualSum() {
-        XCTAssertNil(Set().findSubsetsWithEqualSum())
-        XCTAssertNil(Set([1, 2, 3, 4]).findSubsetsWithEqualSum())
-        XCTAssertEqual(Set([1, 2, 3, 6]).findSubsetsWithEqualSum()?.0, [1, 2, 3])
-        XCTAssertEqual(Set([1, 2, 3, 6]).findSubsetsWithEqualSum()?.1, [6])
-    }
-    
-    func testFindKthLargestElement() {
-        XCTAssertNil(Set().findKthLargestElement(9))
-        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElement(9), 1)
-        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElement(2), 3)
-        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElement(3), 2)
-        
-        
-        XCTAssertNil(Set().findKthLargestElementAnotherWay(9))
-        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElementAnotherWay(9), 1)
-        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElementAnotherWay(2), 3)
-        XCTAssertEqual(Set([1, 2, 3, 4]).findKthLargestElementAnotherWay(3), 2)
-    }
-}
-
-//SetTests.defaultTestSuite.run()
 
 //: [Next](@next)
