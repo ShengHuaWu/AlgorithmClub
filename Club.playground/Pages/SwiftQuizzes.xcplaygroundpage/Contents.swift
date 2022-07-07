@@ -20,4 +20,7 @@ TimerTests.defaultTestSuite.run()
 // Detect Typo
 DetectTypoTests.defaultTestSuite.run()
 
+// LRU Cache
+LRUCacheTests.defaultTestSuite.run()
+
 //: [Next](@next)

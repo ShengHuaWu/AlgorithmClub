@@ -29,7 +29,7 @@ public final class LRUCache<Key: Hashable, Value> {
     
     public func get(key: Key) -> Value? {
         order.removeAll { $0 == key }
-        order.insert(key, at: 0)
+        order.append(key)
         
         return cache[key]
     }
@@ -38,5 +38,31 @@ public final class LRUCache<Key: Hashable, Value> {
 extension LRUCache: CustomStringConvertible where Key: CustomStringConvertible, Value: CustomStringConvertible {
     public var description: String {
         cache.description
+    }
+}
+
+// MARK: - Tests
+
+import XCTest
+
+public final class LRUCacheTests: XCTestCase {
+    func testBasics() {
+        let cache = LRUCache<String, Int>(capacity: 1)
+        let key = "key"
+        let value = 99
+        
+        XCTAssertNil(cache.get(key: key))
+        
+        cache.set(key: key, value: value)
+        
+        XCTAssertEqual(cache.get(key: key), value)
+        
+        let anotherKey = "anotherKey"
+        let anotherValue = 88
+        
+        cache.set(key: anotherKey, value: anotherValue)
+        
+        XCTAssertNil(cache.get(key: key))
+        XCTAssertEqual(cache.get(key: anotherKey), anotherValue)
     }
 }

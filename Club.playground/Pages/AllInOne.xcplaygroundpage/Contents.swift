@@ -200,24 +200,6 @@ final class StringTests: XCTestCase {
 
 //StringTests.defaultTestSuite.run()
 
-// LRU Cache
-final class LRUCacheTests: XCTestCase {
-    func testGetSet() {
-        let cache = LRUCache<Int, String>(capacity: 4)
-        cache.set(key: 1, value: "one")
-        cache.set(key: 2, value: "two")
-        cache.set(key: 3, value: "three")
-        cache.set(key: 4, value: "four")
-        cache.set(key: 2, value: "new two")
-        cache.get(key: 4)
-        cache.set(key: 5, value: "five")
-        cache.set(key: 6, value: "six")
-        // ???: How to verify?
-    }
-}
-
-//LRUCacheTests.defaultTestSuite.run()
-
 // Set
 final class SetTests: XCTestCase {
     func testFindSubsetsWithEqualSum() {
