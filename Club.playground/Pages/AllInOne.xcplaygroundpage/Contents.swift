@@ -32,23 +32,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertNil([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21))
     }
     
-    func testShiftZeros() {
-        XCTAssertEqual([0, 20, -3, 0, 0, 9, 7, 2, 1, 0].shiftingZeros(), [20, -3, 9, 7, 2, 1, 0, 0, 0, 0])
-
-        var integers = [0, 20, -3, 0, 0, 9, 7, 2, 1, 0]
-        integers.shiftZeros()
-        XCTAssertEqual(integers, [20, -3, 9, 7, 2, 1, 0, 0, 0, 0])
-    }
-    
-    func testOccurrence() {
-        XCTAssertEqual([-1, 0, 2, 2, 2, 2, 4, 5, 9, 10, 11].occurrence(of: 2), 4)
-    }
-    
-    func testBinarySearch() {
-        XCTAssertEqual([-10, -3, 0, 1, 3, 4, 6, 9, 12, 29].binarySearch(for: 1), 3)
-        XCTAssertEqual([-10, -3, 0, 1, 3, 4, 6, 9, 12, 29].recursiveBinarySearch(for: 10), nil)
-    }
-    
     func testFindLargestPerimetersSum() {
         XCTAssertEqual([1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17].findLargestPerimetersSum(), 38)
         XCTAssertEqual([1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17].recursiveFindLargestPerimetersSum(), 38)

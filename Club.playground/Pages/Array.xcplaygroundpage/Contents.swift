@@ -53,4 +53,13 @@ MaxSubarrayTests.defaultTestSuite.run()
 // Top K Frequent Elements
 TopKFrequentElementsTests.defaultTestSuite.run()
 
+// Binary Search
+BinarySearchTests.defaultTestSuite.run()
+
+// Occurrence 
+OccurrenceTests.defaultTestSuite.run()
+
+// Shift Zeros
+ShiftZerosTests.defaultTestSuite.run()
+
 //: [Next](@next)
