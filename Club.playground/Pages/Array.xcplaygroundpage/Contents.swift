@@ -62,4 +62,7 @@ OccurrenceTests.defaultTestSuite.run()
 // Shift Zeros
 ShiftZerosTests.defaultTestSuite.run()
 
+// Sort
+SortTests.defaultTestSuite.run()
+
 //: [Next](@next)

@@ -1,64 +1,5 @@
 import Foundation
 
-// Find Maximum Perimeter
-// Given a batch of edges, find the maximum triangle perimeter of those edges.
-// 1. Sort the edges at first.
-// 2. Get the largest three edges and check whether these three edges can construct a triangle or not.
-// 3. If they can form a triangle, their sum is the maximum perimeter.
-// 4. If they cannot form a triangle, drop the largest edge and grab the fourth large edge.
-extension Array where Element == Int {
-    public func maxPerimeters() -> (Element, Element, Element)? {
-        guard !isEmpty else { return nil }
-        
-        let sortedEdges = sorted()
-        var index = endIndex - 1
-        while index > startIndex {
-            if sortedEdges[index - 2] + sortedEdges[index - 1] > sortedEdges[index] {
-                return (sortedEdges[index - 2], sortedEdges[index - 1], sortedEdges[index])
-            }
-            
-            index += 1
-        }
-        
-        return nil
-    }
-    
-    public func findLargestPerimetersSum() -> Int? {
-        let sortedSelf = sorted(by: >)
-        var index = startIndex
-        
-        while index + 2 < endIndex {
-            let p1 = sortedSelf[index]
-            let p2 = sortedSelf[index + 1]
-            let p3 = sortedSelf[index + 2]
-            if p1 < p2 + p3 {
-                return p1 + p2 + p3
-            } else {
-                index += 1
-            }
-        }
-        
-        return nil
-    }
-    
-    public func recursiveFindLargestPerimetersSum() -> Int? {
-        return sorted(by: >).recursiveFindLargestPerimetersSum(start: startIndex)
-    }
-    
-    private func recursiveFindLargestPerimetersSum(start: Index) -> Int? {
-        guard start + 2 < endIndex else { return nil }
-        
-        let p1 = self[start]
-        let p2 = self[start + 1]
-        let p3 = self[start + 2]
-        if p1 < p2 + p3 {
-            return p1 + p2 + p3
-        } else {
-            return recursiveFindLargestPerimetersSum(start: start + 1)
-        }
-    }
-}
-
 // Print Compression
 // The array should be sorted at first.
 extension Array where Element == Int {
@@ -131,82 +72,6 @@ extension Array where Element == Int {
     }
 }
 
-// Quick Sort
-// The time complexity is O(n log n).
-// 1. Split the array into three parts based on a pivot variable.
-// 2. All the elements less than the pivot go into a new array called less. 
-//  All the elements equal to the pivot go into the equal array. 
-//  All elements greater than the pivot go into the greater array.
-// 3. Once we have these three arrays, quick sort recursively sorts the less array 
-//  and the greater array, then glues those sorted subarrays back together 
-//  with the equal array to get the final result.
-extension Array where Element: Comparable {
-    public func quickSorting() -> [Element] {
-        guard count > 1 else { return self }
-        
-        let pivot = self[count / 2]
-        let less = filter { $0 < pivot }
-        let equal = filter { $0 == pivot }
-        let greater = filter { $0 > pivot }
-        
-        return less.quickSorting() + equal + greater.quickSorting()
-    }
-}
-
-// Merge Sort
-// Divide and conquer. This is NOT an in-place sort. The time complexity is O(n log n).
-// 1. Split the array into two unsorted piles.
-// 2. Keep splitting the resulting piles until you cannot split anymore. 
-//  In the end, you will have n piles with one number in each pile.
-// 3. Begin to merge the piles together by pairing them sequentially. 
-//  During each merge, put the contents in sorted order.
-extension Array where Element: Comparable {
-    public func mergeSorting() -> [Element] {
-        guard count > 1 else { return self }
-        
-        let mid = count / 2
-        let left = Array(self[0 ..< mid]).mergeSorting()
-        let right = Array(self[mid ..< count]).mergeSorting()
-        
-        return left.merging(with: right)
-    }
-    
-    private func merging(with pile: [Element]) -> [Element] {
-        var selfIndex = startIndex
-        var pileIndex = pile.startIndex
-        var results = [Element]()
-        
-        while selfIndex < count && pileIndex < pile.count {
-            let selfElement = self[selfIndex]
-            let pileElement = pile[pileIndex]
-            if selfElement < pileElement {
-                results.append(selfElement)
-                selfIndex += 1
-            } else if selfElement > pileElement {
-                results.append(pileElement)
-                pileIndex += 1
-            } else {
-                results.append(selfElement)
-                selfIndex += 1
-                results.append(pileElement)
-                pileIndex += 1
-            }
-        }
-        
-        while selfIndex < count {
-            results.append(self[selfIndex])
-            selfIndex += 1
-        }
-        
-        while pileIndex < pile.count {
-            results.append(pile[pileIndex])
-            pileIndex += 1
-        }
-        
-        return results
-    }
-}
-
 // Array Intersection
 // Sort two arrays at first and then use the logic of merge sort to generate the intersection.
 extension Array where Element: Comparable {
@@ -236,37 +101,6 @@ extension Array where Element: Comparable {
         }
         
         return result
-    }
-}
-
-// Counting Sort
-// 1. The first step is to count the total number of occurrences for each item in the array.
-// 2. Tries to determine the number of elements that are placed before each element.
-//  The way it works is to sum up the previous counts and store them at each index.
-// 3. Each element in the original array is placed at the position defined by the output of step 2.
-extension Array where Element == Int {
-    public func countingSorting() -> [Element] {
-        guard !isEmpty else { return [] }
-        
-        let maxElement = self.max() ?? 0
-        
-        var countArray = [Index](repeating: 0, count: Int(maxElement + 1))
-        for element in self {
-            countArray[element] += 1
-        }
-        
-        for index in 1 ..< countArray.count {
-            let sum = countArray[index - 1] + countArray[index]
-            countArray[index] = sum
-        }
-        
-        var sortedArray = [Element](repeating: 0, count: count)
-        for element in self {
-            countArray[element] -= 1
-            sortedArray[countArray[element]] = element
-        }
-        
-        return sortedArray
     }
 }
 

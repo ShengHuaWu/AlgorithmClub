@@ -105,6 +105,49 @@ extension Array where Element == Int {
     }
 }
 
+// Find Maximum Perimeter
+//
+// Given a batch of edges, find the maximum triangle perimeter of those edges.
+// 1. Sort the edges at first.
+// 2. Get the largest three edges and check whether these three edges can construct a triangle or not.
+// 3. If they can form a triangle, their sum is the maximum perimeter.
+// 4. If they cannot form a triangle, drop the largest edge and grab the fourth large edge.
+extension Array where Element == Int {
+    public func maxPerimeters() -> (Element, Element, Element)? {
+        guard !isEmpty else { return nil }
+        
+        let sortedEdges = sorted()
+        var index = endIndex - 1
+        while index > startIndex {
+            if sortedEdges[index - 2] + sortedEdges[index - 1] > sortedEdges[index] {
+                return (sortedEdges[index - 2], sortedEdges[index - 1], sortedEdges[index])
+            }
+            
+            index += 1
+        }
+        
+        return nil
+    }
+    
+    public func findLargestPerimetersSum() -> Int? {
+        let sortedSelf = sorted(by: >)
+        var index = startIndex
+        
+        while index + 2 < endIndex {
+            let p1 = sortedSelf[index]
+            let p2 = sortedSelf[index + 1]
+            let p3 = sortedSelf[index + 2]
+            if p1 < p2 + p3 {
+                return p1 + p2 + p3
+            } else {
+                index += 1
+            }
+        }
+        
+        return nil
+    }
+}
+
 // MARK: - Tests
 
 import XCTest
@@ -155,5 +198,9 @@ public final class FindSumTests: XCTestCase {
         target = [-1, 0, 1, 2, -1, -4]
         
         XCTAssertEqual(target.threeSum(), [[-1, -1, 2], [-1, 0, 1]])
+    }
+    
+    func testFindLargestPerimetersSum() {
+        XCTAssertEqual([1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17].findLargestPerimetersSum(), 38)
     }
 }
