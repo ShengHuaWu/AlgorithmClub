@@ -24,14 +24,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent(), 4)
     }
     
-    func testFindThreeElementsSum() {
-        XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.0, 7)
-        XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.1, 5)
-        XCTAssertEqual([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 20)?.2, 8)
-        
-        XCTAssertNil([3, 7, 5, 8, 1, 2, 4].findThreeElements(having: 21))
-    }
-    
     func testFindLargestPerimetersSum() {
         XCTAssertEqual([1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17].findLargestPerimetersSum(), 38)
         XCTAssertEqual([1, 3, 4, 9, 10, 8, 7, 6, 5, 2, 11, 17].recursiveFindLargestPerimetersSum(), 38)

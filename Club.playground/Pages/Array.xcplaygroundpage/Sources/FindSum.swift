@@ -46,6 +46,65 @@ extension Array where Element == Int {
     }
 }
 
+// Three Sum
+//
+// Given an integer array nums,
+// return all the triplets [nums[i], nums[j], nums[k]]
+// such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+// Notice that the solution set must not contain duplicate triplets.
+
+extension Array where Element == Int {
+    // 1. Sort input array.
+    // 2. Loop sorted array to get the first number
+    // 3. Use two pointers to get the second and third numbers from sorted array
+    //
+    // Time complexity: O(N log N) + O(N * N) = O(N * N),
+    // where N is the length of input array
+    // Space complexity: O(N)
+    public func threeSum() -> [[Int]] {
+        guard !self.isEmpty else {
+            return []
+        }
+        
+        var result = [[Int]]()
+        let sorted = self.sorted() // This will help to avoid duplicate answers
+        
+        for index in sorted.indices {
+            let number = sorted[index]
+            
+            // Skip the number if it's equal to the previous one
+            // to avoid adding duplicated answers
+            if index > 0, number == sorted[index - 1] {
+                continue
+            }
+            
+            var left = index + 1
+            var right = sorted.count - 1
+            
+            while left < right {
+                let sum = number + sorted[left] + sorted[right]
+                if sum > 0 {
+                    right -= 1
+                } else if sum < 0 {
+                    left += 1
+                } else {
+                    result.append([number, sorted[left], sorted[right]])
+                    left += 1 // Only moving left is enough
+                    
+                    // Move the left pointer again
+                    // if the element is equal to the previous one
+                    // to avoid adding duplicated answers
+                    while sorted[left] == sorted[left - 1], left < right {
+                        left += 1
+                    }
+                }
+            }
+        }
+        
+        return result
+    }
+}
+
 // MARK: - Tests
 
 import XCTest
@@ -78,5 +137,23 @@ public final class FindSumTests: XCTestCase {
         target = [9, 3, 7, 2, 5, 4, 13, 0, 9, 8, 2]
         
         XCTAssertTrue(target.hasTwoElements(of: 9))
+    }
+    
+    func testThreeSum() {
+        var target = [Int]()
+        
+        XCTAssertTrue(target.threeSum().isEmpty)
+        
+        target = [0, 1, 1]
+        
+        XCTAssertTrue(target.threeSum().isEmpty)
+        
+        target = [-3, 0, 1, -3, 4, 2]
+        
+        XCTAssertEqual(target.threeSum(), [[-3, 1, 2]])
+        
+        target = [-1, 0, 1, 2, -1, -4]
+        
+        XCTAssertEqual(target.threeSum(), [[-1, -1, 2], [-1, 0, 1]])
     }
 }
