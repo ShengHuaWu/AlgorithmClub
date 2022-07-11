@@ -21,12 +21,15 @@ BalancedBracketsTests.defaultTestSuite.run()
 CharacterReplacementTests.defaultTestSuite.run()
 
 // Find Longest No Repeating Substring
-FindLongestNoRepeatingSubstringTests.defaultTestSuite.run()
+FindLongestSubstringTests.defaultTestSuite.run()
 
 // Find Longest Common Prefix
 FindLongestCommonPrefixTests.defaultTestSuite.run()
 
 // Is Subsequence
 IsSubsequenceTests.defaultTestSuite.run()
+
+// Targets Vicinities
+TargetsVicinitiesTests.defaultTestSuite.run()
 
 //: [Next](@next)

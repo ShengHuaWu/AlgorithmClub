@@ -73,50 +73,6 @@ extension String {
             return recursiveTruncate(with: length, end: index(before: end))
         }
     }
-    
-    static public func recursiveFizzBuss(in turns: Int) -> String {
-        guard turns > 0 else { return "" }
-        
-        return recursiveFizzBuzz(in: turns, result: "")
-    }
-    
-    private static func recursiveFizzBuzz(in turns: Int, result: String) -> String {
-        guard turns > 0 else { return result }
-        
-        if turns % 3 == 0, turns % 5 == 0 {
-            return recursiveFizzBuzz(in: turns - 1, result: "Fizz Buzz " + result)
-        } else if turns % 3 == 0 {
-            return recursiveFizzBuzz(in: turns - 1, result: "Fizz " + result)
-        } else if turns % 5 == 0 {
-            return recursiveFizzBuzz(in: turns - 1, result: "Buzz " + result)
-        } else {
-            return recursiveFizzBuzz(in: turns - 1, result: "\(turns) " + result)
-        }
-    }
-}
-
-public func fizzBuzz(numberOfTurns: Int) {
-    for i in 1 ... numberOfTurns {
-        var result = ""
-
-        if i % 3 == 0 {
-            result += "Fizz"
-        }
-        
-        if i % 5 == 0 {
-            if result.isEmpty {
-                result += "Buzz"
-            } else {
-                result += " Buzz"
-            }
-        }
-        
-        if result.isEmpty {
-            result += "\(i)"
-        }
-        
-        print(result)
-    }
 }
 
 // Reverse Words in a Sentence
@@ -379,111 +335,6 @@ fileprivate extension Parser {
     }
 }
 
-// Targets and Vicinities
-//
-// Targets are digits in the guessed number that have the same value of the digit in actual at the same position.
-// Here's an example,
-// Actual: "34"
-// Guess:  "34"
-// Then result is "2T0V"
-extension String {
-    public func getTargetsVicinities(for guess: String) -> String {
-        guard count == guess.count else {
-            return "0T0V"
-        }
-        
-        let actualIndices = getCharsIndicesDictionary()
-        let guessIndices = guess.getCharsIndicesDictionary()
-        
-        var numberOfTarget = 0
-        var numberOfVicinity = 0
-        for (char, indices) in guessIndices {
-            guard let indicesOfCharInActual = actualIndices[char] else {
-                continue
-            }
-            
-            let intersectionCount = indices.intersection(indicesOfCharInActual).count
-            numberOfTarget += intersectionCount
-            numberOfVicinity += indices.count - intersectionCount
-        }
-        
-        return "\(numberOfTarget)T\(numberOfVicinity)V"
-    }
-    
-    private func getCharsIndicesDictionary() -> [Character: Set<Index>] {
-        var dictionary = [Character: Set<Index>]()
-        zip(indices, self).forEach { index, char in
-            if let indicesOfChar = dictionary[char] {
-                dictionary[char] = indicesOfChar.union([index])
-            } else {
-                dictionary[char] = [index]
-            }
-        }
-        
-        return dictionary
-    }
-}
-
-// Longest Substring With No More Than ‘K’ Distinct Characters
-//
-// Given a string, find the length of the longest substring in it with no more than K distinct characters.
-extension String {
-    public func findLongestSubstringWithNoMoreThan(kDistinctCharacters k: Int) -> String {
-        guard !isEmpty else {
-            return ""
-        }
-        
-        var distinctChars: Set<Character> = []
-        
-        // Store the count of characters present in the distinct characters.
-        var charCounts: [Character: Int] = [:]
-        
-        // Store the longest substring boundaries
-        var start = startIndex
-        var end = start
-        
-        // Maintains the sliding window boundaries
-        var low = start
-        var high = start
-        
-        while let newHigh = index(high, offsetBy: 1, limitedBy: endIndex) {
-            let char = self[high]
-            distinctChars.insert(char)
-            let count = charCounts[char, default: 0]
-            charCounts[char] = count + 1
-            
-            // If the count is more than `k`, remove characters from the left
-            while distinctChars.count > k {
-                let charToBeRemoved = self[low]
-                if let count = charCounts[charToBeRemoved] {
-                    let newCount = count - 1
-                    charCounts[charToBeRemoved] = newCount
-                    
-                    // If the leftmost character's count becomes 0 after removing it in the window, remove it from the set as well
-                    if newCount == 0 {
-                        distinctChars.remove(charToBeRemoved)
-                    }
-                }
-                
-                // Reduce window size
-                if let newLow = index(low, offsetBy: 1, limitedBy: endIndex) {
-                    low = newLow
-                }
-            }
-            
-            // Update the maximum window size if necessary
-            if distance(from: start, to: end) < distance(from: low, to: high) {
-                start = low
-                end = high
-            }
-            
-            high = newHigh // Update high after the comparison
-        }
-        
-        return String(self[start ... end])
-    }
-}
-
 // Determine If Number Is Valid
 //
 // Given an input string, determine if it makes a valid number or not.
@@ -614,42 +465,6 @@ extension String {
         }
         
         return result
-    }
-}
-
-// Print Balanced Brace Combinations
-//
-// Find all braces combinations for a given value ‘N’ so that they are balanced.
-public func findAllBraceCombinations(for target: Int) -> [String] {
-    guard target > 0 else {
-        return []
-    }
-    
-    var temp = ""
-    var results = [String]()
-    findAllBraceCombinations(openCount: 0, closeCount: 0, target: target, temp: &temp, results: &results)
-    
-    return results
-}
-
-private func findAllBraceCombinations(openCount: Int, closeCount: Int, target: Int, temp: inout String, results: inout [String]) {
-    if closeCount == target {
-        results.append(temp)
-        return
-    }
-    
-    // Append close brace if close count is less than open count
-    if openCount > closeCount {
-        temp.append("}")
-        findAllBraceCombinations(openCount: openCount, closeCount: closeCount + 1, target: target, temp: &temp, results: &results)
-        temp.removeLast() // Removing the last element from list (backtracking)
-    }
-    
-    // Append open brace if open count is less than target
-    if openCount < target {
-        temp.append("{")
-        findAllBraceCombinations(openCount: openCount + 1, closeCount: closeCount, target: target, temp: &temp, results: &results)
-        temp.removeLast() // Removing the last element from list (backtracking)
     }
 }
 

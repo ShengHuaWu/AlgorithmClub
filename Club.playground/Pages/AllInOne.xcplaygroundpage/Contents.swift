@@ -34,12 +34,6 @@ final class ArrayTests: XCTestCase {
 
 // String
 final class StringTests: XCTestCase {
-    func testGetTargetsVicinities() {
-        XCTAssertEqual("341".getTargetsVicinities(for: "341"), "3T0V")
-        XCTAssertEqual("341".getTargetsVicinities(for: "123"), "0T2V")
-        XCTAssertEqual("341".getTargetsVicinities(for: "134"), "0T3V")
-    }
-    
     func testHardDriveStatistics() {
         let report = """
         my.song.mp3 11b
@@ -72,22 +66,11 @@ final class StringTests: XCTestCase {
         XCTAssertEqual(text.reversedWords(), expect)
     }
     
-    func testFizzBuss() {
-        XCTAssertEqual(String.recursiveFizzBuss(in: 15), "1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 Fizz Buzz ")
-    }
-    
     func testTruncation() {
         let text = """
         Grab, the ride-hailing company competing with Uber in Southeast Asia, has pulled in $2 billion of new financing from existing investors Didi Chuxing, the company that defeated Uber in China, and SoftBank.
         """
         XCTAssertEqual(text.recursiveTruncate(with: 16), "Grab, the ")
-    }
-    
-    func testFindLongestSubstringWithNoMoreThan() {
-        XCTAssertEqual("".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "")
-        XCTAssertEqual("aabbaacc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "aabbaa")
-        XCTAssertEqual("aaabbcc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "aaabb")
-        XCTAssertEqual("aabbccc".findLongestSubstringWithNoMoreThan(kDistinctCharacters: 2), "bbccc")
     }
     
     func testToInt() {
@@ -103,11 +86,6 @@ final class StringTests: XCTestCase {
         XCTAssertEqual("aaabbb".reorganize(), "ababab")
         
         "aacbbb".reorganize() // This should work
-    }
-    
-    func testFindAllBraceCombinations() {
-        XCTAssertEqual(findAllBraceCombinations(for: 0), [])
-        XCTAssertEqual(findAllBraceCombinations(for: 3), ["{}{}{}", "{}{{}}", "{{}}{}", "{{}{}}", "{{{}}}"])
     }
     
     func testFindMostOftenCharacter() {

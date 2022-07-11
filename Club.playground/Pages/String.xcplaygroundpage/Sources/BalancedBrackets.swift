@@ -77,6 +77,42 @@ extension Dictionary where Key == Bracket, Value == [String.Index] {
     }
 }
 
+// Print Balanced Brace Combinations
+//
+// Find all braces combinations for a given value ‘N’ so that they are balanced.
+public func findAllBraceCombinations(for target: Int) -> [String] {
+    guard target > 0 else {
+        return []
+    }
+    
+    var temp = ""
+    var results = [String]()
+    findAllBraceCombinations(openCount: 0, closeCount: 0, target: target, temp: &temp, results: &results)
+    
+    return results
+}
+
+private func findAllBraceCombinations(openCount: Int, closeCount: Int, target: Int, temp: inout String, results: inout [String]) {
+    if closeCount == target {
+        results.append(temp)
+        return
+    }
+    
+    // Append close brace if close count is less than open count
+    if openCount > closeCount {
+        temp.append("}")
+        findAllBraceCombinations(openCount: openCount, closeCount: closeCount + 1, target: target, temp: &temp, results: &results)
+        temp.removeLast() // Removing the last element from list (backtracking)
+    }
+    
+    // Append open brace if open count is less than target
+    if openCount < target {
+        temp.append("{")
+        findAllBraceCombinations(openCount: openCount + 1, closeCount: closeCount, target: target, temp: &temp, results: &results)
+        temp.removeLast() // Removing the last element from list (backtracking)
+    }
+}
+
 // MARK: - Tests
 
 import XCTest
@@ -88,5 +124,10 @@ public final class BalancedBracketsTests: XCTestCase {
         XCTAssertTrue("{{{{{[[()()]()]}()}}}}{}[]{}".hasBalancedBrackets())
         XCTAssertFalse("{{]](())".hasBalancedBrackets())
         XCTAssertFalse("{{]](()){{}}}{{()".hasBalancedBrackets())
+    }
+    
+    func testFindAllBraceCombinations() {
+        XCTAssertEqual(findAllBraceCombinations(for: 0), [])
+        XCTAssertEqual(findAllBraceCombinations(for: 3), ["{}{}{}", "{}{{}}", "{{}}{}", "{{}{}}", "{{{}}}"])
     }
 }
