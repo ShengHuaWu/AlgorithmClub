@@ -55,17 +55,6 @@ final class StringTests: XCTestCase {
         XCTAssertEqual(report.hardDriveStatisticsWithParser(), expect)
     }
     
-    func testReversedWords() {
-        let text = """
-        Playing a text adventure game about the zombie apocalypse, with text on the screen so you can read with me while you listen. Video version available. Play the game with me – follow the links below. AUDIO VERSION [DOWNLOAD AUDIO] VIDEO VERSION Links Play “Zombolocaust” by Peter Carlson
-        """
-        
-        let expect = """
-        Carlson Peter by “Zombolocaust” Play Links VERSION VIDEO AUDIO] [DOWNLOAD VERSION AUDIO below. links the follow – me with game the Play available. version Video listen. you while me with read can you so screen the on text with apocalypse, zombie the about game adventure text a Playing
-        """
-        XCTAssertEqual(text.reversedWords(), expect)
-    }
-    
     func testTruncation() {
         let text = """
         Grab, the ride-hailing company competing with Uber in Southeast Asia, has pulled in $2 billion of new financing from existing investors Didi Chuxing, the company that defeated Uber in China, and SoftBank.

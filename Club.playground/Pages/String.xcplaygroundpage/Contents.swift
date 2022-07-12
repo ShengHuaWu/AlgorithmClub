@@ -32,4 +32,7 @@ IsSubsequenceTests.defaultTestSuite.run()
 // Targets Vicinities
 TargetsVicinitiesTests.defaultTestSuite.run()
 
+// Reverse Word
+ReverseWordTests.defaultTestSuite.run()
+
 //: [Next](@next)

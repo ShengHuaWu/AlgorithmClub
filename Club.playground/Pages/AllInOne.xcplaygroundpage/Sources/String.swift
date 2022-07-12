@@ -75,22 +75,6 @@ extension String {
     }
 }
 
-// Reverse Words in a Sentence
-//
-// Reverse the order of words in a given sentence (an array of characters).
-// If the input is "Hello World", then outuput should be "World Hello"
-extension String {
-    public func reversedWords() -> String {
-        split(separator: " ").map(String.init).reversed().joined(separator: " ")
-    }
-    
-    // What if the string file is too huge to load into the memory?
-    //
-    // 1. Divide the huge string file into small piece which can be load into the memory, but the files should be divided by words.
-    // 2. Reverse each small piece one by one to reduce memory consumption.
-    // 3. Append the first reversed piece into the second, and the second into the third, and so on.
-}
-
 // Hard drive statistics
 //
 // Your computer's hard driver is almost full.
