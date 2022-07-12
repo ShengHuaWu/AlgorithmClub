@@ -34,39 +34,11 @@ final class ArrayTests: XCTestCase {
 
 // String
 final class StringTests: XCTestCase {
-    func testHardDriveStatistics() {
-        let report = """
-        my.song.mp3 11b
-        greatSong.flac 1000b
-        not3.txt 5b
-        video.mp4 200b
-        game.exe 100b
-        mov!e.mkv 10000b
-        """
-        
-        let expect = """
-        music 1011b
-        images 0b
-        movies 10200b
-        others 105b
-        """
-        
-        XCTAssertEqual(report.hardDriveStatistics(),  expect)
-        XCTAssertEqual(report.hardDriveStatisticsWithParser(), expect)
-    }
-    
     func testTruncation() {
         let text = """
         Grab, the ride-hailing company competing with Uber in Southeast Asia, has pulled in $2 billion of new financing from existing investors Didi Chuxing, the company that defeated Uber in China, and SoftBank.
         """
         XCTAssertEqual(text.recursiveTruncate(with: 16), "Grab, the ")
-    }
-    
-    func testToInt() {
-        XCTAssertNil("".toInt())
-        XCTAssertNil(".".toInt())
-        XCTAssertEqual("12345".toInt(), 12345)
-        XCTAssertEqual("012345".toInt(), 12345)
     }
     
     func testReorganize() {

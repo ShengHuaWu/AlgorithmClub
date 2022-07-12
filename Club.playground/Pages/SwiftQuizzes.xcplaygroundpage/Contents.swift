@@ -23,4 +23,7 @@ DetectTypoTests.defaultTestSuite.run()
 // LRU Cache
 LRUCacheTests.defaultTestSuite.run()
 
+// Parser
+ParserTests.defaultTestSuite.run()
+
 //: [Next](@next)
