@@ -35,4 +35,7 @@ TargetsVicinitiesTests.defaultTestSuite.run()
 // Reverse Word
 ReverseWordTests.defaultTestSuite.run()
 
+// Minimum Window Substring
+MinimimWindowSubstringTests.defaultTestSuite.run()
+
 //: [Next](@next)
