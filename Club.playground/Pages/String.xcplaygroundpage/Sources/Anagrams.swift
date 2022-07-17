@@ -42,7 +42,30 @@ extension String {
         return occurrences
     }
     
-    public func isAnagram(with word: String) -> Bool {
+    // Given two strings self and t,
+    // return true if t is an anagram of self, and false otherwise.
+    //
+    // Time complexity: O(S + T) where S is the length of self and T is the length of t
+    // Space complexity: O(S + T)
+    public func isAnagram(_ t: String) -> Bool {
+        guard self.count == t.count else {
+            return false
+        }
+        
+        let countInSelf = self.reduce(into: [Character: Int]()) { result, char in
+            result[char] = 1 + result[char, default: 0]
+        }
+        
+        let countInT = t.reduce(into: [Character: Int]()) { result, char in
+            result[char] = 1 + result[char, default: 0]
+        }
+        
+        return countInSelf == countInT
+    }
+    
+    // Time complexity: O(N log N) where N is the length of self (and t)
+    // Space complexity: O(N) in this case because of immutability
+    public func isAnagramWithSorting(with word: String) -> Bool {
         guard count == word.count else { return false }
         
         let sortedSelf = String(lowercased().sorted())
@@ -68,5 +91,19 @@ public final class AnagramTests: XCTestCase {
         
         target = ["eat", "tea", "tan", "ate", "nat", "bat"]
         XCTAssertEqual(target.groupAnagrams(), [["tan", "nat"], ["eat", "tea", "ate"], ["bat"]])
+    }
+    
+    func testIsAnagram() {
+        var s = "cat"
+        var t = "rat"
+        
+        XCTAssertFalse(s.isAnagram(t))
+        XCTAssertFalse(s.isAnagramWithSorting(with: t))
+        
+        s = "anagram"
+        t = "nagaram"
+        
+        XCTAssertTrue(s.isAnagram(t))
+        XCTAssertTrue(s.isAnagramWithSorting(with: t))
     }
 }
