@@ -65,4 +65,7 @@ ShiftZerosTests.defaultTestSuite.run()
 // Sort
 SortTests.defaultTestSuite.run()
 
+// Intersection
+IntersectionTests.defaultTestSuite.run()
+
 //: [Next](@next)

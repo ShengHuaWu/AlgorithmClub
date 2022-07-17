@@ -72,62 +72,6 @@ extension Array where Element == Int {
     }
 }
 
-// Array Intersection
-// Sort two arrays at first and then use the logic of merge sort to generate the intersection.
-extension Array where Element: Comparable {
-    public func intersecting(with pile: [Element]) -> [Element] {
-        guard !isEmpty, !pile.isEmpty else { return [] }
-        
-        let sortedSelf = sorted()
-        let sortedPile = pile.sorted()
-        
-        var result = [Element]()
-        var index = sortedSelf.startIndex
-        var pileIndex = sortedPile.startIndex
-        
-        while index < sortedSelf.endIndex && pileIndex < sortedPile.endIndex {
-            let element = sortedSelf[index]
-            let pileElement = sortedPile[pileIndex]
-            
-            if element == pileElement {
-                result.append(element)
-                index += 1
-                pileIndex += 1
-            } else if element < pileElement {
-                index += 1
-            } else {
-                pileIndex += 1
-            }
-        }
-        
-        return result
-    }
-}
-
-extension Array where Element == Int {
-    // The array has to be sorted first
-    public func findLargestLengthOfAdjacent() -> Int {
-        guard var temp = first else {
-            return 0
-        }
-        
-        var largest = 1
-        var count = 1
-        forEach { number in
-            if number - 1 == temp {
-                count += 1
-            } else {
-                count = 1
-            }
-            
-            largest = Swift.max(count, largest)
-            temp = number
-        }
-        
-        return largest
-    }
-}
-
 // Minimum distance of adjacent
 //
 // Integer `V` lies strickly between integer `U` and `W` if `U < V < W` or `W < V < U`.
@@ -240,24 +184,5 @@ extension Array where Element == Int {
         }
         
         return waitingTime
-    }
-}
-
-// Treats Distribution
-//
-// Say we are given an integer array of an even length, where different numbers in the array represent certain kinds of snacks or treats.
-// Each number represents, one kind of snack.
-// So the following array would have two kinds: snack type 3 and type 2: `[3, 3, 2, 2]`.
-// You need to distribute these snacks equally in number to a brother and sister.
-// Write a function to return the maximum number of unique kinds of snacks the sister could gain.
-extension Array where Element == Int {
-    public func treatsDistribution() -> Int {
-        let uniqueSnacks = Set(self)
-        let countDividedBy2 = count / 2
-        if uniqueSnacks.count < countDividedBy2 {
-            return uniqueSnacks.count
-        } else {
-            return countDividedBy2
-        }
     }
 }

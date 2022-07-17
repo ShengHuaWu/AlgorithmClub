@@ -4,12 +4,6 @@ import XCTest
 
 // Array
 final class ArrayTests: XCTestCase {
-    func testTreatsDistribution() {
-        XCTAssertEqual([2, 2, 3, 3, 4, 4].treatsDistribution(), 3)
-        XCTAssertEqual([1, 1, 2, 4].treatsDistribution(), 2)
-        XCTAssertEqual([1, 1, 1, 1].treatsDistribution(), 1)
-    }
-    
     func testFindMaximumWaitingTime() {
         XCTAssertEqual([2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3), 8)
     }
@@ -18,10 +12,6 @@ final class ArrayTests: XCTestCase {
         XCTAssertEqual([Int]().findMinimumDistanceBetweenAdjacent(), -2)
         XCTAssertEqual([100_000_001, 0].findMinimumDistanceBetweenAdjacent(), -1)
         XCTAssertEqual([0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent(), 0)
-    }
-    
-    func testFindLargestLengthOfAdjacent() {
-        XCTAssertEqual([1, 2, 3, 4, 7, 9, 10, 11].findLargestLengthOfAdjacent(), 4)
     }
     
     func testRecursiveCompress() {
