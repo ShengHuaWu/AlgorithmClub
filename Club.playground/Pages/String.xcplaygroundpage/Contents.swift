@@ -38,4 +38,10 @@ ReverseWordTests.defaultTestSuite.run()
 // Minimum Window Substring
 MinimimWindowSubstringTests.defaultTestSuite.run()
 
+// Most Often Character
+MostOftenCharacterTests.defaultTestSuite.run()
+
+// Truncation
+TruncationTests.defaultTestSuite.run()
+
 //: [Next](@next)
