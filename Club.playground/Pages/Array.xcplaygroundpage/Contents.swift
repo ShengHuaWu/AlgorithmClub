@@ -68,4 +68,13 @@ SortTests.defaultTestSuite.run()
 // Intersection
 IntersectionTests.defaultTestSuite.run()
 
+// Compression
+CompressionTests.defaultTestSuite.run()
+
+// Minimum Distance Between Adjacent
+MinimumDistanceBetweenAdjacentTests.defaultTestSuite.run()
+
+// Maximum Waiting Time
+MaximumWaitingTimeTests.defaultTestSuite.run()
+
 //: [Next](@next)

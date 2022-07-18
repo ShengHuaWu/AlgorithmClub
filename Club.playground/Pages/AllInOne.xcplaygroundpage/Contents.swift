@@ -2,26 +2,6 @@
 
 import XCTest
 
-// Array
-final class ArrayTests: XCTestCase {
-    func testFindMaximumWaitingTime() {
-        XCTAssertEqual([2, 8, 4, 3, 2].findMaximumWaitingTime(xRemainingGas: 7, yRemainingGas: 11, zRemainingGas: 3), 8)
-    }
-    
-    func testFindMinimumDistanceBetweenAdjacent() {
-        XCTAssertEqual([Int]().findMinimumDistanceBetweenAdjacent(), -2)
-        XCTAssertEqual([100_000_001, 0].findMinimumDistanceBetweenAdjacent(), -1)
-        XCTAssertEqual([0, 3, 3, 7, 5, 3, 11, 1].findMinimumDistanceBetweenAdjacent(), 0)
-    }
-    
-    func testRecursiveCompress() {
-        XCTAssertEqual([1, 2, 3, 4, 5, 8, 9, 11, 14, 17].compress(), ["1-5", "8-9", "11", "14", "17"])
-        XCTAssertEqual([1, 2, 3, 4, 5, 8, 9, 11, 14, 17].recursiveCompress(), ["1-5", "8-9", "11", "14", "17"])
-    }
-}
-
-//ArrayTests.defaultTestSuite.run()
-
 // String
 final class StringTests: XCTestCase {
     func testTruncation() {
