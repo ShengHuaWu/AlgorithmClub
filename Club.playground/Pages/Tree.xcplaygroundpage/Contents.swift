@@ -3,6 +3,20 @@
 import XCTest
 
 final class TreeTests: XCTestCase {
+    func testTreeMaximumDepth() {
+        var tree = Tree(5)
+        
+        XCTAssertEqual(tree.maximumDepth, 1)
+        
+        var right = Tree(2)
+        right.subtrees = [Tree(10)]
+        var left = Tree(1)
+        left.subtrees = [Tree(3), Tree(7)]
+        tree.subtrees = [left, right]
+        
+        XCTAssertEqual(tree.maximumDepth, 3)
+    }
+    
     func testTreeFindFirst() {
         var tree = Tree(5)
         

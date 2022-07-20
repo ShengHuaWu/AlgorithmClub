@@ -10,6 +10,16 @@ public struct Tree<T> {
     }
 }
 
+extension Tree {
+    public var maximumDepth: Int {
+        guard let maximmumDepthOfSubtrees = self.subtrees.map({ $0.maximumDepth }).max() else {
+            return 1
+        }
+        
+        return 1 + maximmumDepthOfSubtrees
+    }
+}
+
 extension Tree where T: Equatable {
     // DFS approach (recursive)
     public func dfsFindFirst(_ value: T) -> Self? {
