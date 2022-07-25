@@ -74,6 +74,11 @@ extension Tree: CustomStringConvertible where T: CustomStringConvertible {
                 descriptions.append(.newLine)
                 
             case .newLine:
+                // Avoid adding an extra new line at the end
+                guard !descriptions.isEmpty else {
+                    break
+                }
+                
                 result += "\n"
             }
         }
@@ -134,7 +139,7 @@ public final class TreeTests: XCTestCase {
     func testTreeDescription() {
         var tree = Tree(5)
         
-        XCTAssertEqual(tree.description, "5\n")
+        XCTAssertEqual(tree.description, "5")
         
         var right = Tree(2)
         right.subtrees = [Tree(10)]
@@ -142,7 +147,7 @@ public final class TreeTests: XCTestCase {
         left.subtrees = [Tree(3), Tree(7)]
         tree.subtrees = [left, right]
         
-        XCTAssertEqual(tree.description, "5\n12\n3710\n")
+        XCTAssertEqual(tree.description, "5\n12\n3710")
     }
     
     func testTreeEqutable() {
