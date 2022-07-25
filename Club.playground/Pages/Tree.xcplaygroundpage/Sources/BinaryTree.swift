@@ -77,6 +77,17 @@ extension BinaryTree {
     }
 }
 
+// Invert Binary Tree
+extension BinaryTree {
+    public func inverting() -> Self {
+        guard case let .node(left, value, right) = self else {
+            return .leaf
+        }
+        
+        return .node(right.inverting(), value, left.inverting())
+    }
+}
+
 // Find all paths for a sum
 //
 // Given a binary tree and a number ‘S’, find all paths from root-to-leaf such that the sum of all the node values of each path equals ‘S’.
@@ -214,6 +225,28 @@ public final class BinaryTreeTests: XCTestCase {
             .inserted(9)
         
         XCTAssertEqual(tree.findAllPaths(for: 16), [[5, 3, 8]])
+    }
+    
+    func testInverting() {
+        let tree1 = BinaryTree.leaf
+            .inserted(5)
+            .inserted(3, at: .right)
+            .inserted(2)
+            .inserted(8, at: .right)
+            .inserted(7)
+            .inserted(4, at: .right)
+            .inserted(9)
+        
+        let tree2 = BinaryTree.leaf
+            .inserted(5)
+            .inserted(3)
+            .inserted(2, at: .right)
+            .inserted(8)
+            .inserted(7, at: .right)
+            .inserted(4)
+            .inserted(9, at: .right)
+        
+        XCTAssertEqual(tree1.inverting(), tree2)
     }
     
     func testFindLowestCommonAncestor() {
