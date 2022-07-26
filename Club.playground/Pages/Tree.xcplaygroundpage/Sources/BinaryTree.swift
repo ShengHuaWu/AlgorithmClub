@@ -62,6 +62,23 @@ extension BinaryTree: Equatable where Value: Equatable {
             return false
         }
     }
+    
+    public func containsSubtree(_ subtree: Self) -> Bool {
+        switch (self, subtree) {
+        case (_, .leaf):
+            return true
+            
+        case (.leaf, .node):
+            return false
+            
+        case let (.node(selfLeft, _, selfRight), .node):
+            guard self != subtree else {
+                return true
+            }
+            
+            return selfLeft.containsSubtree(subtree) || selfRight.containsSubtree(subtree)
+        }
+    }
 }
 
 // Mirror Binary Tree Nodes
@@ -212,6 +229,23 @@ public final class BinaryTreeTests: XCTestCase {
         let tree2 = tree1
         
         XCTAssertEqual(tree1, tree2)
+    }
+    
+    func testContainsSubtree() {
+        let tree1 = BinaryTree.leaf
+            .inserted(5)
+            .inserted(9, at: .right)
+            .inserted(6)
+            .inserted(10, at: .right)
+        
+        XCTAssertTrue(tree1.containsSubtree(.leaf))
+        XCTAssertFalse(BinaryTree<Int>.leaf.containsSubtree(tree1))
+        
+        let tree2 = BinaryTree.leaf
+            .inserted(9)
+            .inserted(10, at: .right)
+        
+        XCTAssertTrue(tree1.containsSubtree(tree2))
     }
     
     func testFindAllPaths() {
