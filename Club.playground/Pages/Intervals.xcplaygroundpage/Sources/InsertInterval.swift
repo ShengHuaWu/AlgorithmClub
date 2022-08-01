@@ -63,3 +63,46 @@ extension Array where Element == (Int, Int) {
         return result
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class InsertIntervalTests: XCTestCase {
+    func testInsertInterval() {
+        XCTAssertEqual([(Int, Int)]().insert((1, 2)).first?.0, 1)
+        XCTAssertEqual([(Int, Int)]().insert((1, 2)).first?.1, 2)
+        
+        XCTAssertEqual([(1, 3), (6, 9)].insert((2, 5)).count, 2)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((2, 5)).first?.0, 1)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((2, 5)).first?.1, 5)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((2, 5)).last?.0, 6)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((2, 5)).last?.1, 9)
+        
+        XCTAssertEqual([(1, 3), (6, 9)].insert((4, 5)).count, 3)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((4, 5)).first?.0, 1)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((4, 5)).first?.1, 3)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((4, 5))[1].0, 4)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((4, 5))[1].1, 5)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((4, 5)).last?.0, 6)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((4, 5)).last?.1, 9)
+        
+        XCTAssertEqual([(1, 3), (6, 9)].insert((11, 18)).count, 3)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((11, 18)).first?.0, 1)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((11, 18)).first?.1, 3)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((11, 18))[1].0, 6)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((11, 18))[1].1, 9)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((11, 18)).last?.0, 11)
+        XCTAssertEqual([(1, 3), (6, 9)].insert((11, 18)).last?.1, 18)
+        
+        XCTAssertEqual([(1, 2), (3, 5), (8, 10), (12, 16)].insert((6, 7)).count, 5)
+        
+        XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8)).count, 3)
+        XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8)).first?.0, 1)
+        XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8)).first?.1, 2)
+        XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8))[1].0, 3)
+        XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8))[1].1, 10)
+        XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8)).last?.0, 12)
+        XCTAssertEqual([(1, 2), (3, 5), (6, 7), (8, 10), (12, 16)].insert((4, 8)).last?.1, 16)
+    }
+}
