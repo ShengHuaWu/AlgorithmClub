@@ -30,3 +30,15 @@ extension Array where Element: Equatable {
         return table[self.count][another.count]
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class LongestCommonSubsequenceTests: XCTestCase {
+    func testFindLongestCommonSubsequence() {
+        XCTAssertEqual([Int]().findLongestCommonSubsequence(with: [2, 3, 5, 7, 9, 10, 18, 101]), 0)
+        XCTAssertEqual([10, 9, 2, 5, 3, 7, 101, 18].findLongestCommonSubsequence(with: []), 0)
+        XCTAssertEqual([10, 9, 2, 5, 3, 7, 101, 18].findLongestCommonSubsequence(with: [2, 3, 5, 7, 9, 10, 18, 101]), 4)
+    }
+}

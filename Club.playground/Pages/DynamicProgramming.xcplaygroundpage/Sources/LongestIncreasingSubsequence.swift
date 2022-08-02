@@ -27,3 +27,15 @@ extension Array where Element: Comparable {
         return temp.max()!
     }
 }
+
+// MARK: - Tests
+
+import XCTest
+
+public final class LongestIncreasingSubsequenceTests: XCTestCase {
+    func testFindLongestIncreasingSubsequence() {
+        XCTAssertEqual([Int]().findLongestIncreasingSubsequence(), 0)
+        XCTAssertEqual([10, 9, 2, 5, 3, 7, 101, 18].findLongestIncreasingSubsequence(), 4)
+        XCTAssertEqual([10, 22, 9, 33, 21, 50, 41, 60].findLongestIncreasingSubsequence(), 5)
+    }
+}
