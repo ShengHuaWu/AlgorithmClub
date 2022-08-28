@@ -82,7 +82,7 @@ extension Array where Element: Comparable {
 
 import XCTest
 
-public final class SortTests: XCTestCase {
+public final class SortingTests: XCTestCase {
     func testSorting() {
         let numbers = [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29]
         XCTAssertEqual(numbers.quickSorting(), [-10, -3, 0, 1, 3, 4, 6, 9, 12, 29])

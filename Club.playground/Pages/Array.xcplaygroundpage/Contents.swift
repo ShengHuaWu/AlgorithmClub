@@ -63,7 +63,7 @@ OccurrenceTests.defaultTestSuite.run()
 ShiftZerosTests.defaultTestSuite.run()
 
 // Sort
-SortTests.defaultTestSuite.run()
+SortingTests.defaultTestSuite.run()
 
 // Intersection
 IntersectionTests.defaultTestSuite.run()

@@ -4,7 +4,7 @@ let group = DispatchGroup() // Use this to wait all possible prints finishes
 let operationQueue = OperationQueue() // Use this to print in paralell
 
 var success = true
-let queue = DispatchQueue(label: "AsyncProgramming") // Use this to make modify `success` thread safe
+let queue = DispatchQueue(label: "AsyncProgramming") // Use this to make access and modify `success` thread safe
 
 func asyncProgramming() {
     for number in 1...10 {
