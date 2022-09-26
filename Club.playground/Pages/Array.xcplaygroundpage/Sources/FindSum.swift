@@ -60,7 +60,7 @@ extension Array where Element == Int {
     //
     // Time complexity: O(N log N) + O(N * N) = O(N * N),
     // where N is the length of input array
-    // Space complexity: O(N)
+    // Space complexity: O(N), because of sorting in Swift
     public func threeSum() -> [[Int]] {
         guard !self.isEmpty else {
             return []
