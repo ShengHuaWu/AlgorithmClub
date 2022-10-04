@@ -27,4 +27,7 @@ ParserTests.defaultTestSuite.run()
 // Invalidated
 InvalidatedTests.defaultTestSuite.run()
 
+// Validated
+ValidatedTests.defaultTestSuite.run()
+
 //: [Next](@next)
