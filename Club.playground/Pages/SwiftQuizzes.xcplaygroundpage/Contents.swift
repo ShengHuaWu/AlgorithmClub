@@ -1,7 +1,5 @@
 //: [Previous](@previous)
 
-import XCTest
-
 // Hash Collision
 HashCollisionTests.defaultTestSuite.run()
 
@@ -25,5 +23,11 @@ LRUCacheTests.defaultTestSuite.run()
 
 // Parser
 ParserTests.defaultTestSuite.run()
+
+// Invalidated
+InvalidatedTests.defaultTestSuite.run()
+
+// Validated
+ValidatedTests.defaultTestSuite.run()
 
 //: [Next](@next)
