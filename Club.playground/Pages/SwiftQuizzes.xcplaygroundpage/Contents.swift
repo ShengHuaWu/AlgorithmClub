@@ -30,4 +30,7 @@ InvalidatedTests.defaultTestSuite.run()
 // Validated
 ValidatedTests.defaultTestSuite.run()
 
+// Modeling
+ModelingTests.defaultTestSuite.run()
+
 //: [Next](@next)
