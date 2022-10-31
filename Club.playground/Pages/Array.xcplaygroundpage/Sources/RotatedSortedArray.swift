@@ -9,49 +9,38 @@ import Foundation
 // return the index of target if it is in `nums`, or `nil` if it is not in `nums`.
 extension Array where Element: Comparable {
     public func search(_ target: Element) -> Int? {
-        guard let first = self.first else {
-            return nil
-        }
-        
-        if first == target {
-            return 0
-        }
-        
-        var start = self.startIndex
-        var end = self.endIndex - 1
-        
-        while start < end {
-            let startValue = self[start]
-            let endValue = self[end]
+        var start = 0
+        var end = nums.count - 1
+        while start <= end { // Consider array with only one element
+            let mid = (end - start) / 2 + start
+            let midValue = nums[mid]
+            let startValue = nums[start]
+            let endValue = nums[end]
             
-            let mid = start + (end - start) / 2
-            let midValue = self[mid]
-            
-            if midValue < target {
-                if endValue < target {
-                    end = mid
-                } else if endValue > target {
-                    start = mid + 1
-                } else {
-                    return end
-                }
-            } else if midValue > target {
-                if startValue > target {
-                    start = mid + 1
-                } else if startValue < target {
-                    end = mid
-                } else {
-                    return start
-                }
-            } else {
+            if target == midValue {
                 return mid
             }
+            
+            if startValue <= midValue {
+                // Left part
+                if target > midValue || target < startValue {
+                    start = mid + 1
+                } else {
+                    end = mid - 1
+                }
+            } else {
+                // Right part
+                if target < midValue || target > endValue {
+                    end = mid - 1
+                } else {
+                    start = mid + 1
+                }
+            }
+            
         }
         
         return nil
     }
-    
-    // TODO: Practice recursive approach
 }
 
 // Given the array nums after the possible rotation, return the minimun element in `nums`.
@@ -138,6 +127,11 @@ public final class RotatedSortedArrayTests: XCTestCase {
         XCTAssertNil(source.search(0))
         XCTAssertEqual(source.search(1), 0)
         
+        source = [3, 1]
+        XCTAssertNil(source.search(0))
+        XCTAssertEqual(source.search(1), 1)
+        XCTAssertEqual(source.search(3), 0)
+        
         source = [4, 5, 6, 7, 0, 1, 2]
         XCTAssertNil(source.search(3))
         XCTAssertEqual(source.search(0), 4)
@@ -147,6 +141,12 @@ public final class RotatedSortedArrayTests: XCTestCase {
         XCTAssertEqual(source.search(6), 1)
         XCTAssertEqual(source.search(3), 5)
         XCTAssertEqual(source.search(2), 4)
+        
+        source = [4, 5, 6, 7, 8, 1, 2, 3]
+        XCTAssertNil(source.search(9))
+        XCTAssertEqual(source.search(8), 4)
+        XCTAssertEqual(source.search(1), 5)
+        XCTAssertEqual(source.search(5), 1)
     }
     
     func testMin() {
