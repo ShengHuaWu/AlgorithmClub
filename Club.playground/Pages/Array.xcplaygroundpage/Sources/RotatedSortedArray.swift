@@ -10,12 +10,12 @@ import Foundation
 extension Array where Element: Comparable {
     public func search(_ target: Element) -> Int? {
         var start = 0
-        var end = nums.count - 1
+        var end = self.count - 1
         while start <= end { // Consider array with only one element
             let mid = (end - start) / 2 + start
-            let midValue = nums[mid]
-            let startValue = nums[start]
-            let endValue = nums[end]
+            let midValue = self[mid]
+            let startValue = self[start]
+            let endValue = self[end]
             
             if target == midValue {
                 return mid
