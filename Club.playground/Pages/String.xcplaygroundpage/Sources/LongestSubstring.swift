@@ -20,9 +20,10 @@ extension String {
         while let newHigh = self.index(high, offsetBy: 1, limitedBy: self.endIndex) {
             let char = self[high]
             
-            if nonrepeating.contains(char) {
-                nonrepeating.removeAll()
-                low = high
+            while nonrepeating.contains(char) {
+                let lowChar = self[low]
+                nonrepeating.remove(lowChar)
+                low = self.index(after: low)
             }
             
             nonrepeating.insert(char)
@@ -107,6 +108,7 @@ public final class FindLongestSubstringTests: XCTestCase {
     func testFindLongestSubstringWithoutRepeating() {
         XCTAssertEqual("".findLongestSubstringWithoutRepeating(), "")
         XCTAssertEqual("aaa".findLongestSubstringWithoutRepeating(), "a")
+        XCTAssertEqual("dvdf".findLongestSubstringWithoutRepeating(), "vdf")
         XCTAssertEqual("abced".findLongestSubstringWithoutRepeating(), "abced")
         XCTAssertEqual("aaabced".findLongestSubstringWithoutRepeating(), "abced")
         XCTAssertEqual("abbced".findLongestSubstringWithoutRepeating(), "bced")
