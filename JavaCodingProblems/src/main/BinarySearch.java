@@ -8,12 +8,12 @@ class BinarySearch {
         System.out.print("Result: " + binarySearch(value, numbers));
     }
 
-    private static int binarySearch(int value, int[] numbers) {
+    static int binarySearch(int value, int[] numbers) {
         return recursivelyBinarySearch(value, 0, numbers.length - 1, numbers);
     }
 
     private static int recursivelyBinarySearch(int value, int start, int end, int[] numbers) {
-        if (start >= end) {
+        if (start > end) {
             return -1;
         }
 
