@@ -10,7 +10,7 @@ class FindDuplicatedCharacters {
         System.out.print("Result: " + duplicatedCharacters(text));
     }
 
-    private static Map<Character, Integer> duplicatedCharacters(String text) {
+    static Map<Character, Integer> duplicatedCharacters(String text) {
         Map<Character, Integer> charMap = new HashMap<>(Map.of());
         for (int i = 0; i < text.length(); i++) {
             Character c = text.charAt(i);
