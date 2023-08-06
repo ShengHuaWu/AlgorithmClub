@@ -2,13 +2,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 class RemoveDuplicatedFromList {
-    static void printRemoveDuplicatedFromList() {
-        System.out.print("#9: Remove duplications from a list\n");
-        List<Integer> input = List.of(1, 1, 2, 3, 4, 4, 4, 6, 8, 8, 9, 10);
-        List<Integer> result = removeDuplicated(input);
-        System.out.print("Result: " + result);
-    }
-
     // The input should be sorted first
     static List<Integer> removeDuplicated(List<Integer> numbers) {
         if (numbers.isEmpty()) {

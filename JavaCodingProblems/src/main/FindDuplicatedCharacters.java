@@ -4,12 +4,6 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 class FindDuplicatedCharacters {
-    static void printDuplicatedCharacters() {
-        System.out.print("#11: Enter a text to find duplicated characters: ");
-        String text = new Scanner(System.in).nextLine();
-        System.out.print("Result: " + duplicatedCharacters(text));
-    }
-
     static Map<Character, Integer> duplicatedCharacters(String text) {
         Map<Character, Integer> charMap = new HashMap<>(Map.of());
         for (int i = 0; i < text.length(); i++) {

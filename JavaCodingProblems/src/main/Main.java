@@ -2,15 +2,11 @@ public class Main {
     public static void main(String [] args) {
 //        FibonacciSeries.printFibonacciSeries();
 //        IsPrime.printIsPrime();
-//        IsPalindrome.printIsPalindrome();
 //        IsIntegerPalindrome.printIsPalindrome();
 //        IsArmstrongNumber.printIsArmstrongNumber();
-//        RemoveDuplicatedFromList.printRemoveDuplicatedFromList();
 //        PrintPyramid.printPyramid();
-//        FindDuplicatedCharacters.printDuplicatedCharacters();
 //        FindGCD.printGCD();
 //        ReverseArrayInPlace.printReversedArray();
-//        BinarySearch.printBinarySearch();
 //        ReverseNumber.printReversedNumber();
 //        FirstNonRepeatedCharacter.printFirstNonRepeatedCharacter();
 //        FindMiddleOfLinkedList.printMiddleOfLinkedList();
@@ -22,6 +18,6 @@ public class Main {
 //        FindKthLastOfLinkedList.printKthLast();
 //        CheckStringRotation.printIsStringRotation();
 //        MergeSort.printMergeSort();
-        HardDriverStatistics.printHardDriverStatistics();
+//        HardDriverStatistics.printHardDriverStatistics();
     }
 }
