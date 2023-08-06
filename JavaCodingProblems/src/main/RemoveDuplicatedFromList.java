@@ -10,7 +10,7 @@ class RemoveDuplicatedFromList {
     }
 
     // The input should be sorted first
-    private static List<Integer> removeDuplicated(List<Integer> numbers) {
+    static List<Integer> removeDuplicated(List<Integer> numbers) {
         if (numbers.isEmpty()) {
             return List.of();
         }
